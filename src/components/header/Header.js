@@ -6,7 +6,7 @@ import States from './States';
 
 export default function Header(props) {
     return (
-        <nav className="flex items-center justify-between flex-wrap bg-teal p-6">
+        <nav className="flex items-center justify-between flex-wrap px-6 bg-purple">
             <NewOrderButton/>
             <SearchBar/>
             <States/>
