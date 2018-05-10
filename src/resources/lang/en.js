@@ -10,6 +10,17 @@ export default function loadEnglish() {
         ':': ': ',
         treasury: 'treasury',
         server: 'server',
+        home: 'home',
+        about: 'about',
+        lastOrders: "last orders",
+        dateTimeFormat: "dd-MM-yyyy 'at' HH':'mm",
+        timeFormat: "HH':'mm",
+        dateTimeFormatWithSeconds: "dd-MM-yyyy 'at' HH:mm:ss",
+        timeFormatWithSeconds: "HH:mm:ss",
+        dateFormat: "dd-MM-yyyy",
+        customer: 'customer',
+        newCustomer: 'new customer',
+        product: 'product'
     };
 
 }

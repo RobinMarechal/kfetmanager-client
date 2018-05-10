@@ -1,4 +1,4 @@
-import BaseModel from '../../libs/BaseModel';
+import BaseModel from '../libs/BaseModel';
 import Subcategory from './Subcategory';
 import Menu from './Menu';
 

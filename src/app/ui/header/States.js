@@ -1,7 +1,7 @@
 import React from 'react';
 import TreasuryState from './TreasuryState';
 import ServerState from './ServerState';
-import Treasury from '../../app/models/Treasury';
+import Treasury from '../../models/Treasury';
 
 export default class States extends React.Component {
 

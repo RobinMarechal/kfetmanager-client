@@ -9,7 +9,18 @@ export default function loadFrench() {
         search: 'rechercher',
         ':': ' : ',
         treasury: 'trésorerie',
-        server: 'serveur'
+        server: 'serveur',
+        home: 'accueil',
+        about: 'à propos',
+        lastOrders: "dernières commandes",
+        dateTimeFormat: "dd/MM/yyyy 'à' HH'h'mm",
+        timeFormat: "HH'h'mm",
+        dateTimeFormatWithSeconds: "dd/MM/yyyy 'à' HH':'mm':'ss",
+        timeFormatWithSeconds: "HH':'mm':'ss",
+        dateFormat: "dd/MM/yyyy",
+        customer: 'client',
+        newCustomer: 'nouveau client',
+        product: 'produit'
     };
 
 }

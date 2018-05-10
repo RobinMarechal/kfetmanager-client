@@ -1,4 +1,4 @@
-import BaseModel from '../../libs/BaseModel';
+import BaseModel from '../libs/BaseModel';
 
 export default class File extends BaseModel {
     getFields() {

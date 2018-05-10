@@ -4,16 +4,19 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.7",
+    "@fortawesome/fontawesome-free-regular": "^5.0.12",
     "@fortawesome/fontawesome-free-solid": "^5.0.12",
     "@fortawesome/react-fontawesome": "0.0.19",
     "axios": "^0.18.0",
-    "bunch-of-exceptions": "0.0.x",
+    "bunch-of-exceptions": "0.0.8",
     "fetch": "^1.1.0",
     "js-joda": "^1.8.2",
-    "laravel-rest-api-query-builder": "0.1.6",
+    "laravel-rest-api-query-builder": "0.1.15",
     "lodash": "latest",
+    "query-string": "^6.1.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"
   },
   "scripts": {
