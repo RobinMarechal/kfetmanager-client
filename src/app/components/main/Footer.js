@@ -3,7 +3,7 @@ import lang from '../../../resources/lang';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {faCopyright} from '@fortawesome/fontawesome-free-regular/index';
 import {faHome} from '@fortawesome/fontawesome-free-solid/index';
-import {upperFirstLetter} from '../../libs/helpers';
+import {upperFirstLetter} from '../../../libs/helpers';
 import {Link} from 'react-router-dom';
 
 export default function Footer(props) {

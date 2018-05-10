@@ -1,4 +1,4 @@
-import {langDecimalSeparator, langThousandSeparator} from '../../resources/lang';
+import {langDecimalSeparator, langThousandSeparator} from '../resources/lang/index';
 import {UnreachableServerException, InvalidUrlException} from 'bunch-of-exceptions';
 
 export function upperFirstLetter(string) {

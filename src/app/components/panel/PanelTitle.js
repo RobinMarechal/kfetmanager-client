@@ -1,5 +1,5 @@
 import React from 'react';
-import {langCapitalize} from '../../../../resources/lang';
+import {langCapitalize} from '../../../resources/lang/index';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {faPlus} from '@fortawesome/fontawesome-free-solid';
 import _ from 'lodash';

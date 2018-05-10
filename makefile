@@ -24,8 +24,3 @@ stop-client:
 stop:
 	make stop-client
 	make stop-server
-
-
-
-
-

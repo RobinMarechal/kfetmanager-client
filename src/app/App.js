@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import Header from './ui/main/Header';
-import Footer from './ui/main/Footer';
+import Header from './components/main/Header';
+import Footer from './components/main/Footer';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
-import Home from './views/home/Home';
-import SearchResult from './views/search/SearchResult';
+import Home from './views/Home';
+import SearchResult from './views/SearchResult';
 
 function App(props) {
     return (

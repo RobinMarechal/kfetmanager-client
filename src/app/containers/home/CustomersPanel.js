@@ -1,11 +1,13 @@
 import React from 'react';
-import Panel from '../../ui/reusable/panel/Panel';
-import lang, {langFormatDate} from '../../../resources/lang/index';
-import {awaitOrEmpty, capitalize, formatNumber, stringPlural} from '../../libs/helpers';
+import Panel from '../../components/panel/Panel';
+import lang from '../../../resources/lang/index';
+import {awaitOrEmpty, capitalize, formatNumber, stringPlural} from '../../../libs/helpers';
 import Customer from '../../models/Customer';
-import Order from '../../models/Order';
+import {connect} from 'react-redux';
+import selectCustomer from '../../actions/selectCustomer';
+import {bindActionCreators} from 'redux';
 
-export default class CustomersPanel extends React.Component {
+class CustomersPanel extends React.Component {
     constructor(props) {
         super(props);
 
@@ -80,3 +82,15 @@ export default class CustomersPanel extends React.Component {
         console.log('show', event);
     }
 }
+
+function mapStateToProps(state){
+    return {
+        customers: state.customers
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({selectCustomer}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomersPanel);

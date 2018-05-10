@@ -1,4 +1,4 @@
-import BaseModel from '../libs/BaseModel';
+import BaseModel from '../../libs/BaseModel';
 import Customer from './Customer';
 import Subcategory from './Subcategory';
 import Discount from './Discount';

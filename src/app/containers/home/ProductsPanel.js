@@ -1,11 +1,13 @@
 import React from 'react';
-import Panel from '../../ui/reusable/panel/Panel';
-import lang, {langFormatDate} from '../../../resources/lang/index';
-import {awaitOrEmpty, capitalize, formatNumber, stringPlural} from '../../libs/helpers';
-import Customer from '../../models/Customer';
+import Panel from '../../components/panel/Panel';
+import lang from '../../../resources/lang/index';
+import {awaitOrEmpty, capitalize, stringPlural} from '../../../libs/helpers';
 import Product from '../../models/Product';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import selectProduct from '../../actions/selectProduct';
 
-export default class ProductsPanel extends React.Component {
+class ProductsPanel extends React.Component {
     constructor(props) {
         super(props);
 
@@ -81,3 +83,15 @@ export default class ProductsPanel extends React.Component {
         console.log('show', event);
     }
 }
+
+function mapStateToProps(state){
+    return {
+        products: state.products
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({selectProduct}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsPanel);

@@ -1,11 +1,13 @@
 import React from 'react';
 import Order from '../../models/Order';
-import Panel from '../../ui/reusable/panel/Panel';
-import {langCapitalize, langFormatDate} from '../../../resources/lang/index';
-import {awaitOrEmpty, capitalize, formatNumber} from '../../libs/helpers';
-import lang from '../../../resources/lang/index';
+import Panel from '../../components/panel/Panel';
+import lang, {langFormatDate} from '../../../resources/lang/index';
+import {awaitOrEmpty, capitalize, formatNumber} from '../../../libs/helpers';
+import {connect} from 'react-redux';
+import selectOrder from '../../actions/selectOrder';
+import {bindActionCreators} from 'redux';
 
-export default class OrdersPanel extends React.Component {
+class OrdersPanel extends React.Component {
     constructor(props) {
         super(props);
 
@@ -95,3 +97,15 @@ export default class OrdersPanel extends React.Component {
         console.log('show', event);
     }
 }
+
+function mapStateToProps(state){
+    return {
+        orders: state.orders
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({selectOrder}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersPanel);

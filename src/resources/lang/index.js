@@ -1,8 +1,8 @@
 import loadEnglish from './en';
 import loadFrench from './fr';
 import {TRANSLATIONS} from './translations';
-import Config from '../../app/libs/Config';
-import {upperFirstLetter, capitalize} from '../../app/libs/helpers';
+import Config from '../../libs/Config';
+import {upperFirstLetter, capitalize} from '../../libs/helpers';
 import {DateTimeFormatter} from 'js-joda';
 
 

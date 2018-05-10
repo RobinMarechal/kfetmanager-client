@@ -1,4 +1,4 @@
-import BaseModel from '../libs/BaseModel';
+import BaseModel from '../../libs/BaseModel';
 import Category from './Category';
 import Order from './Order';
 

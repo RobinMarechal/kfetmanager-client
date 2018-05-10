@@ -1,6 +1,6 @@
 import React from 'react';
 import lang from '../../../resources/lang/index';
-import {formatNumber} from '../../libs/helpers';
+import {formatNumber} from '../../../libs/helpers';
 
 export default function TreasuryState(props) {
     const {balance} = props;

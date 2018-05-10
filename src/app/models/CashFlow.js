@@ -1,4 +1,4 @@
-import BaseModel from '../libs/BaseModel';
+import BaseModel from '../../libs/BaseModel';
 import Treasury from './Treasury';
 
 export default class CashFlow extends BaseModel{

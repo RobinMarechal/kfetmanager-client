@@ -1,4 +1,4 @@
-import BaseModel from '../libs/BaseModel';
+import BaseModel from '../../libs/BaseModel';
 import CashFlow from './CashFlow';
 import Order from './Order';
 import Restocking from './Restocking';

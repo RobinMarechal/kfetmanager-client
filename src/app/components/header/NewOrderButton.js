@@ -1,6 +1,6 @@
 import React from 'react';
 import lang, {langUpperFirstLetter} from '../../../resources/lang/index';
-import {upperFirstLetter} from '../../libs/helpers';
+import {upperFirstLetter} from '../../../libs/helpers';
 
 export default function NewOrderButton(props) {
     return (
