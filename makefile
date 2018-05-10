@@ -9,11 +9,11 @@ server:
 	make api
 
 client:
-	npm run start &
+	BROWSER=none npm run start &
 
 start:
-	make start-api
-	make npm run start
+	make api
+	make client
 
 stop-server:
 	fuser -k 8000/tcp
