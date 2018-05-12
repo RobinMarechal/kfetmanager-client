@@ -1,12 +1,22 @@
 import {combineReducers} from 'redux';
-import CustomersReducer from './CustomersReducer';
-import OrdersReducer from './OrdersReducer';
-import ProductsReducer from './ProductsReducer';
+import customersReducer from './customers/customersReducer';
+import ordersReducer from './ordersReducer';
+import productsReducer from './productsReducer';
+import categoriesReducer from './categoriesReducer';
+import menusReducer from './menusReducer';
+import treasuryReducer from './treasuryReducer';
+import selectedCustomerReducer from './customers/selectedCustomersReducer';
+import searchReducer from './searchReducer';
 
 const allReducers = combineReducers({
-    customers: CustomersReducer,
-    orders: OrdersReducer,
-    products: ProductsReducer,
+    customers: customersReducer,
+    orders: ordersReducer,
+    products: productsReducer,
+    categories: categoriesReducer,
+    menus: menusReducer,
+    treasury: treasuryReducer,
+    selectedCustomer: selectedCustomerReducer,
+    searchReducer: searchReducer
 });
 
 export default allReducers;

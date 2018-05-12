@@ -1,92 +1,107 @@
 import React from 'react';
-import Order from '../../models/Order';
 import Panel from '../../components/panel/Panel';
-import lang, {langFormatDate} from '../../../resources/lang/index';
-import {awaitOrEmpty, capitalize, formatNumber} from '../../../libs/helpers';
-import {connect} from 'react-redux';
-import selectOrder from '../../actions/selectOrder';
-import {bindActionCreators} from 'redux';
+import lang, { langFormatDate } from '../../../resources/lang/index';
+import { capitalize, formatNumber } from '../../../libs/helpers';
+import { connect } from 'react-redux';
+import { faPlus, faSyncAlt } from '@fortawesome/fontawesome-free-solid/index';
 
 class OrdersPanel extends React.Component {
+
     constructor(props) {
         super(props);
 
-        this.state = {
-            orders: [],
-        };
+        this.refreshButtonHandler.bind(this);
+        this.addOrderButtonHandler.bind(this);
+        this.showOrderDetailsHandler.bind(this);
     }
 
-    async componentWillMount() {
-        await this.findOrders();
-        this.interval = setInterval(async () => {
-            await this.findOrders();
-        }, 1000);
-    }
-
-    async findOrders() {
-        const {maxItems} = this.props;
-
-        const orders = await awaitOrEmpty(new Order().orderByDesc('id').limit(maxItems).with('customer', 'products', 'menu').all());
-        if (orders.length > 0) {
-            this.setState({orders});
-        }
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
-
-    render() {
-        const {orders} = this.state;
-        const title = lang("lastOrders", capitalize);
-
+    buildItems(orders) {
         const items = orders.map((order) => {
+            const { customer_id, menu_id, products, final_price, created_at, customer, menu } = order;
+
             const item = {
                 left: [],
                 right: [
-                    formatNumber(order.final_price, 2) + "€",
+                    formatNumber(final_price, 2) + "€",
                 ],
                 baseData: order,
-                footer: langFormatDate(order.created_at, lang('dateTimeFormat')),
+                footer: langFormatDate(created_at, lang('dateTimeFormat')),
             };
 
-            if (order.customer_id) {
-                item.left.push(order.customer.name);
+            if (customer_id) {
+                item.left.push(customer.name);
             }
 
-            if (order.menu_id) {
-                item.left.push(order.menu.name);
+            if (menu_id) {
+                item.left.push(menu.name);
             }
 
-            if (order.products) {
-                if (order.products.length === 0) {
+            if (products) {
+                if (products.length === 0) {
                     item.left.push('-');
                 }
                 else {
-                    item.left.push(order.products.map((product) => product.name).join(', '));
+                    item.left.push(products.map((product) => product.name).join(', '));
                 }
             }
 
             return item;
         });
 
-        const titleProps = {
-            title,
-            button: {
-                onClick: this.addOrderButtonHandler,
-                tooltip: 'newOrder',
-            },
-        };
+        return items;
+    }
 
-        const itemsProps = {
+    buildTitleProps() {
+        const { onSync } = this.props;
+
+        return {
+            title: lang("lastOrders", capitalize),
+            buttons: [
+                {
+                    icon: faSyncAlt,
+                    onClick: onSync,
+                    tooltip: 'refresh',
+                },
+                {
+                    icon: faPlus,
+                    onClick: this.addOrderButtonHandler,
+                    tooltip: 'newCustomer',
+                },
+            ],
+        };
+    }
+
+    buildItemProps(items) {
+        return {
             hoverClass: 'bg-grey-lighter',
             onClick: this.showOrderDetailsHandler,
             items,
         };
 
-        return (
-            <Panel titleProps={titleProps} itemsProps={itemsProps}/>
-        );
+    }
+
+    render() {
+        const { items, loading, error } = this.props.orders;
+
+        const titleProps = this.buildTitleProps();
+
+        if (error) {
+            return (
+                <Panel titleProps={titleProps} error={error}/>
+            );
+        }
+        else if (loading) {
+            return (
+                <Panel titleProps={titleProps} loading={true}/>
+            );
+        }
+        else {
+            const productItems = this.buildItems(items);
+            const itemsProps = this.buildItemProps(productItems);
+            return (
+                <Panel titleProps={titleProps} itemsProps={itemsProps}/>
+            );
+        }
     }
 
     addOrderButtonHandler(event) {
@@ -96,16 +111,18 @@ class OrdersPanel extends React.Component {
     showOrderDetailsHandler(event) {
         console.log('show', event);
     }
-}
 
-function mapStateToProps(state){
-    return {
-        orders: state.orders
+    refreshButtonHandler(event) {
+        console.log(this);
+        // const { onSync } = this.props;
+        // onSync();
     }
 }
 
-function mapDispatchToProps(dispatch){
-    return bindActionCreators({selectOrder}, dispatch);
+function mapStateToProps(state) {
+    return {
+        orders: state.orders,
+    };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrdersPanel);
+export default connect(mapStateToProps)(OrdersPanel);

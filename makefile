@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := start
 
-.PHONY: api start client stop-server stop-client stop server
+.PHONY: api start client stop-server stop-client stop server restart
 
 api:
 	php ~/dev/isd/kfetmanager-api/artisan serve &
@@ -24,3 +24,7 @@ stop-client:
 stop:
 	make stop-client
 	make stop-server
+
+restart:
+	make stop
+	make start

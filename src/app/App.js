@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Header from './components/main/Header';
 import Footer from './components/main/Footer';
-import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
-import Home from './views/Home';
-import SearchResult from './views/SearchResult';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './controllers/Home';
+import SearchResult from './controllers/SearchResult';
+import OrderCreation from './controllers/OrderCreation';
 
 function App(props) {
     return (
@@ -13,6 +14,7 @@ function App(props) {
 
                 <Switch>
                     <Route exact path="/" component={Home}/>
+                    <Route exact path="/new-order" component={OrderCreation}/>
                     <Route path="/search" component={SearchResult}/>
                 </Switch>
 

@@ -1,9 +1,9 @@
 import loadEnglish from './en';
 import loadFrench from './fr';
-import {TRANSLATIONS} from './translations';
+import { TRANSLATIONS } from './translations';
 import Config from '../../libs/Config';
-import {upperFirstLetter, capitalize} from '../../libs/helpers';
-import {DateTimeFormatter} from 'js-joda';
+import { capitalize, upperFirstLetter } from '../../libs/helpers';
+import { DateTimeFormatter } from 'js-joda';
 
 
 loadEnglish();
@@ -34,6 +34,8 @@ export function langDecimalSeparator() {
             return '.';
         case 'fr':
             return ',';
+        default:
+            return '.';
     }
 }
 
@@ -44,6 +46,8 @@ export function langThousandSeparator() {
             return ',';
         case 'fr':
             return ' ';
+        default:
+            return ','
     }
 }
 

@@ -11,7 +11,7 @@ import { fetchCustomerBegin, fetchCustomerSuccess } from '../actions/models/cust
 import { fetchProductBegin, fetchProductSuccess } from '../actions/models/products';
 import Customer from '../models/Customer';
 
-const maxItemsFetch = 20;
+export const MAX_ITEMS_PER_PANEL = 20;
 
 class Home extends React.Component {
 
@@ -29,7 +29,7 @@ class Home extends React.Component {
     fetchOrders() {
         return async function (dispatch) {
             dispatch(fetchOrderBegin());
-            const orders = await awaitOrEmpty(new Order().limit(maxItemsFetch).orderByDesc('id').with('menu', 'customer', 'products').all());
+            const orders = await awaitOrEmpty(new Order().limit(MAX_ITEMS_PER_PANEL).orderByDesc('id').with('menu', 'customer', 'products').all());
             dispatch(fetchOrderSuccess(orders));
 
             return orders;
@@ -39,7 +39,7 @@ class Home extends React.Component {
     fetchCustomers() {
         return async function (dispatch) {
             dispatch(fetchCustomerBegin());
-            const customers = await awaitOrEmpty(new Customer().limit(maxItemsFetch).orderBy('balance').all());
+            const customers = await awaitOrEmpty(new Customer().limit(MAX_ITEMS_PER_PANEL).orderBy('balance').all());
             dispatch(fetchCustomerSuccess(customers));
 
             return customers;
@@ -49,7 +49,7 @@ class Home extends React.Component {
     fetchProducts() {
         return async function (dispatch) {
             dispatch(fetchProductBegin());
-            const products = await awaitOrEmpty(new Product().limit(maxItemsFetch).orderBy('stock').with('subcategory.category').all());
+            const products = await awaitOrEmpty(new Product().limit(MAX_ITEMS_PER_PANEL).orderBy('stock').with('subcategory.category').all());
             dispatch(fetchProductSuccess(products));
 
             return products;
@@ -57,24 +57,19 @@ class Home extends React.Component {
     }
 
     loadOrders() {
-        console.log('loadOrders');
         this.props.dispatch(this.fetchOrders());
     }
 
     loadCustomers() {
-        console.log('loadCustomers');
         this.props.dispatch(this.fetchCustomers());
     }
 
     loadProducts() {
-        console.log('loadProducts');
         this.props.dispatch(this.fetchProducts());
     }
 
 
     render() {
-        const { dispatch } = this.props.dispatch;
-
         return (
             <div className="flex justify-between">
                 <div className="m-8 w-1/3">

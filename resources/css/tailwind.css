@@ -4,4 +4,44 @@
 
 @tailwind utilities;
 
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.text-overflow-ellipsis {
+    text-overflow: ellipsis;
+}
+
+.PanelItems {
+    max-height: 550px;
+    overflow-y: auto;
+}
+
+.first-child-no-border-top:first-child {
+    border: none;
+}
+
+* {
+    outline: none !important;
+}
+
+.NewOrderModal {
+    margin-top: 100px
+}
+
+.list-style-none{
+    list-style-type: none !important;
+}
+
+.indent-sm {
+    text-indent: 4px;
+}
+
+.indent{
+    text-indent: 8px;
+}
+
+.indent-lg{
+    text-indent:12px;
+}
 /* Here we can add our own utilities or custom CSS */

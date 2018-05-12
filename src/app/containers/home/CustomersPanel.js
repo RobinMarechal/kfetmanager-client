@@ -1,48 +1,16 @@
 import React from 'react';
 import Panel from '../../components/panel/Panel';
 import lang from '../../../resources/lang/index';
-import {awaitOrEmpty, capitalize, formatNumber, stringPlural} from '../../../libs/helpers';
-import Customer from '../../models/Customer';
-import {connect} from 'react-redux';
-import selectCustomer from '../../actions/selectCustomer';
-import {bindActionCreators} from 'redux';
+import { capitalize, formatNumber, stringPlural } from '../../../libs/helpers';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { customerClicked } from '../../actions/models/customers';
+import { faPlus, faSyncAlt } from '@fortawesome/fontawesome-free-solid';
 
 class CustomersPanel extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            customers: [],
-        };
-    }
-
-    async componentWillMount() {
-        await this.findCustomers();
-        this.interval = setInterval(async () => {
-            await this.findCustomers();
-        }, 1000);
-    }
-
-    async findCustomers() {
-        const {maxItems} = this.props;
-
-        const customers = await awaitOrEmpty(awaitOrEmpty(new Customer().orderBy('balance').limit(maxItems).all()));
-
-        if (customers.length > 0) {
-            this.setState({customers});
-        }
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.interval);
-    }
-
-    render() {
-        const {customers} = this.state;
-        const title = lang("customer", stringPlural, capitalize);
-
-
-        const items = customers.map((customer) => {
+    buildItems(customers) {
+        return customers.map((customer) => {
                 return {
                     left: [
                         customer.name,
@@ -54,24 +22,57 @@ class CustomersPanel extends React.Component {
                 };
             },
         );
+    }
 
-        const titleProps = {
-            title,
-            button: {
-                onClick: this.addCustomerButtonHandler,
-                tooltip: 'newCustomer',
-            },
+    buildTitleProps() {
+        const { onSync } = this.props;
+        return {
+            title: lang("customer", stringPlural, capitalize),
+            buttons: [
+                {
+                    icon: faSyncAlt,
+                    onClick: onSync,
+                    tooltip: 'refresh',
+                },
+                {
+                    icon: faPlus,
+                    onClick: this.addCustomerButtonHandler,
+                    tooltip: 'newCustomer',
+                },
+            ],
         };
+    }
 
-        const itemsProps = {
+    buildItemProps(items) {
+        return {
             hoverClass: 'bg-grey-lighter',
             onClick: this.showCustomerDetailsHandler,
             items,
         };
+    }
 
-        return (
-            <Panel titleProps={titleProps} itemsProps={itemsProps}/>
-        );
+    render() {
+        const { items, loading, error } = this.props.customers;
+
+        const titleProps = this.buildTitleProps();
+
+        if (error) {
+            return (
+                <Panel titleProps={titleProps} error={error}/>
+            );
+        }
+        else if (loading) {
+            return (
+                <Panel titleProps={titleProps} loading={true}/>
+            );
+        }
+        else {
+            const productItems = this.buildItems(items);
+            const itemsProps = this.buildItemProps(productItems);
+            return (
+                <Panel titleProps={titleProps} itemsProps={itemsProps}/>
+            );
+        }
     }
 
     addCustomerButtonHandler(event) {
@@ -81,16 +82,20 @@ class CustomersPanel extends React.Component {
     showCustomerDetailsHandler(event) {
         console.log('show', event);
     }
-}
 
-function mapStateToProps(state){
-    return {
-        customers: state.customers
+    refresh() {
+
     }
 }
 
-function mapDispatchToProps(dispatch){
-    return bindActionCreators({selectCustomer}, dispatch);
+function mapStateToProps(state) {
+    return {
+        customers: state.customers,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ customerClicked }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomersPanel);

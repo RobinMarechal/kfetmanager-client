@@ -7,7 +7,7 @@ const initialState = {
     error: null,
 };
 
-export default function categoryReducer(state = initialState, action) {
+export default function categoriesReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_CATEGORY_BEGIN:
             // Mark the state as "loading" so we can show a spinner or something

@@ -11,15 +11,17 @@
     "bunch-of-exceptions": "0.0.8",
     "fetch": "^1.1.0",
     "js-joda": "^1.8.2",
-    "laravel-rest-api-query-builder": "0.1.15",
+    "laravel-rest-api-query-builder": "0.1.17",
     "lodash": "latest",
     "query-string": "^6.1.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-modal": "^3.4.4",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "prestart": "tailwind build ./resources/css/tailwind.css -c ./tailwind.js -o ./src/resources/css/style.css",

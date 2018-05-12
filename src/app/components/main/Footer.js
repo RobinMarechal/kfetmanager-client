@@ -1,10 +1,9 @@
 import React from 'react';
 import lang from '../../../resources/lang';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import {faCopyright} from '@fortawesome/fontawesome-free-regular/index';
-import {faHome} from '@fortawesome/fontawesome-free-solid/index';
-import {upperFirstLetter} from '../../../libs/helpers';
-import {Link} from 'react-router-dom';
+import { faCopyright } from '@fortawesome/fontawesome-free-regular/index';
+import { upperFirstLetter } from '../../../libs/helpers';
+import { Link } from 'react-router-dom';
 
 export default function Footer(props) {
     return (
@@ -17,7 +16,10 @@ export default function Footer(props) {
             </div>
             <div className="w-1/3"> - KfetManager -</div>
             <div className="w-1/3">
-                <FontAwesomeIcon icon={faCopyright} size="sm"/> <a target="_BLANK" className="text-grey hover:text-grey-light no-underline hover:underline" href="https://www.linkedin.com/in/RobinMarechal/">Robin Maréchal</a>
+                <FontAwesomeIcon icon={faCopyright} size="sm"/> <a target="_BLANK"
+                                                                   rel="noopener noreferrer"
+                                                                   className="text-grey hover:text-grey-light no-underline hover:underline"
+                                                                   href="https://www.linkedin.com/in/RobinMarechal/">Robin Maréchal</a>
             </div>
         </nav>
     );

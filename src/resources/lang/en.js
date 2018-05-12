@@ -1,4 +1,4 @@
-import {TRANSLATIONS} from './translations';
+import { TRANSLATIONS } from './translations';
 
 export default function loadEnglish() {
 
@@ -20,7 +20,25 @@ export default function loadEnglish() {
         dateFormat: "dd-MM-yyyy",
         customer: 'customer',
         newCustomer: 'new customer',
-        product: 'product'
+        product: 'product',
+        anErrorOccurred: 'an error occurred',
+        refresh: 'refresh',
+        searchProduct: 'search for a product',
+        searchCustomer: 'search for a customer',
+        customerSelection: 'customer selection',
+        menuSelection: 'menu selection',
+        productSelection: 'product selection',
+        allYears: 'all years',
+        allDepartments: 'all departments',
+        selectedCustomer: 'selected customer',
+
+        PEIP: 'PEIP',
+        THIRD: '3rd year',
+        FOURTH: '4th year',
+        FIFTH: '5th year',
+        PHD: 'PhD student',
+        PROFESSOR: 'professor',
+        OTHER: 'other'
     };
 
 }

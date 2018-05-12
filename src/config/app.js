@@ -1,3 +1,3 @@
 export const app = {
-    "lang": "fr",
+    lang: "fr",
 };

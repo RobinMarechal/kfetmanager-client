@@ -1,4 +1,4 @@
-import {TRANSLATIONS} from './translations';
+import { TRANSLATIONS } from './translations';
 
 export default function loadFrench() {
 
@@ -20,7 +20,26 @@ export default function loadFrench() {
         dateFormat: "dd/MM/yyyy",
         customer: 'client',
         newCustomer: 'nouveau client',
-        product: 'produit'
+        product: 'produit',
+        anErrorOccurred: 'une erreur est survenue',
+        refresh: 'rafraîchir',
+        searchProduct: 'rechercher un produit',
+        searchCustomer: 'rechercher un client',
+        customerSelection: 'sélection du client',
+        menuSelection: 'sélection du menu',
+        productSelection: 'sélection du produit',
+        allYears: 'toutes les années',
+        allDepartments: 'tous les départements',
+        selectedCustomer: 'client sélectionné',
+
+        PEIP: 'PEIP',
+        THIRD: '3A',
+        FOURTH: '4A',
+        FIFTH: '5A',
+        PHD: 'doctorant',
+        PROFESSOR: 'prof',
+        OTHER: 'autre'
+
     };
 
 }
