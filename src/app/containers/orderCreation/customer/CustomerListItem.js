@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { customerClicked } from '../../actions/models/customers';
+import { customerClicked } from '../../../actions/models/customers/index';
 
 class CustomerListItem extends React.Component {
     render() {
@@ -11,7 +11,7 @@ class CustomerListItem extends React.Component {
 
         return (
             <li className={"px-4 py-2 border-t cursor-pointer " + classes} onClick={() => customerClicked(this.props.customer)}>
-                <p className="pl-6">
+                <p className="pl-6 capitalize">
                     {customer.name}
                 </p>
             </li>

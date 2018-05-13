@@ -1,6 +1,7 @@
 export const ORDER_CLICKED = 'ORDER_CLICKED';
 export const ORDER_PANEL_SYNC_BUTTON_CLICKED = 'ORDER_PANEL_SYNC_BUTTON_CLICKED';
-export const CREATE_ORDER = 'CREATE_ORDER'
+export const CREATE_ORDER = 'CREATE_ORDER';
+export const ORDER_CREATION_DISCOUNT_SUBMITTED = 'ORDER_CREATION_DISCOUNT_SUBMITTED';
 
 export function orderClicked(order) {
     return {
@@ -15,12 +16,18 @@ export function ordersPanelSyncButtonClicked() {
     };
 }
 
-export function createOrder(data){
-    console.log("new order", data);
+export function createOrder(data) {
     return {
         type: CREATE_ORDER,
-        payload: data
-    }
+        payload: data,
+    };
+}
+
+export function orderCreationDiscountSubmitted(value) {
+    return {
+        type: ORDER_CREATION_DISCOUNT_SUBMITTED,
+        payload: value
+    };
 }
 
 export {

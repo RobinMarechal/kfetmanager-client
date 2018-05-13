@@ -17,7 +17,7 @@ export function fetchCustomerSuccess(customers) {
     };
 }
 
-export function fetchCustomerError(error) {
+export function fetchCustomerError(error = 'fetchCustomerError') {
     return {
         type: FETCH_CUSTOMER_FAILURE,
         payload: {error},

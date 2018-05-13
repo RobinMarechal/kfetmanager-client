@@ -51,7 +51,6 @@ class NewOrderButton extends React.Component {
     }
 
     openModal() {
-        console.log('ello');
         this.setState({ modalIsOpen: true });
     }
 }

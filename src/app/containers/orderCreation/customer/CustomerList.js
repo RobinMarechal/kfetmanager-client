@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { awaitOrEmpty, upperFirstLetter } from '../../../libs/helpers';
-import lang from '../../../resources/lang';
-import Customer from '../../models/Customer';
+import { awaitOrEmpty, upperFirstLetter } from '../../../../libs/helpers';
+import lang from '../../../../resources/lang/index';
+import Customer from '../../../models/Customer';
 import CustomerListDepartmentGroup from './CustomerListDepartmentGroup';
-import Config from '../../../libs/Config';
-import '../../../resources/css/style.css';
+import Config from '../../../../libs/Config';
+import '../../../../resources/css/style.css';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/fontawesome-free-solid/index';
-import { fetchCustomerBegin, fetchCustomerSuccess } from '../../actions/models/customers';
-import Loading from '../../components/utility/Loading';
-import Error from '../../components/utility/Error';
+import { fetchCustomerBegin, fetchCustomerError, fetchCustomerSuccess } from '../../../actions/models/customers';
+import Error from '../../../components/utility/Error';
 
 class CustomerList extends React.Component {
 
@@ -19,10 +18,15 @@ class CustomerList extends React.Component {
 
         this.state = {
             inputValue: '',
+            department: '*',
+            year: '*',
         };
 
         this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleDepartmentSelectChange = this.handleDepartmentSelectChange.bind(this);
+        this.handleYearSelectChange = this.handleYearSelectChange.bind(this);
+        this.fetchCustomers = this.fetchCustomers.bind(this);
     }
 
     componentDidMount() {
@@ -30,31 +34,50 @@ class CustomerList extends React.Component {
     }
 
 
-    fetchCustomers(whereLike = null) {
-        return async function (dispatch) {
+    /**
+     *
+     * @param wheres {array} array of object like {left, operator, right}
+     * @returns {Function}
+     */
+    fetchCustomers(...wheres) {
+        return async (dispatch) => {
             dispatch(fetchCustomerBegin());
-            let query = new Customer();
+            // try {
+                let query = new Customer();
 
-            if (whereLike) {
-                query = query.where('name', 'LIKE', `%${whereLike}%`);
-            }
+                for (const w of wheres) {
+                    query = query.where(w.left, w.operator, w.right);
+                }
 
-            let customers = await awaitOrEmpty(query.all());
-            dispatch(fetchCustomerSuccess(customers));
+                if (this.state.department !== '*') {
+                    query = query.where('department', '=', this.state.department);
+                }
 
-            return customers;
+                if (this.state.year !== '*') {
+                    query = query.where('year', '=', this.state.year);
+                }
+
+                console.log(query);
+
+                let customers = await query.all();
+                dispatch(fetchCustomerSuccess(customers));
+
+                return customers;
+            // }
+            // catch (e) {
+            //     console.log(e);
+            //     dispatch(fetchCustomerError());
+            //     return [];
+            // }
         };
     }
 
     buildList() {
-        const { loading, error } = this.props.customers;
+        const { error } = this.props.customers;
 
         if (error) {
             return <Error/>;
         }
-        // else if (loading) {
-        //     return <Loading/>;
-        // }
 
         let { customers } = this.props;
         let depYearCustomers = Customer.sortByYearDepartmentAndName(customers.items);
@@ -64,7 +87,6 @@ class CustomerList extends React.Component {
     }
 
     render() {
-
         return (
             <div className="w-2/3 p-4 mr-3 rounded shadow-md h-full">
                 <h2 className="capitalize mb-4 flex justify-between text-grey-darkest">
@@ -89,6 +111,7 @@ class CustomerList extends React.Component {
                 <div className="flex justify-between my-4">
                     <div className="relative mr-3 w-1/2">
                         <select
+                            onChange={this.handleDepartmentSelectChange}
                             className="w-full block appearance-none bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded shadow">
                             <option value="*">{lang('allDepartments', upperFirstLetter)}</option>
                             {Customer.DEPARTMENTS.map((d) => <option key={d} value={d}>{d}</option>)}
@@ -102,6 +125,7 @@ class CustomerList extends React.Component {
 
                     <div className="relative ml-3 w-1/2">
                         <select
+                            onChange={this.handleYearSelectChange}
                             className="w-full block appearance-none bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded shadow">
                             <option value="*">{lang('allYears', upperFirstLetter)}</option>
                             {Customer.YEARS.map((y) => <option key={y} value={y}>{lang(y)}</option>)}
@@ -129,17 +153,28 @@ class CustomerList extends React.Component {
         );
     }
 
+    async handleDepartmentSelectChange(event) {
+        await this.setState({ department: event.target.value });
+        this.props.dispatch(this.fetchCustomers());
+    }
+
+    async handleYearSelectChange(event) {
+        await this.setState({ year: event.target.value });
+        this.props.dispatch(this.fetchCustomers());
+    }
+
     handleInputChange(event) {
-        // this.setState({ inputValue: event.target.value });
-        this.props.dispatch(this.fetchCustomers(event.target.value));
+        if(event.target.value){
+            this.props.dispatch(this.fetchCustomers({
+                left: 'name',
+                operator: 'LIKE',
+                right: '%' + event.target.value + '%',
+            }));
+        }
     }
 
     handleInputKeyDown(event) {
-        // if (event.key === 'Enter') {
-        //     const text = this.state.inputValue;
-        //     this.setState({ inputValue: '' });
-        //     this.props.dispatch(this.fetchCustomers(text));
-        // }
+
     }
 }
 

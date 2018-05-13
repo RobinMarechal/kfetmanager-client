@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { faArrowLeft, faArrowRight } from '@fortawesome/fontawesome-free-solid/index';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import lang from '../../../resources/lang';
+import lang from '../../../../resources/lang/index';
 
 class ProductList extends React.Component {
     render() {
@@ -12,7 +12,7 @@ class ProductList extends React.Component {
                     <button className="text-grey-darker border rounded px-4 py-1 hover:bg-grey-lightest hover:shadow" onClick={this.props.previous}>
                         <FontAwesomeIcon icon={faArrowLeft} size="lg"/>
                     </button>
-                    {lang('productSelection')}
+                    {lang('productsSelection')}
                     <button className="text-grey border rounded px-4 py-1 bg-grey-lighter hover:p hover:shadow cursor-not-allowed">
                         <FontAwesomeIcon icon={faArrowRight} size="lg"/>
                     </button>

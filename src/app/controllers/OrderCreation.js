@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CustomerList from '../containers/orderCreation/CustomerList';
-import MenuList from '../containers/orderCreation/MenuList';
-import ProductList from '../containers/orderCreation/ProductList';
+import CustomerList from '../containers/orderCreation/customer/CustomerList';
+import MenuList from '../containers/orderCreation/menu/MenuList';
+import ProductList from '../containers/orderCreation/products/ProductList';
 import OrderCreationSummary from '../containers/orderCreation/OrderCreationSummary';
 import * as ReactDOM from 'react-dom';
 

@@ -3,7 +3,7 @@ import { FETCH_TREASURY_BEGIN, FETCH_TREASURY_FAILURE, FETCH_TREASURY_SUCCESS } 
 const initialState = {
     treasury: null,
     loading: false,
-    error: null,
+    error: false,
 };
 
 export default function treasuryReducer(state = initialState, action) {
@@ -12,21 +12,21 @@ export default function treasuryReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: true,
-                error: null,
+                error: false,
             };
 
         case FETCH_TREASURY_SUCCESS:
             return {
                 treasury: action.payload.treasury,
                 loading: false,
-                error: null,
+                error: false,
             };
 
         case FETCH_TREASURY_FAILURE:
             return {
+                ...state,
                 loading: false,
                 error: action.payload.error,
-                treasury: [],
             };
 
         default:

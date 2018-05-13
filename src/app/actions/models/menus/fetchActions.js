@@ -17,7 +17,7 @@ export function fetchMenuSuccess(menus) {
     };
 }
 
-export function fetchMenuError(error) {
+export function fetchMenuError(error = 'fetchMenuError') {
     return {
         type: FETCH_MENU_FAILURE,
         payload: {error},

@@ -28,6 +28,7 @@ export default function loadFrench() {
         customerSelection: 'sélection du client',
         menuSelection: 'sélection du menu',
         productSelection: 'sélection du produit',
+        productsSelection: 'sélection des produits',
         allYears: 'toutes les années',
         allDepartments: 'tous les départements',
         selectedCustomer: 'client sélectionné',
@@ -38,7 +39,14 @@ export default function loadFrench() {
         FIFTH: '5A',
         PHD: 'doctorant',
         PROFESSOR: 'prof',
-        OTHER: 'autre'
+        OTHER: 'autre',
+
+        orderSummary: 'récapitulatif',
+        menu: 'menu',
+        products: 'produits',
+        basePrice: 'prix de base',
+        discount: 'réduction',
+        finalPrice: 'prix final',
 
     };
 

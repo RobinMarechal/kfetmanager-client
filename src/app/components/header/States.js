@@ -21,16 +21,17 @@ class States extends React.Component {
     fetchTreasury() {
         return async function (dispatch) {
             dispatch(fetchTreasuryBegin());
-            const treasury = await Treasury.getTreasury();
-
-            if (treasury.length === 0) {
-                dispatch(fetchTreasuryError('error'));
-            }
-            else {
+            try{
+                const treasury = await Treasury.getTreasury();
                 dispatch(fetchTreasurySuccess(treasury));
+                return treasury;
+            }
+            catch(e){
+                console.log('tr earror');
+                dispatch(fetchTreasuryError('error'));
+                return null;
             }
 
-            return treasury;
         };
     }
 

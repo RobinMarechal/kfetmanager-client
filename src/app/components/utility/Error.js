@@ -5,8 +5,8 @@ import lang from '../../../resources/lang';
 
 export default function Error() {
     return (
-        <div className="text-red font-bold">
-            <FontAwesomeIcon icon={faTimes}/>
+        <div className="px-4 py-8 text-center text-red leading-loose">
+            <FontAwesomeIcon icon={faTimes} size="3x"/>
             <p className="capitalize">{lang('anErrorOccurred')}</p>
         </div>
     );

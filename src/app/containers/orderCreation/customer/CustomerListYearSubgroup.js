@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomerListItem from './CustomerListItem';
-import lang from '../../../resources/lang';
-import { capitalize } from '../../../libs/helpers';
+import lang from '../../../../resources/lang/index';
+import { capitalize } from '../../../../libs/helpers';
 
 export default class CustomerListYearSubgroup extends React.Component {
     render() {

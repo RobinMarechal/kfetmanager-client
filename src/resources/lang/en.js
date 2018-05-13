@@ -28,6 +28,7 @@ export default function loadEnglish() {
         customerSelection: 'customer selection',
         menuSelection: 'menu selection',
         productSelection: 'product selection',
+        productsSelection: 'selection of products',
         allYears: 'all years',
         allDepartments: 'all departments',
         selectedCustomer: 'selected customer',
@@ -38,7 +39,14 @@ export default function loadEnglish() {
         FIFTH: '5th year',
         PHD: 'PhD student',
         PROFESSOR: 'professor',
-        OTHER: 'other'
+        OTHER: 'other',
+
+        orderSummary: 'summary',
+        menu: 'menu',
+        products: 'products',
+        basePrice: 'base price',
+        discount: 'discount',
+        finalPrice: 'final price',
     };
 
 }

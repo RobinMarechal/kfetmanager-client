@@ -1,51 +1,78 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import lang from '../../../resources/lang';
+import { formatNumber, upperFirstLetter } from '../../../libs/helpers';
 
 class OrderCreationSummary extends React.Component {
     render() {
-        const { selectedCustomer } = this.props;
+        let { customer, menu, products, discount } = this.props.orderCreation;
 
-        const name = selectedCustomer.id ? selectedCustomer.name : '-';
+        console.log(this.props.orderCreation);
+
+        customer = customer.id ? customer.name : '-';
+        menu = menu.id ? menu.name : '-';
+        const basePrice = 3;
+        const finalPrice = basePrice - discount;
 
         return (
             <div className="p-4 ml-3 w-1/3 text-grey-darkest rounded shadow-md">
-                <h2 className="mb-4">Summary</h2>
+                <h2 className="mb-4">
+                    {lang('orderSummary', upperFirstLetter)}
+                </h2>
                 <table className="text leading-loose">
                     <tbody>
                     <tr>
-                        <td className="align-top w-32">Customer :</td>
-                        <td className="leading-normal text-grey-dark">
-                            <i>{name}</i>
+                        <td className="align-top w-32">
+                            {lang('customer', upperFirstLetter)}{lang(':')}
+                        </td>
+                        <td className="leading-normal text-grey-dark capitalize">
+                            <i>{customer}</i>
                         </td>
                     </tr>
                     <tr>
-                        <td className="align-top">Menu :</td>
+                        <td className="align-top">
+                            {lang('menu', upperFirstLetter)}{lang(':')}
+                        </td>
                         <td className="leading-normal text-grey-dark">
-                            <i>C++</i>
+                            <i className="capitalize">{menu}</i>
                         </td>
                     </tr>
                     <tr>
-                        <td className="align-top">Produits :</td>
-                        <td className="leading-normal text-grey-dark">
-                            <i>Pizza Royale, Kinder Bueno, Coca Cola, Fanta, Picard Tartiflette</i>
+                        <td className="align-top">
+                            {lang('products', upperFirstLetter)}{lang(':')}
+                        </td>
+                        <td className="leading-normal text-grey-dark capitalize">
+                            <i>{products.length === 0 ? '-' : products.map((p) => p.name).join(', ')}</i>
                         </td>
                     </tr>
                     <tr>
-                        <td className="align-top">Prix de base :</td>
+                        <td className="align-top">
+                            {lang('basePrice', upperFirstLetter)}{lang(':')}
+                        </td>
                         <td className="leading-normal text-grey-dark">
-                            <i>3.20€</i>
+                            <i>
+                                {formatNumber(basePrice, 2)}€
+                            </i>
                         </td>
                     </tr>
                     <tr>
-                        <td className="align-top">Réduction :</td>
+                        <td className="align-top">
+                            {lang('discount', upperFirstLetter)}{lang(':')}
+                        </td>
                         <td className="leading-normal text-grey-dark">
-                            <i>0.20€</i>
+                            <i>
+                                {formatNumber(discount, 2)}€
+                            </i>
                         </td>
                     </tr>
                     <tr>
-                        <td className="align-top">Prix final :</td>
+                        <td className="align-top">
+                            {lang('finalPrice', upperFirstLetter)}{lang(':')}
+                        </td>
                         <td className="leading-normal text-grey-dark">
-                            <i>3.00€</i>
+                            <i>
+                                {formatNumber(finalPrice, 2)}€
+                            </i>
                         </td>
                     </tr>
                     </tbody>
