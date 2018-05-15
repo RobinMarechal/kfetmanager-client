@@ -130,3 +130,23 @@ export async function awaitOrEmpty(toAwait){
         return [];
     }
 }
+
+/**
+ * add an item to an array, or remove it if already in
+ * @param {array} array target array. /!\ the items in array need to have an 'id' attribute
+ * @param item the item to add into the array. /!\ the item need to have an 'id' attribute
+ * @returns {array}
+ */
+export function arrayPushOrRemove(array, item){
+    const ids = array.map(({id}) => id);
+    const index = ids.indexOf(item.id);
+
+    if(index >= 0){
+        array.splice(index, 1);
+    }
+    else {
+        array.push(item);
+    }
+
+    return array;
+}

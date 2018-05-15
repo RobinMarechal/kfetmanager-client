@@ -12,19 +12,19 @@ export default class Subcategory extends BaseModel{
     getRelations(){
         return {
             products: {
-                instance: new Product(),
+                class: Product,
                 list: true
             },
             category: {
-                instance: new Category(),
+                class: Category,
                 list: false
             },
             discounts: {
-                instance: new Discount(),
+                class: Discount,
                 list: true
             },
             groups: {
-                instance: new Group(),
+                class: Group,
                 list: true
             },
         }

@@ -1,26 +1,57 @@
 import BaseModel from '../../libs/BaseModel';
 import Subcategory from './Subcategory';
 import Menu from './Menu';
+import Product from './Product';
 
-export default class Category extends BaseModel{
-    getFields(){
+export default class Category extends BaseModel {
+    getFields() {
         return ['id', 'name'];
     }
 
-    getRelations(){
+    getRelations() {
         return {
             subcategories: {
-                instance: new Subcategory(),
-                list: true
+                class: Subcategory,
+                list: true,
+            },
+            products: {
+                class: Product,
+                list: true,
             },
             menus: {
-                instance: new Menu(),
-                list: true
+                class: Menu,
+                list: true,
             },
-        }
+        };
     }
 
-    getNamespace(){
+    getNamespace() {
         return 'categories';
+    }
+
+    static filterListByProductName(categories, search) {
+        if (!search || search === '') {
+            return categories;
+        }
+
+        const catToKeep = [];
+
+        for (const cat of categories) {
+            const subToKeep = [];
+            for (const sub of cat.subcategories) {
+                const products = sub.products.filter((p) => p.name.includes(search));
+                if (products.length > 0) {
+                    sub.products = products;
+                    subToKeep.push(sub);
+                }
+            }
+
+            if (subToKeep.length > 0) {
+                cat.subcategories = subToKeep;
+                catToKeep.push(cat);
+            }
+        }
+
+        return catToKeep;
     }
 }

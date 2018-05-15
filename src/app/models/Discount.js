@@ -10,11 +10,11 @@ export default class Discount extends BaseModel{
     getRelations(){
         return {
             group: {
-                instance: new Group(),
+                class: Group,
                 list: false
             },
             subcategory: {
-                instance: new Subcategory(),
+                class: Subcategory,
                 list: false
             }
         }

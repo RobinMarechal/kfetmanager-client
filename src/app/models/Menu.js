@@ -10,11 +10,11 @@ export default class Menu extends BaseModel{
     getRelations(){
         return {
             categories: {
-                instance: new Category(),
+                class: Category,
                 list: true
             },
             orders: {
-                instance: new Order(),
+                class: Order,
                 list: true
             },
         }

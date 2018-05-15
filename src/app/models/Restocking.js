@@ -10,11 +10,11 @@ export default class Restocking extends BaseModel {
     getRelations(){
         return {
             products: {
-                instance: new Product(),
+                class: Product,
                 list: true
             },
             treasury: {
-                instance: new Treasury(),
+                class: Treasury,
                 list: false
             },
         }

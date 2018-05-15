@@ -46,9 +46,10 @@ class OrderCreation extends React.Component {
         return (
             <div className="flex justify-between px-6 py-6" ref="newOrderContainer" onKeyDown={this.keyDown} onKeyUp={this.keyUp} tabIndex="0">
                 {
-                    this.state.panel === CUSTOMER_SELECTION ? <CustomerList toggleKeymaps={this.toggleKeymaps} next={this.next}/>
-                        : this.state.panel === MENU_SELECTION ? <MenuList next={this.next} previous={this.previous}/>
-                        : <ProductList previous={this.previous} submit={this.submit}/>
+                    (this.state.panel === CUSTOMER_SELECTION) ?
+                        <CustomerList toggleKeymaps={this.toggleKeymaps} next={this.next}/> : (this.state.panel === MENU_SELECTION) ?
+                        <MenuList toggleKeymaps={this.toggleKeymaps} next={this.next} previous={this.previous}/> :
+                        <ProductList toggleKeymaps={this.toggleKeymaps} previous={this.previous} submit={this.submit}/>
                 }
 
                 <OrderCreationSummary/>

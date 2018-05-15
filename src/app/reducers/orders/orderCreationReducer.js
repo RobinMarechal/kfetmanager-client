@@ -2,6 +2,7 @@ import { CUSTOMER_CLICKED } from '../../actions/models/customers/index';
 import { MENU_CLICKED } from '../../actions/models/menus';
 import { PRODUCT_CLICKED } from '../../actions/models/products';
 import { ORDER_CREATION_DISCOUNT_SUBMITTED } from '../../actions/models/orders';
+import { arrayPushOrRemove } from '../../../libs/helpers';
 
 const initialState = {
     customer: {},
@@ -16,35 +17,26 @@ export default function orderCreationReducer(state = initialState, action) {
             // If it was already selected: deselect, select it otherwise
             return {
                 ...state,
-                customer: state.customer.id === action.payload.id ? {} : action.payload
-            }
+                customer: state.customer.id === action.payload.id ? {} : action.payload,
+            };
 
 
         case MENU_CLICKED:
-            // If it was already selected: deselect, select it otherwise
+            if (state.menu.id !== action.payload.id) {
+                state.products = [];
+            }
+
             return {
                 ...state,
-                menu: state.menu.id === action.payload.id ? {} : action.payload
-            }
+                // If it was already selected: deselect, select it otherwise
+                menu: state.menu.id === action.payload.id ? {} : action.payload,
+            };
 
         case PRODUCT_CLICKED:
-
-            // toggle products
-            const products = state.products;
-            const productClicked = action.payload;
-            const ids = products.map(({id}) => id);
-            const index = ids.indexOf(productClicked.id);
-            if(index >= 0){
-                products.splice(index, 1);
-            }
-            else {
-                products.push(productClicked);
-            }
-
             return {
                 ...state,
-                products
-            }
+                products: arrayPushOrRemove(state.products, action.payload),
+            };
 
         case ORDER_CREATION_DISCOUNT_SUBMITTED:
             return {

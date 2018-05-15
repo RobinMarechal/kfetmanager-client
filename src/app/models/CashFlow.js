@@ -9,7 +9,7 @@ export default class CashFlow extends BaseModel{
     getRelations(){
         return {
             treasury: {
-                instance: new Treasury(),
+                class: Treasury,
                 list: false
             }
         };

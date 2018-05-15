@@ -17,11 +17,11 @@ export default class Customer extends BaseModel {
     getRelations() {
         return {
             groups: {
-                instance: new Group(),
+                class: Group,
                 list: true,
             },
             orders: {
-                instance: new Order(),
+                class: Order,
                 list: true,
             },
         };

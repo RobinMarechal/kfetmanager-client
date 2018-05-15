@@ -9,6 +9,8 @@ export default class CustomerListDepartmentGroup extends React.Component {
             return null;
         }
 
+
+
         return (
             <div>
                 <li className="first-child-no-border-top px-4 py-2 border-t bg-grey-light">

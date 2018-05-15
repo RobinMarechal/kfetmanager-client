@@ -12,19 +12,19 @@ export default class Order extends BaseModel{
     getRelations(){
         return {
             customer: {
-                instance: new Customer(),
+                class: Customer,
                 list: false
             },
             products:{
-                instance: new Product(),
+                class: Product,
                 list: true
             },
             menu: {
-                instance: new Menu(),
+                class: Menu,
                 list: false
             },
             treasury: {
-                instance: new Treasury(),
+                class: Treasury,
                 list: false
             }
         }

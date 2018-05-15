@@ -1,7 +1,6 @@
 import React from 'react';
 import CustomerListItem from './CustomerListItem';
 import lang from '../../../../resources/lang/index';
-import { capitalize } from '../../../../libs/helpers';
 
 export default class CustomerListYearSubgroup extends React.Component {
     render() {
@@ -14,7 +13,7 @@ export default class CustomerListYearSubgroup extends React.Component {
         return (
             <div>
                 <li className="px-4 py-2 border-t bg-grey-lighter">
-                    <p className="pl-4">{lang(year, capitalize)}</p>
+                    <p className="pl-4 capitalize">{lang(year)}</p>
                 </li>
                 {customers.map((customer) => <CustomerListItem key={customer.id} customer={customer}/>)}
             </div>

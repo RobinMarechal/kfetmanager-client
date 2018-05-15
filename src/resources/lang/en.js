@@ -25,6 +25,7 @@ export default function loadEnglish() {
         refresh: 'refresh',
         searchProduct: 'search for a product',
         searchCustomer: 'search for a customer',
+        searchMenu: 'search for a menu',
         customerSelection: 'customer selection',
         menuSelection: 'menu selection',
         productSelection: 'product selection',
@@ -32,6 +33,8 @@ export default function loadEnglish() {
         allYears: 'all years',
         allDepartments: 'all departments',
         selectedCustomer: 'selected customer',
+        selectedMenu: 'selected menu',
+        selectedProducts: 'selected products',
 
         PEIP: 'PEIP',
         THIRD: '3rd year',

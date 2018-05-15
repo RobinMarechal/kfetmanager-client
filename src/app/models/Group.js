@@ -11,15 +11,15 @@ export default class Group extends BaseModel{
     getRelations(){
         return {
             customers: {
-                instance: new Customer(),
+                class: Customer,
                 list: true
             },
             subcategories: {
-                instance: new Subcategory(),
+                class: Subcategory,
                 list: true
             },
             discounts: {
-                instance: new Discount(),
+                class: Discount,
                 list: true
             },
         }

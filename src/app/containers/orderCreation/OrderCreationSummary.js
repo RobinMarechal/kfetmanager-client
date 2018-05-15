@@ -7,11 +7,17 @@ class OrderCreationSummary extends React.Component {
     render() {
         let { customer, menu, products, discount } = this.props.orderCreation;
 
-        console.log(this.props.orderCreation);
+        const customerName = customer.id ? customer.name : '-';
+        const menuName = menu.id ? menu.name : '-';
+        let basePrice = 0;
 
-        customer = customer.id ? customer.name : '-';
-        menu = menu.id ? menu.name : '-';
-        const basePrice = 3;
+        if(menu.id){
+            basePrice = menu.price;
+        }
+        else if(products && products.length > 0){
+            basePrice = products.map(p => p.price).reduce((acc, val) => acc + val);
+        }
+
         const finalPrice = basePrice - discount;
 
         return (
@@ -26,7 +32,7 @@ class OrderCreationSummary extends React.Component {
                             {lang('customer', upperFirstLetter)}{lang(':')}
                         </td>
                         <td className="leading-normal text-grey-dark capitalize">
-                            <i>{customer}</i>
+                            <i>{customerName}</i>
                         </td>
                     </tr>
                     <tr>
@@ -34,7 +40,7 @@ class OrderCreationSummary extends React.Component {
                             {lang('menu', upperFirstLetter)}{lang(':')}
                         </td>
                         <td className="leading-normal text-grey-dark">
-                            <i className="capitalize">{menu}</i>
+                            <i className="capitalize">{menuName}</i>
                         </td>
                     </tr>
                     <tr>

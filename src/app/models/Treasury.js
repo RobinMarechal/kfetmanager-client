@@ -21,15 +21,15 @@ export default class Treasury extends BaseModel {
     getRelations() {
         return {
             cash_flow: {
-                instance: new CashFlow(),
+                class: CashFlow,
                 list: false,
             },
             order: {
-                instance: new Order(),
+                class: Order,
                 list: false,
             },
             restocking: {
-                instance: new Restocking(),
+                class: Restocking,
                 list: false,
             },
         };

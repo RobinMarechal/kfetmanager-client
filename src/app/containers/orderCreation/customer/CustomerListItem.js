@@ -5,9 +5,9 @@ import { customerClicked } from '../../../actions/models/customers/index';
 
 class CustomerListItem extends React.Component {
     render() {
-        const { customer, selectedCustomer, customerClicked } = this.props;
+        const { customer, orderCreation, customerClicked } = this.props;
 
-        const classes = selectedCustomer.id === customer.id ? 'bg-purple-lighter' : 'hover:bg-purple-lighter';
+        const classes = orderCreation.customer.id === customer.id ? 'bg-purple-lighter' : 'hover:bg-purple-lighter';
 
         return (
             <li className={"px-4 py-2 border-t cursor-pointer " + classes} onClick={() => customerClicked(this.props.customer)}>

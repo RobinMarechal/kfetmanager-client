@@ -2,30 +2,39 @@ import BaseModel from '../../libs/BaseModel';
 import Restocking from './Restocking';
 import Order from './Order';
 import Subcategory from './Subcategory';
+import Category from './Category';
 
-export default class Product extends BaseModel{
-    getFields(){
+export default class Product extends BaseModel {
+    getFields() {
         return ['id', 'name', 'subcategory_id', 'purchase_price', 'price', 'stock'];
     }
 
-    getRelations(){
+    getRelations() {
         return {
             restockings: {
-                instance: new Restocking(),
+                class: Restocking,
                 list: true,
             },
             orders: {
-                instance: new Order(),
+                class: Order,
                 list: true,
             },
             subcategory: {
-                instance: new Subcategory(),
+                class: Subcategory,
                 list: false,
             },
-        }
+            category: {
+                class: Category,
+                list: false,
+            },
+        };
     }
 
-    getNamespace(){
+    getNamespace() {
         return 'products';
+    }
+
+    static productsFromCategories(categories) {
+        return undefined;
     }
 }
