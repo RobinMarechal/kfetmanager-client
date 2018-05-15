@@ -1,7 +1,7 @@
 import React from 'react';
-import Panel from '../../components/panel/Panel';
-import lang, { langFormatDate } from '../../../resources/lang/index';
-import { capitalize, formatNumber } from '../../../libs/helpers';
+import Panel from '../../../components/panel/Panel';
+import lang, { langFormatDate } from '../../../../resources/lang/index';
+import { capitalize, formatNumber } from '../../../../libs/helpers';
 import { connect } from 'react-redux';
 import { faPlus, faSyncAlt } from '@fortawesome/fontawesome-free-solid/index';
 

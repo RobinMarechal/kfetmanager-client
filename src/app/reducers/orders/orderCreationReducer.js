@@ -1,14 +1,14 @@
 import { CUSTOMER_CLICKED } from '../../actions/models/customers/index';
 import { MENU_CLICKED } from '../../actions/models/menus';
 import { PRODUCT_CLICKED } from '../../actions/models/products';
-import { ORDER_CREATION_DISCOUNT_SUBMITTED } from '../../actions/models/orders';
+import { DISCOUNT_CHANGED } from '../../actions/models/orders';
 import { arrayPushOrRemove } from '../../../libs/helpers';
 
 const initialState = {
     customer: {},
     menu: {},
     products: [],
-    discount: 0,
+    discount: '',
 };
 
 export default function orderCreationReducer(state = initialState, action) {
@@ -38,7 +38,7 @@ export default function orderCreationReducer(state = initialState, action) {
                 products: arrayPushOrRemove(state.products, action.payload),
             };
 
-        case ORDER_CREATION_DISCOUNT_SUBMITTED:
+        case DISCOUNT_CHANGED:
             return {
                 ...state,
                 discount: action.payload,

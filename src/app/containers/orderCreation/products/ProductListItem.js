@@ -1,8 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
-import { productClicked } from '../../../actions/models/products';
 
 class ProductListItem extends React.Component {
     render() {
@@ -25,16 +22,4 @@ class ProductListItem extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        ...state,
-    };
-}
-
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators({
-        productClicked: productClicked,
-    }, dispatch);
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(ProductListItem);
+export default ProductListItem;

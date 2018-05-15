@@ -1,5 +1,5 @@
 import { CREATE_MENU, FETCH_MENU_BEGIN, FETCH_MENU_FAILURE, FETCH_MENU_SUCCESS } from '../../actions/models/menus/index';
-import { MAX_ITEMS_PER_PANEL } from '../../controllers/Home';
+import { MAX_ITEMS_PER_PANEL } from '../../controllers/Home/Home';
 
 const initialState = {
     items: [],

@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CustomerList from '../containers/orderCreation/customer/CustomerList';
-import MenuList from '../containers/orderCreation/menu/MenuList';
-import ProductList from '../containers/orderCreation/products/ProductList';
-import OrderCreationSummary from '../containers/orderCreation/OrderCreationSummary';
+import CustomerList from './panels/CustomerList';
+import MenuList from './panels/MenuList';
+import ProductList from './panels/ProductList';
+import OrderCreationSummary from '../../containers/orderCreation/OrderCreationSummary';
 import * as ReactDOM from 'react-dom';
+import DiscountSelection from './panels/DiscountSelection';
 
 const CUSTOMER_SELECTION = 1;
 const MENU_SELECTION = 2;
 const PRODUCT_SELECTION = 3;
+const DISCOUNT_SELECTION = 4;
 
 class OrderCreation extends React.Component {
 
@@ -47,9 +49,12 @@ class OrderCreation extends React.Component {
             <div className="flex justify-between px-6 py-6" ref="newOrderContainer" onKeyDown={this.keyDown} onKeyUp={this.keyUp} tabIndex="0">
                 {
                     (this.state.panel === CUSTOMER_SELECTION) ?
-                        <CustomerList toggleKeymaps={this.toggleKeymaps} next={this.next}/> : (this.state.panel === MENU_SELECTION) ?
-                        <MenuList toggleKeymaps={this.toggleKeymaps} next={this.next} previous={this.previous}/> :
-                        <ProductList toggleKeymaps={this.toggleKeymaps} previous={this.previous} submit={this.submit}/>
+                        <CustomerList toggleKeymaps={this.toggleKeymaps} next={this.next}/> :
+                        (this.state.panel === MENU_SELECTION) ?
+                            <MenuList toggleKeymaps={this.toggleKeymaps} next={this.next} previous={this.previous}/> :
+                            (this.state.panel === PRODUCT_SELECTION) ?
+                                <ProductList toggleKeymaps={this.toggleKeymaps} next={this.next} previous={this.previous}/> :
+                                <DiscountSelection toggleKeymaps={this.toggleKeymaps} previous={this.previous}/>
                 }
 
                 <OrderCreationSummary/>
@@ -62,7 +67,7 @@ class OrderCreation extends React.Component {
     }
 
     keyDown(event) {
-        if(this.state.enableKeymaps) {
+        if (this.state.enableKeymaps) {
             if (event.key === 'Control') {
                 this.setState({ ctrl: true });
             }
@@ -83,14 +88,14 @@ class OrderCreation extends React.Component {
     }
 
     next() {
-        if (this.state.panel !== PRODUCT_SELECTION && this.state.panel < PRODUCT_SELECTION) {
+        if (this.state.panel < DISCOUNT_SELECTION) {
             this.setState({ panel: this.state.panel + 1 });
         }
         this.focusDiv();
     }
 
     previous() {
-        if (this.state.panel !== CUSTOMER_SELECTION && this.state.panel > CUSTOMER_SELECTION) {
+        if (this.state.panel > CUSTOMER_SELECTION) {
             this.setState({ panel: this.state.panel - 1 });
         }
         this.focusDiv();

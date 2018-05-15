@@ -20,7 +20,7 @@ export default function PanelItem(props) {
 
     return (
         <div
-            className={"first-child-no-border-top border-t px-4 py-2" + (hoverClass ? ' hover:' + hoverClass : '')}
+            className={"border-t px-4 py-2" + (hoverClass ? ' hover:' + hoverClass : '')}
             onClick={onClick}>
             <div className={"flex justify-between flex-row" + (_.isFunction(onClick) ? ' cursor-pointer' : '')}>
                 <div className="w-3/4 flex justify-around flex-col">

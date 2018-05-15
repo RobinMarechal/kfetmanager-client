@@ -34,12 +34,14 @@ export default class Category extends BaseModel {
             return categories;
         }
 
+        search = search.toLowerCase();
+
         const catToKeep = [];
 
         for (const cat of categories) {
             const subToKeep = [];
             for (const sub of cat.subcategories) {
-                const products = sub.products.filter((p) => p.name.includes(search));
+                const products = sub.products.filter((p) => p.name.toLowerCase().includes(search));
                 if (products.length > 0) {
                     sub.products = products;
                     subToKeep.push(sub);

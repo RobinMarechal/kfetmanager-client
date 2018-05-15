@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import { upperFirstLetter } from '../../../../libs/helpers';
 import lang from '../../../../resources/lang/index';
 import Customer from '../../../models/Customer';
-import CustomerListDepartmentGroup from './CustomerListDepartmentGroup';
+import CustomerListDepartmentGroup from '../../../containers/orderCreation/customer/CustomerListDepartmentGroup';
 import '../../../../resources/css/style.css';
-import { fetchCustomerBegin, fetchCustomerError, fetchCustomerSuccess } from '../../../actions/models/customers';
+import { customerClicked, fetchCustomerBegin, fetchCustomerError, fetchCustomerSuccess } from '../../../actions/models/customers';
 import Error from '../../../components/utility/Error';
-import OrderCreationContainer from '../common/OrderCreationContainer';
-import OrderCreationTitle from '../common/OrderCreationTitle';
-import OrderCreationSearchBar from '../common/OrderCreationSearchBar';
-import OrderCreationFooter from '../common/OrderCreationFooter';
-import OrderCreationSelect from '../common/OrderCreationSelect';
+import { bindActionCreators } from 'redux';
+import OrderCreationContainer from '../../../containers/orderCreation/common/OrderCreationContainer';
+import OrderCreationTitle from '../../../containers/orderCreation/common/OrderCreationTitle';
+import OrderCreationSearchBar from '../../../containers/orderCreation/common/OrderCreationSearchBar';
+import OrderCreationSelect from '../../../containers/orderCreation/common/OrderCreationSelect';
+import OrderCreationFooter from '../../../containers/orderCreation/common/OrderCreationFooter';
 
 class CustomerList extends React.Component {
 
@@ -29,6 +30,7 @@ class CustomerList extends React.Component {
         this.handleDepartmentSelectChange = this.handleDepartmentSelectChange.bind(this);
         this.handleYearSelectChange = this.handleYearSelectChange.bind(this);
         this.fetchCustomers = this.fetchCustomers.bind(this);
+        this.onItemClick = this.onItemClick.bind(this);
     }
 
     componentDidMount() {
@@ -73,7 +75,7 @@ class CustomerList extends React.Component {
     }
 
     buildList() {
-        const { customers } = this.props;
+        const { customers, orderCreation } = this.props;
 
         if (customers.error) {
             return <Error/>;
@@ -92,7 +94,13 @@ class CustomerList extends React.Component {
         let depYearCustomers = Customer.sortByYearDepartmentAndName(customers.items);
         depYearCustomers = Customer.customersToDepartmentYearCustomerList(depYearCustomers);
 
-        return Object.values(depYearCustomers).map((dep) => <CustomerListDepartmentGroup key={dep.department} department={dep}/>);
+        return Object.values(depYearCustomers).map((dep) => {
+            return <CustomerListDepartmentGroup key={dep.department}
+                                                customers={customers}
+                                                orderCreation={orderCreation}
+                                                onItemClick={this.onItemClick}
+                                                department={dep}/>;
+        });
     }
 
     render() {
@@ -159,6 +167,10 @@ class CustomerList extends React.Component {
         this.props.dispatch(this.fetchCustomers());
     }
 
+    onItemClick(customer){
+        this.props.customerClicked(customer)
+    }
+
     handleInputChange(event) {
         this.props.dispatch(this.fetchCustomers({
             left: 'name',
@@ -178,4 +190,13 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(CustomerList);
+function mapDispatchToProps(dispatch){
+    return {
+        dispatch,
+        ...bindActionCreators({
+            customerClicked
+        }, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerList);

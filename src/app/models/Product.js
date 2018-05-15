@@ -33,8 +33,4 @@ export default class Product extends BaseModel {
     getNamespace() {
         return 'products';
     }
-
-    static productsFromCategories(categories) {
-        return undefined;
-    }
 }

@@ -5,22 +5,18 @@ import { upperFirstLetter } from '../../../../libs/helpers';
 import { fetchMenuBegin, fetchMenuError, fetchMenuSuccess } from '../../../actions/models/menus/index';
 import Menu from '../../../models/Menu';
 import Error from '../../../components/utility/Error';
-import MenuListItem from './MenuListItem';
-import OrderCreationTitle from '../common/OrderCreationTitle';
-import OrderCreationSearchBar from '../common/OrderCreationSearchBar';
-import OrderCreationFooter from '../common/OrderCreationFooter';
-import OrderCreationContainer from '../common/OrderCreationContainer';
+import MenuListItem from '../../../containers/orderCreation/menu/MenuListItem';
+import OrderCreationTitle from '../../../containers/orderCreation/common/OrderCreationTitle';
+import OrderCreationSearchBar from '../../../containers/orderCreation/common/OrderCreationSearchBar';
+import OrderCreationFooter from '../../../containers/orderCreation/common/OrderCreationFooter';
+import OrderCreationContainer from '../../../containers/orderCreation/common/OrderCreationContainer';
 import { bindActionCreators } from 'redux';
-import { menuClicked } from '../../../actions/models/menus';
+import { menuClicked } from '../../../actions/models/menus/index';
 
 class MenuList extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            inputValue: '',
-        };
 
         this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -57,7 +53,8 @@ class MenuList extends React.Component {
 
     buildList() {
 
-        const { error, items } = this.props.menus;
+        const { orderCreation, menus } = this.props;
+        const { error, items } = menus;
 
         if (error) {
             return <Error/>;
@@ -73,7 +70,10 @@ class MenuList extends React.Component {
             );
         }
 
-        return items.map((item) => <MenuListItem onClick={this.handleMenuClick} key={item.id} menu={item}/>);
+        return items.map((item) => <MenuListItem key={item.id}
+                                                 onClick={this.handleMenuClick}
+                                                 orderCreation={orderCreation}
+                                                 menu={item}/>);
     }
 
     render() {
@@ -131,7 +131,8 @@ class MenuList extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        ...state,
+        orderCreation: state.orderCreation,
+        menus: state.menus,
     };
 }
 

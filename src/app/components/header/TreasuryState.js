@@ -1,25 +1,21 @@
 import React from 'react';
 import lang from '../../../resources/lang/index';
-import { formatNumber } from '../../../libs/helpers';
-import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 class TreasuryState extends React.Component {
     render() {
-        let { treasury } = this.props.treasury;
-        let formattedBalance = '? ';
-        let balance = -1;
-
-        if(treasury && treasury.id){
-            balance = treasury.balance;
-            formattedBalance = formatNumber(balance, 2);
-        }
+        let { balance, formattedBalance } = this.props;
 
         return (
-            <div className="float-right w-1/2 py-3 px-8 border-l-2 border-purple-light border-r-2 text-center text-capitalize">
+            <div className="w-1/2 float-right w-1/2 py-3 px-8 border-l-2 border-purple-light border-r-2 text-center text-capitalize">
                 <div className="text-grey-light text-sm">
                     {lang('treasury')}{lang(':')}
                 </div>
-                <div className={"text-base text-bold text-" + (balance > 0 ? "green-light" : "red-dark")}>
+                <div className={classNames("text-base text-bold",
+                                           {
+                                               "text-green-light": balance > 0,
+                                               "text-red-dark": balance <= 0,
+                                           })}>
                     {formattedBalance}€
                 </div>
             </div>
@@ -27,10 +23,4 @@ class TreasuryState extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        ...state,
-    };
-}
-
-export default connect(mapStateToProps)(TreasuryState);
+export default TreasuryState;

@@ -11,14 +11,30 @@ class OrderCreationSummary extends React.Component {
         const menuName = menu.id ? menu.name : '-';
         let basePrice = 0;
 
-        if(menu.id){
+        if (menu.id) {
             basePrice = menu.price;
         }
-        else if(products && products.length > 0){
+        else if (products && products.length > 0) {
             basePrice = products.map(p => p.price).reduce((acc, val) => acc + val);
         }
 
-        const finalPrice = basePrice - discount;
+        let formattedDiscount = discount;
+        let finalPrice = basePrice;
+
+        if(discount === '' || discount === '-' || discount === '.' || discount ==='-.') {
+            discount = '0';
+        }
+
+        if (discount.endsWith('%')) {
+            const numberValue = discount.substring(0, discount.length - 1);
+            formattedDiscount = formatNumber(numberValue, 2) + '%';
+            finalPrice = basePrice - basePrice * numberValue / 100;
+        } else {
+            formattedDiscount = formatNumber(discount, 2) + '€';
+            finalPrice = basePrice - discount;
+        }
+
+
 
         return (
             <div className="p-4 ml-3 w-1/3 text-grey-darkest rounded shadow-md">
@@ -67,7 +83,7 @@ class OrderCreationSummary extends React.Component {
                         </td>
                         <td className="leading-normal text-grey-dark">
                             <i>
-                                {formatNumber(discount, 2)}€
+                                {formattedDiscount}
                             </i>
                         </td>
                     </tr>

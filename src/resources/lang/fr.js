@@ -28,6 +28,7 @@ export default function loadFrench() {
         searchMenu: 'rechercher un menu',
         customerSelection: 'sélection du client',
         menuSelection: 'sélection du menu',
+        discountSelection: 'sélection de la réduction',
         productSelection: 'sélection du produit',
         productsSelection: 'sélection des produits',
         allYears: 'toutes les années',
@@ -35,6 +36,7 @@ export default function loadFrench() {
         selectedCustomer: 'client sélectionné',
         selectedMenu: 'menu sélectionné',
         selectedProducts: 'produits sélectionnés',
+        selectedDiscount: 'réduction sélectionnée',
 
         PEIP: 'PEIP',
         THIRD: '3A',

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 class MenuListItem extends React.Component {
     render() {
@@ -13,9 +12,6 @@ class MenuListItem extends React.Component {
                 <h3 className="mb-1 capitalize">
                     {menu.name}
                 </h3>
-                {/*<p className="text-center">*/}
-                {/*{menu.categories.map((c) => c.name).join(', ')}*/}
-                {/*</p>*/}
                 <ul className="list-style-none p-2 italic text-grey-darker">
                     {menu.categories.map((c) => {
                         return <li key={c.id}> {c.name} </li>;
@@ -26,10 +22,4 @@ class MenuListItem extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        ...state,
-    };
-}
-
-export default connect(mapStateToProps)(MenuListItem);
+export default MenuListItem;

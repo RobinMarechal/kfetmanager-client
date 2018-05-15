@@ -1,5 +1,5 @@
 import { CREATE_CATEGORY, FETCH_CATEGORY_BEGIN, FETCH_CATEGORY_FAILURE, FETCH_CATEGORY_SUCCESS } from '../actions/models/categories';
-import { MAX_ITEMS_PER_PANEL } from '../controllers/Home';
+import { MAX_ITEMS_PER_PANEL } from '../controllers/Home/Home';
 
 const initialState = {
     items: [],

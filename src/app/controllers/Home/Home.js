@@ -1,15 +1,15 @@
 import React from 'react';
-import CustomersPanel from '../containers/home/CustomersPanel';
-import OrdersPanel from '../containers/home/OrdersPanel';
-import ProductsPanel from '../containers/home/ProductsPanel';
+import CustomersPanel from './panels/CustomersPanel';
+import OrdersPanel from './panels/OrdersPanel';
+import ProductsPanel from './panels/ProductsPanel';
 import { connect } from 'react-redux';
-import Order from '../models/Order';
-import Product from '../models/Product';
-import { awaitOrEmpty } from '../../libs/helpers';
-import { fetchOrderBegin, fetchOrderSuccess } from '../actions/models/orders';
-import { fetchCustomerBegin, fetchCustomerSuccess } from '../actions/models/customers';
-import { fetchProductBegin, fetchProductSuccess } from '../actions/models/products';
-import Customer from '../models/Customer';
+import Order from '../../models/Order';
+import Product from '../../models/Product';
+import { awaitOrEmpty } from '../../../libs/helpers';
+import { fetchOrderBegin, fetchOrderSuccess } from '../../actions/models/orders/index';
+import { fetchCustomerBegin, fetchCustomerSuccess } from '../../actions/models/customers/index';
+import { fetchProductBegin, fetchProductSuccess } from '../../actions/models/products/index';
+import Customer from '../../models/Customer';
 
 export const MAX_ITEMS_PER_PANEL = 20;
 

@@ -1,7 +1,7 @@
 export const ORDER_CLICKED = 'ORDER_CLICKED';
 export const ORDER_PANEL_SYNC_BUTTON_CLICKED = 'ORDER_PANEL_SYNC_BUTTON_CLICKED';
 export const CREATE_ORDER = 'CREATE_ORDER';
-export const ORDER_CREATION_DISCOUNT_SUBMITTED = 'ORDER_CREATION_DISCOUNT_SUBMITTED';
+export const DISCOUNT_CHANGED = 'DISCOUNT_CHANGED';
 
 export function orderClicked(order) {
     return {
@@ -23,10 +23,10 @@ export function createOrder(data) {
     };
 }
 
-export function orderCreationDiscountSubmitted(value) {
+export function discountChanged(discount) {
     return {
-        type: ORDER_CREATION_DISCOUNT_SUBMITTED,
-        payload: value
+        type: DISCOUNT_CHANGED,
+        payload: discount
     };
 }
 

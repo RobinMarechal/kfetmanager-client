@@ -6,7 +6,7 @@ import { langDecimalSeparator, langThousandSeparator } from '../resources/lang/i
  * @returns {string}
  */
 export function upperFirstLetter(string) {
-    return string[0].toUpperCase() + string.substring(1)
+    return string[0].toUpperCase() + string.substring(1);
 }
 
 /**
@@ -16,8 +16,8 @@ export function upperFirstLetter(string) {
  */
 export function capitalize(string) {
     return string.split(' ')
-        .map((word) => upperFirstLetter(word))
-        .join(' ');
+                 .map((word) => upperFirstLetter(word))
+                 .join(' ');
 }
 
 /**
@@ -45,8 +45,12 @@ export function formatNumber(price, digits) {
 
     let [beforeDot, afterDot] = string.split('.');
     const sign = beforeDot[0] === '-' ? '-' : '';
-    if(sign === '-'){
+    if (sign === '-') {
         beforeDot = beforeDot.substr(1);
+    }
+
+    if (beforeDot === '') {
+        beforeDot = '0';
     }
 
     const thousandSep = langThousandSeparator();
@@ -70,7 +74,7 @@ export function formatNumber(price, digits) {
         }
     }
 
-    if(formattedBeforeDot[0] === thousandSep){
+    if (formattedBeforeDot[0] === thousandSep) {
         formattedBeforeDot = formattedBeforeDot.substr(1);
     }
 
@@ -81,7 +85,7 @@ export function formatNumber(price, digits) {
 
     // result
     let result = formattedBeforeDot;
-    if(digits > 0){
+    if (digits > 0) {
         result += decimalSep + formattedAfterDot;
     }
 
@@ -93,12 +97,12 @@ export function formatNumber(price, digits) {
  * @param {string} string
  * @returns {string}
  */
-export function stringPlural(string){
+export function stringPlural(string) {
     const last = string[string.length - 1];
     const secondLast = string[string.length - 2];
 
-    if(last === 's' && secondLast !== 's'){
-        if(secondLast === 'i'){
+    if (last === 's' && secondLast !== 's') {
+        if (secondLast === 'i') {
             return string.substring(0, string.length - 3) + 'es';
         }
 
@@ -107,11 +111,11 @@ export function stringPlural(string){
 
     const base = string.substr(0, string.length - 2);
 
-    if(last === 'y'){
+    if (last === 'y') {
         return base + 'ies';
     }
 
-    if(last === 's')
+    if (last === 's')
         return string + 'es';
 
     return string + 's';
@@ -122,11 +126,11 @@ export function stringPlural(string){
  * @param {Promise<*>} toAwait
  * @returns {Promise<*>}
  */
-export async function awaitOrEmpty(toAwait){
-    try{
+export async function awaitOrEmpty(toAwait) {
+    try {
         return await toAwait;
     }
-    catch(e){
+    catch (e) {
         return [];
     }
 }
@@ -137,11 +141,11 @@ export async function awaitOrEmpty(toAwait){
  * @param item the item to add into the array. /!\ the item need to have an 'id' attribute
  * @returns {array}
  */
-export function arrayPushOrRemove(array, item){
-    const ids = array.map(({id}) => id);
+export function arrayPushOrRemove(array, item) {
+    const ids = array.map(({ id }) => id);
     const index = ids.indexOf(item.id);
 
-    if(index >= 0){
+    if (index >= 0) {
         array.splice(index, 1);
     }
     else {
