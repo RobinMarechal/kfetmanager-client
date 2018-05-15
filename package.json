@@ -12,7 +12,7 @@
     "classnames": "^2.2.5",
     "fetch": "^1.1.0",
     "js-joda": "^1.8.2",
-    "laravel-rest-api-query-builder": "0.3.3",
+    "laravel-rest-api-query-builder": "0.3.5",
     "lodash": "latest",
     "query-string": "^6.1.0",
     "react": "^16.3.2",

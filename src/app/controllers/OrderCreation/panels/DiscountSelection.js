@@ -7,6 +7,8 @@ import OrderCreationFooter from '../../../containers/orderCreation/common/OrderC
 import { bindActionCreators } from 'redux';
 import { discountChanged } from '../../../actions/models/orders';
 import { connect } from 'react-redux';
+import { BREADCRUMB_CUSTOMER, BREADCRUMB_DISCOUNT } from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
+import OrderCreationBreadcrumb from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
 
 class DiscountSelection extends React.Component {
     constructor(props) {
@@ -40,6 +42,8 @@ class DiscountSelection extends React.Component {
         return (
             <OrderCreationContainer>
                 <div>
+                    <OrderCreationBreadcrumb current={BREADCRUMB_DISCOUNT}/>
+
                     <OrderCreationTitle
                         previous={previous}
                         next={next}

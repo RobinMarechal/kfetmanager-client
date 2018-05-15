@@ -2,6 +2,7 @@ export const ORDER_CLICKED = 'ORDER_CLICKED';
 export const ORDER_PANEL_SYNC_BUTTON_CLICKED = 'ORDER_PANEL_SYNC_BUTTON_CLICKED';
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const DISCOUNT_CHANGED = 'DISCOUNT_CHANGED';
+export const ORDER_VALIDATED = 'ORDER_VALIDATED';
 
 export function orderClicked(order) {
     return {
@@ -26,7 +27,14 @@ export function createOrder(data) {
 export function discountChanged(discount) {
     return {
         type: DISCOUNT_CHANGED,
-        payload: discount
+        payload: discount,
+    };
+}
+
+export function orderValidated(boolean = true) {
+    return {
+        type: ORDER_VALIDATED,
+        payload: boolean,
     };
 }
 

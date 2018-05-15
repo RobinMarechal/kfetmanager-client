@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lang from '../../../resources/lang';
 import { formatNumber, upperFirstLetter } from '../../../libs/helpers';
+import classNames from 'classnames';
 
 class OrderCreationSummary extends React.Component {
     render() {
-        let { customer, menu, products, discount } = this.props.orderCreation;
+        let { customer, menu, products, discount, validated } = this.props.orderCreation;
 
         const customerName = customer.id ? customer.name : '-';
         const menuName = menu.id ? menu.name : '-';
@@ -21,7 +22,7 @@ class OrderCreationSummary extends React.Component {
         let formattedDiscount = discount;
         let finalPrice = basePrice;
 
-        if(discount === '' || discount === '-' || discount === '.' || discount ==='-.') {
+        if (discount === '' || discount === '-' || discount === '.' || discount === '-.') {
             discount = '0';
         }
 
@@ -34,13 +35,12 @@ class OrderCreationSummary extends React.Component {
             finalPrice = basePrice - discount;
         }
 
-
-
         return (
-            <div className="p-4 ml-3 w-1/3 text-grey-darkest rounded shadow-md">
+            <div className="p-4 ml-3 w-1/3 text-grey-darkest rounded shadow-md flex flex-col justify-start">
                 <h2 className="mb-4">
                     {lang('orderSummary', upperFirstLetter)}
                 </h2>
+
                 <table className="text leading-loose">
                     <tbody>
                     <tr>
@@ -99,6 +99,25 @@ class OrderCreationSummary extends React.Component {
                     </tr>
                     </tbody>
                 </table>
+
+                <button className={classNames(
+                    'shadow',
+                    'text-white',
+                    'font-bold',
+                    'py-2',
+                    'px-8',
+                    'rounded',
+                    'w-full',
+                    'self-end',
+                    'mt-auto', {
+                        'bg-purple': validated,
+                        'hover:bg-purple-dark': validated,
+                        'bg-purple-lighter': !validated,
+                        'cursor-not-allowed': !validated,
+                    })}
+                >
+                    {lang('submitOrder')}
+                </button>
             </div>
         );
     }

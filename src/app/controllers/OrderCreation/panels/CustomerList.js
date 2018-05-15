@@ -13,6 +13,7 @@ import OrderCreationTitle from '../../../containers/orderCreation/common/OrderCr
 import OrderCreationSearchBar from '../../../containers/orderCreation/common/OrderCreationSearchBar';
 import OrderCreationSelect from '../../../containers/orderCreation/common/OrderCreationSelect';
 import OrderCreationFooter from '../../../containers/orderCreation/common/OrderCreationFooter';
+import OrderCreationBreadcrumb, { BREADCRUMB_CUSTOMER } from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
 
 class CustomerList extends React.Component {
 
@@ -108,8 +109,9 @@ class CustomerList extends React.Component {
 
         return (
             <OrderCreationContainer>
-
                 <div>
+                    <OrderCreationBreadcrumb current={BREADCRUMB_CUSTOMER}/>
+
                     <OrderCreationTitle
                         next={next}
                         title={lang('customerSelection')}

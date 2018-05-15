@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lang from '../../../../resources/lang/index';
 import { upperFirstLetter } from '../../../../libs/helpers';
-import { fetchMenuBegin, fetchMenuError, fetchMenuSuccess } from '../../../actions/models/menus/index';
+import { fetchMenuBegin, fetchMenuError, fetchMenuSuccess, menuClicked } from '../../../actions/models/menus/index';
 import Menu from '../../../models/Menu';
 import Error from '../../../components/utility/Error';
 import MenuListItem from '../../../containers/orderCreation/menu/MenuListItem';
@@ -11,7 +11,9 @@ import OrderCreationSearchBar from '../../../containers/orderCreation/common/Ord
 import OrderCreationFooter from '../../../containers/orderCreation/common/OrderCreationFooter';
 import OrderCreationContainer from '../../../containers/orderCreation/common/OrderCreationContainer';
 import { bindActionCreators } from 'redux';
-import { menuClicked } from '../../../actions/models/menus/index';
+import OrderCreationBreadcrumb, { BREADCRUMB_MENU } from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
+import { revalidateOrder } from '../../../reducers/orders/orderCreationReducer';
+import { orderValidated } from '../../../actions/models/orders';
 
 class MenuList extends React.Component {
 
@@ -81,8 +83,9 @@ class MenuList extends React.Component {
 
         return (
             <OrderCreationContainer>
-
                 <div>
+                    <OrderCreationBreadcrumb current={BREADCRUMB_MENU}/>
+
                     <OrderCreationTitle
                         previous={previous}
                         next={next}
@@ -112,8 +115,11 @@ class MenuList extends React.Component {
         );
     }
 
-    handleMenuClick(menu) {
-        this.props.menuClicked(menu);
+    async handleMenuClick(menu) {
+        const { orderCreation, menuClicked, orderValidated } = this.props;
+
+        menuClicked(menu);
+        await revalidateOrder(orderCreation, orderValidated);
     }
 
     handleInputChange(event) {
@@ -141,6 +147,7 @@ function mapDispatchToProps(dispatch) {
         dispatch,
         ...bindActionCreators({
             menuClicked,
+            orderValidated,
         }, dispatch),
     };
 }

@@ -4552,6 +4552,11 @@ button,
   text-indent: 12px;
 }
 
+.BreadcrumbChevron {
+  font-size: 12px;
+  transform: scaleX(10);
+}
+
 /* Here we can add our own utilities or custom CSS */
 
 @media (min-width: 576px) {

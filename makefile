@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := start
 
-.PHONY: api start client stop-server stop-client stop server restart
+.PHONY: api start client stop-server stop-client stop server restart reinstall
 
 api:
 	php ~/dev/isd/kfetmanager-api/artisan serve &
@@ -28,3 +28,7 @@ stop:
 restart:
 	make stop
 	make start
+
+reinstall:
+	npm install
+	make restart

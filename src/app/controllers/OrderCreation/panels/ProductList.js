@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import lang from '../../../../resources/lang/index';
-import { upperFirstLetter } from '../../../../libs/helpers';
+import { arraysEqual, upperFirstLetter } from '../../../../libs/helpers';
 import Menu from '../../../models/Menu';
 import Category from '../../../models/Category';
 import { fetchCategoryBegin, fetchCategoryError } from '../../../actions/models/categories/index';
@@ -15,6 +15,11 @@ import ProductListCategoryGroup from '../../../containers/orderCreation/products
 import Product from '../../../models/Product';
 import { bindActionCreators } from 'redux';
 import { productClicked } from '../../../actions/models/products/index';
+import { BREADCRUMB_CUSTOMER, BREADCRUMB_PRODUCTS } from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
+import OrderCreationBreadcrumb from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
+import { orderValidated } from '../../../actions/models/orders';
+import OrderCreation from '../OrderCreation';
+import { revalidateOrder } from '../../../reducers/orders/orderCreationReducer';
 
 class ProductList extends React.Component {
     constructor(props) {
@@ -86,6 +91,8 @@ class ProductList extends React.Component {
         return (
             <OrderCreationContainer>
                 <div>
+                    <OrderCreationBreadcrumb current={BREADCRUMB_PRODUCTS}/>
+
                     <OrderCreationTitle
                         previous={previous}
                         next={next}
@@ -123,8 +130,9 @@ class ProductList extends React.Component {
 
     }
 
+
     async itemSelectionHandler(clickedProduct, category) {
-        const { orderCreation, productClicked } = this.props;
+        const { orderCreation, productClicked, orderValidated } = this.props;
         const { menu, products: alreadySelectedProducts } = orderCreation;
 
         if (alreadySelectedProducts.length === 0 || alreadySelectedProducts.map(p => p.id).includes(clickedProduct.id)) {
@@ -170,6 +178,8 @@ class ProductList extends React.Component {
                 console.error(e);
             }
         }
+
+        await revalidateOrder(orderCreation, orderValidated);
     }
 }
 
@@ -186,6 +196,7 @@ function mapDispatchToProps(dispatch) {
         dispatch,
         ...bindActionCreators({
             productClicked,
+            orderValidated,
         }, dispatch),
     };
 }

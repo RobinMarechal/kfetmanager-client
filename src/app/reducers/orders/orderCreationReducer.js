@@ -1,14 +1,16 @@
 import { CUSTOMER_CLICKED } from '../../actions/models/customers/index';
 import { MENU_CLICKED } from '../../actions/models/menus';
 import { PRODUCT_CLICKED } from '../../actions/models/products';
-import { DISCOUNT_CHANGED } from '../../actions/models/orders';
-import { arrayPushOrRemove } from '../../../libs/helpers';
+import { DISCOUNT_CHANGED, ORDER_VALIDATED } from '../../actions/models/orders';
+import { arrayPushOrRemove, arraysEqual } from '../../../libs/helpers';
+import Category from '../../models/Category';
 
 const initialState = {
     customer: {},
     menu: {},
     products: [],
     discount: '',
+    validated: false,
 };
 
 export default function orderCreationReducer(state = initialState, action) {
@@ -25,6 +27,8 @@ export default function orderCreationReducer(state = initialState, action) {
             if (state.menu.id !== action.payload.id) {
                 state.products = [];
             }
+
+
 
             return {
                 ...state,
@@ -44,9 +48,54 @@ export default function orderCreationReducer(state = initialState, action) {
                 discount: action.payload,
             };
 
+        case ORDER_VALIDATED:
+            return {
+                ...state,
+                validated: action.payload,
+            };
+
         default:
             // ALWAYS have a default case in a reducer
             return state;
     }
+}
+
+export async function revalidateOrder(orderCreation, orderValidated) {
+    const { menu, products, enable: wasEnabled } = orderCreation;
+
+    if (products.length === 0) {
+        return orderValidated(false);
+    }
+
+    if (!menu.id) {
+        return orderValidated();
+    }
+
+    // menu, then all categories have to be filled
+    const categories = await menu.lazyLoadAndGet('categories');
+
+    if (categories.length !== products.length) {
+        return orderValidated(false);
+    }
+
+    const selectedCategoriesId = [];
+    const shouldBeSelectedId = categories.map(c => c.id);
+
+    for (const p of products) {
+        if (!p.category || !p.category.id) {
+            p.category = await new Category().of(p).find();
+        }
+
+        selectedCategoriesId.push(p.category.id);
+    }
+
+    selectedCategoriesId.sort((a, b) => a < b);
+    shouldBeSelectedId.sort((a, b) => a < b);
+
+    if (arraysEqual(shouldBeSelectedId, selectedCategoriesId) && !wasEnabled) {
+        return orderValidated(true);
+    }
+
+    return;
 }
 

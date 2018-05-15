@@ -38,6 +38,8 @@ export default function loadEnglish() {
         selectedProducts: 'selected products',
         selectedDiscount: 'selected discount',
 
+        submitOrder: 'submit the order',
+
         PEIP: 'PEIP',
         THIRD: '3rd year',
         FOURTH: '4th year',

@@ -38,6 +38,8 @@ export default function loadFrench() {
         selectedProducts: 'produits sélectionnés',
         selectedDiscount: 'réduction sélectionnée',
 
+        submitOrder: 'valider la commande',
+
         PEIP: 'PEIP',
         THIRD: '3A',
         FOURTH: '4A',

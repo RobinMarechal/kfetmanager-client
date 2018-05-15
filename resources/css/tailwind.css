@@ -29,7 +29,7 @@
     margin-top: 100px
 }
 
-.list-style-none{
+.list-style-none {
     list-style-type: none !important;
 }
 
@@ -37,11 +37,17 @@
     text-indent: 4px;
 }
 
-.indent{
+.indent {
     text-indent: 8px;
 }
 
-.indent-lg{
-    text-indent:12px;
+.indent-lg {
+    text-indent: 12px;
 }
+
+.BreadcrumbChevron {
+    font-size: 12px;
+    transform: scaleX(10)
+}
+
 /* Here we can add our own utilities or custom CSS */
