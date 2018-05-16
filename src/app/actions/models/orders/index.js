@@ -4,6 +4,8 @@ export const CREATE_ORDER = 'CREATE_ORDER';
 export const DISCOUNT_CHANGED = 'DISCOUNT_CHANGED';
 export const ORDER_VALIDATED = 'ORDER_VALIDATED';
 
+export const CLEAR_ORDER_CREATION = 'CLEAR_ORDER_CREATION';
+
 export function orderClicked(order) {
     return {
         type: ORDER_CLICKED,
@@ -35,6 +37,12 @@ export function orderValidated(boolean = true) {
     return {
         type: ORDER_VALIDATED,
         payload: boolean,
+    };
+}
+
+export function clearOrderCreation() {
+    return {
+        type: CLEAR_ORDER_CREATION,
     };
 }
 

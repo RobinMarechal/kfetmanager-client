@@ -6,6 +6,8 @@ import ProductList from './panels/ProductList';
 import OrderCreationSummary from '../../containers/orderCreation/OrderCreationSummary';
 import * as ReactDOM from 'react-dom';
 import DiscountSelection from './panels/DiscountSelection';
+import { Redirect } from 'react-router-dom';
+import Order from '../../models/Order';
 
 const CUSTOMER_SELECTION = 1;
 const MENU_SELECTION = 2;
@@ -21,6 +23,7 @@ class OrderCreation extends React.Component {
             panel: CUSTOMER_SELECTION,
             ctrl: false,
             enableKeymaps: true,
+            redirectToHome: false,
         };
 
         this.next = this.next.bind(this);
@@ -45,6 +48,10 @@ class OrderCreation extends React.Component {
     }
 
     render() {
+        if (this.state.redirectToHome) {
+            return <Redirect to="/"/>;
+        }
+
         return (
             <div className="flex justify-between px-6 py-6" ref="newOrderContainer" onKeyDown={this.keyDown} onKeyUp={this.keyUp} tabIndex="0">
                 {
@@ -57,7 +64,7 @@ class OrderCreation extends React.Component {
                                 <DiscountSelection toggleKeymaps={this.toggleKeymaps} previous={this.previous}/>
                 }
 
-                <OrderCreationSummary/>
+                <OrderCreationSummary onSubmit={this.submit}/>
             </div>
         );
     }
@@ -101,14 +108,44 @@ class OrderCreation extends React.Component {
         this.focusDiv();
     }
 
-    submit() {
-        console.log('submit');
+    async submit() {
+        const { orderCreation } = this.props;
+
+        if(!Order.isValid(orderCreation)){
+            console.error("Couldn't create the order. This should not happen");
+            return false;
+        }
+
+        const order = Order.fromOrderCreation(orderCreation);
+
+        // Creation of the order in the database
+        const created = await order.create();
+
+        // We're going to request as many sync as the number of products in the order
+        // We should make the requests at the same time, not one after the other
+        const promises = [];
+        for(const p of orderCreation.products){
+            promises.push(created.attach(p));
+        }
+
+        try{
+            // We wait for all the requests to finish
+            await Promise.all(promises);
+
+        }
+        catch(e){
+            console.error('The attachment of at least one product to the order failed:');
+            console.error(e);
+        }
+
+        // Redirect to home
+        this.setState({ redirectToHome: true });
     }
 }
 
 function mapStateToProps(state) {
     return {
-        ...state,
+        orderCreation: state.orderCreation,
     };
 }
 

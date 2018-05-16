@@ -1,7 +1,7 @@
 import { CUSTOMER_CLICKED } from '../../actions/models/customers/index';
 import { MENU_CLICKED } from '../../actions/models/menus';
 import { PRODUCT_CLICKED } from '../../actions/models/products';
-import { DISCOUNT_CHANGED, ORDER_VALIDATED } from '../../actions/models/orders';
+import { CLEAR_ORDER_CREATION, DISCOUNT_CHANGED, ORDER_VALIDATED } from '../../actions/models/orders';
 import { arrayPushOrRemove, arraysEqual } from '../../../libs/helpers';
 import Category from '../../models/Category';
 
@@ -29,7 +29,6 @@ export default function orderCreationReducer(state = initialState, action) {
             }
 
 
-
             return {
                 ...state,
                 // If it was already selected: deselect, select it otherwise
@@ -53,6 +52,9 @@ export default function orderCreationReducer(state = initialState, action) {
                 ...state,
                 validated: action.payload,
             };
+
+        case CLEAR_ORDER_CREATION:
+            return initialState;
 
         default:
             // ALWAYS have a default case in a reducer

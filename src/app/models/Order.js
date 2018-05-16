@@ -43,6 +43,61 @@ export default class Order extends BaseModel {
         return 'orders';
     }
 
+    static calculatePrice(orderCreation) {
+        let basePrice = 0;
+        let finalPrice = 0;
+        let discount = orderCreation.discount;
+
+        // Calculate base price
+        if (orderCreation.menu.id) {
+            basePrice = orderCreation.menu.price;
+        }
+        else {
+            for (const { price } of orderCreation.products) {
+                basePrice += price;
+            }
+        }
+
+        // Calculate final price
+        const isPercentage = discount[discount.length - 1] === '%';
+        discount = parseFloat(discount);
+
+        if(isNaN(discount)){
+            return basePrice;
+        }
+
+        if (isPercentage) {
+            finalPrice = basePrice - basePrice * discount / 100;
+        }
+        else {
+            finalPrice = basePrice - discount;
+        }
+
+        return finalPrice;
+    }
+
+    static fromOrderCreation(orderCreation) {
+        const {customer, products, menu} = orderCreation;
+
+        const order = new Order();
+
+        order.final_price = Order.calculatePrice(orderCreation);
+
+        if(customer){
+            // order.customer = customer; // useless
+            order.customer_id = customer.id;
+        }
+
+        if(menu){
+            // order.menu = menu; // useless
+            order.menu_id = menu.id;
+        }
+
+        order.products = orderCreation.products;
+
+        return order;
+    }
+
     static async isValid(orderCreation) {
         const { menu, products } = orderCreation;
 

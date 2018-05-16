@@ -129,7 +129,7 @@ class CustomerList extends React.Component {
                     <div className="flex justify-between my-4">
                         <OrderCreationSelect
                             className="mr-3"
-                            items={Customer.DEPARTMENTS}
+                            items={Object.values(Customer.DEPARTMENTS)}
                             onChange={this.handleDepartmentSelectChange}
                             allValue="*"
                             allText={lang('allDepartments', upperFirstLetter)}
@@ -137,7 +137,7 @@ class CustomerList extends React.Component {
 
                         <OrderCreationSelect
                             className="ml-3"
-                            items={Customer.YEARS}
+                            items={Object.values(Customer.YEARS)}
                             onChange={this.handleYearSelectChange}
                             allValue="*"
                             allText={lang('allYears', upperFirstLetter)}

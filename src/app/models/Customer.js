@@ -2,13 +2,27 @@ import BaseModel from '../../libs/BaseModel';
 import Group from './Group';
 import Order from './Order';
 
-const yearOrder = ['PEIP', 'THIRD', 'FOURTH', 'FIFTH', 'PHD', 'PROFESSOR', 'OTHER'];
-const departmentsOrder = ['DI', 'DII', 'PEIP', 'DMS', 'DEE', 'DAE', 'OTHER'];
-
 export default class Customer extends BaseModel {
 
-    static DEPARTMENTS = departmentsOrder;
-    static YEARS = yearOrder;
+    static DEPARTMENTS = {
+        DI: 'DI',
+        DII: 'DII',
+        PEIP: 'PEIP',
+        DEE: 'DEE',
+        DMS: 'DMS',
+        DAE: 'DAE',
+        OTHER: 'OTHER',
+    }
+
+    static YEARS = {
+        PEIP: 'PEIP',
+        THIRD: 'THIRD',
+        FOURTH: 'FOURTH',
+        FIFTH: 'FIFTH',
+        PHD: 'PHD',
+        PROFESSOR: 'PROFESSOR',
+        OTHER: 'OTHER',
+    }
 
     getFields() {
         return ['id', 'name', 'email', 'balance', 'year', 'department'];
@@ -41,12 +55,15 @@ export default class Customer extends BaseModel {
         if(!customers)
             return [];
 
-        return customers.sort((a, b) => {
-            const aYear = yearOrder.indexOf(a.year);
-            const bYear = yearOrder.indexOf(b.year);
+        const years = Object.values(Customer.YEARS);
+        const departments = Object.values(Customer.DEPARTMENTS);
 
-            const aDep = departmentsOrder.indexOf(a.department);
-            const bDep = departmentsOrder.indexOf(b.department);
+        return customers.sort((a, b) => {
+            const aYear = years.indexOf(a.year);
+            const bYear = years.indexOf(b.year);
+
+            const aDep = departments.indexOf(a.department);
+            const bDep = departments.indexOf(b.department);
 
             if (aDep !== bDep) {
                 return aDep - bDep;
@@ -62,16 +79,20 @@ export default class Customer extends BaseModel {
 
     static customersToDepartmentYearCustomerList(customers) {
         const departments = {};
-        for (let i = 0; i < departmentsOrder.length; i++) {
+
+        const yearList = Object.values(Customer.YEARS);
+        const departmentList = Object.values(Customer.DEPARTMENTS);
+
+        for (let i = 0; i < departmentList.length; i++) {
             const depI = {
-                department: departmentsOrder[i],
+                department: departmentList[i],
                 years: {},
                 nbCustomers: 0,
             };
 
-            for (let j = 0; j < yearOrder.length; j++) {
+            for (let j = 0; j < yearList.length; j++) {
                 depI.years[j] = {
-                    year: yearOrder[j],
+                    year: yearList[j],
                     customers: [],
                 };
             }
@@ -86,9 +107,9 @@ export default class Customer extends BaseModel {
         for (const c of customers) {
             const { department, year } = c;
 
-            const _dep = departments[departmentsOrder.indexOf(department)];
+            const _dep = departments[departmentList.indexOf(department)];
             const _years = _dep.years;
-            const _year = _years[yearOrder.indexOf(year)];
+            const _year = _years[yearList.indexOf(year)];
             const _customers = _year.customers;
 
             _dep.nbCustomers++;

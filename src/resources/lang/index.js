@@ -51,8 +51,9 @@ export function langThousandSeparator() {
     }
 }
 
-export function langFormatDate(date, format){
-    return date.format(DateTimeFormatter.ofPattern(format));
+export function langFormatDate(date, formatter){
+    debugger;
+    return 'd';
 }
 
 export {TRANSLATIONS};

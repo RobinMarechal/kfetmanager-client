@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import lang from '../../../resources/lang';
 import { formatNumber, upperFirstLetter } from '../../../libs/helpers';
 import classNames from 'classnames';
+import {Link} from 'react-router-dom';
+import Order from '../../models/Order';
 
 class OrderCreationSummary extends React.Component {
     render() {
-        let { customer, menu, products, discount, validated } = this.props.orderCreation;
+        const { orderCreation, onSubmit } = this.props;
+        let { customer, menu, products, discount, validated } = orderCreation;
 
         const customerName = customer.id ? customer.name : '-';
         const menuName = menu.id ? menu.name : '-';
@@ -19,21 +22,15 @@ class OrderCreationSummary extends React.Component {
             basePrice = products.map(p => p.price).reduce((acc, val) => acc + val);
         }
 
-        let formattedDiscount = discount;
-        let finalPrice = basePrice;
+        const finalPrice = Order.calculatePrice(orderCreation);
+        let symbol = '€';
 
-        if (discount === '' || discount === '-' || discount === '.' || discount === '-.') {
-            discount = '0';
+        if (discount[discount.length - 1] === '%') {
+            symbol = '%';
+            discount = discount.substring(0, discount.length - 1);
         }
 
-        if (discount.endsWith('%')) {
-            const numberValue = discount.substring(0, discount.length - 1);
-            formattedDiscount = formatNumber(numberValue, 2) + '%';
-            finalPrice = basePrice - basePrice * numberValue / 100;
-        } else {
-            formattedDiscount = formatNumber(discount, 2) + '€';
-            finalPrice = basePrice - discount;
-        }
+        const formattedDiscount = formatNumber(discount, 2) + symbol
 
         return (
             <div className="p-4 ml-3 w-1/3 text-grey-darkest rounded shadow-md flex flex-col justify-start">
@@ -115,6 +112,7 @@ class OrderCreationSummary extends React.Component {
                         'bg-purple-lighter': !validated,
                         'cursor-not-allowed': !validated,
                     })}
+                        onClick={onSubmit}
                 >
                     {lang('submitOrder')}
                 </button>

@@ -4,6 +4,7 @@ import lang, { langFormatDate } from '../../../../resources/lang/index';
 import { capitalize, formatNumber } from '../../../../libs/helpers';
 import { connect } from 'react-redux';
 import { faPlus, faSyncAlt } from '@fortawesome/fontawesome-free-solid/index';
+import { DateTimeFormatter } from 'js-joda';
 
 class OrdersPanel extends React.Component {
 
@@ -25,7 +26,8 @@ class OrdersPanel extends React.Component {
                     formatNumber(final_price, 2) + "€",
                 ],
                 baseData: order,
-                footer: langFormatDate(created_at, lang('dateTimeFormat')),
+                footer: created_at.toString().replace('T', ' '),
+                // footer: langFormatDate(created_at, lang('dateTimeFormat')),
             };
 
             if (customer_id) {

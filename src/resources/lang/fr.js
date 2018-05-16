@@ -1,4 +1,5 @@
 import { TRANSLATIONS } from './translations';
+import { DateTimeFormatter } from 'js-joda';
 
 export default function loadFrench() {
 
@@ -13,11 +14,6 @@ export default function loadFrench() {
         home: 'accueil',
         about: 'à propos',
         lastOrders: "dernières commandes",
-        dateTimeFormat: "dd/MM/yyyy 'à' HH'h'mm",
-        timeFormat: "HH'h'mm",
-        dateTimeFormatWithSeconds: "dd/MM/yyyy 'à' HH':'mm':'ss",
-        timeFormatWithSeconds: "HH':'mm':'ss",
-        dateFormat: "dd/MM/yyyy",
         customer: 'client',
         newCustomer: 'nouveau client',
         product: 'produit',
@@ -54,6 +50,12 @@ export default function loadFrench() {
         basePrice: 'prix de base',
         discount: 'réduction',
         finalPrice: 'prix final',
+
+        dateTimeFormat: DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH'h'mm"),
+        timeFormat: DateTimeFormatter.ofPattern("HH'h'mm"),
+        dateTimeFormatWithSeconds: DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH':'mm':'ss"),
+        timeFormatWithSeconds: DateTimeFormatter.ofPattern("HH':'mm':'ss"),
+        dateFormat: DateTimeFormatter.ofPattern("dd/MM/yyyy"),
 
     };
 

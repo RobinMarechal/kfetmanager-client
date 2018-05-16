@@ -1,4 +1,5 @@
 import { TRANSLATIONS } from './translations';
+import { DateTimeFormatter } from 'js-joda';
 
 export default function loadEnglish() {
 
@@ -13,11 +14,6 @@ export default function loadEnglish() {
         home: 'home',
         about: 'about',
         lastOrders: "last orders",
-        dateTimeFormat: "dd-MM-yyyy 'at' HH':'mm",
-        timeFormat: "HH':'mm",
-        dateTimeFormatWithSeconds: "dd-MM-yyyy 'at' HH:mm:ss",
-        timeFormatWithSeconds: "HH:mm:ss",
-        dateFormat: "dd-MM-yyyy",
         customer: 'customer',
         newCustomer: 'new customer',
         product: 'product',
@@ -54,6 +50,12 @@ export default function loadEnglish() {
         basePrice: 'base price',
         discount: 'discount',
         finalPrice: 'final price',
+
+        dateTimeFormat: DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' HH':'mm"),
+        timeFormat: DateTimeFormatter.ofPattern("HH':'mm"),
+        dateTimeFormatWithSeconds: DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' HH:mm:ss"),
+        timeFormatWithSeconds: DateTimeFormatter.ofPattern("HH:mm:ss"),
+        dateFormat: DateTimeFormatter.ofPattern("dd-MM-yyyy"),
     };
 
 }
