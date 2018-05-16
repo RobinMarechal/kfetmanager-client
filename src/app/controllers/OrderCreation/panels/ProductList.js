@@ -20,6 +20,7 @@ import OrderCreationBreadcrumb from '../../../containers/orderCreation/common/Or
 import { orderValidated } from '../../../actions/models/orders';
 import OrderCreation from '../OrderCreation';
 import { revalidateOrder } from '../../../reducers/orders/orderCreationReducer';
+import Order from '../../../models/Order';
 
 class ProductList extends React.Component {
     constructor(props) {
@@ -133,7 +134,7 @@ class ProductList extends React.Component {
 
     async itemSelectionHandler(clickedProduct, category) {
         const { orderCreation, productClicked, orderValidated } = this.props;
-        const { menu, products: alreadySelectedProducts } = orderCreation;
+        const { menu, products: alreadySelectedProducts, validated } = orderCreation;
 
         if (alreadySelectedProducts.length === 0 || alreadySelectedProducts.map(p => p.id).includes(clickedProduct.id)) {
             // Deselection or first selection: nothing to check
@@ -179,7 +180,10 @@ class ProductList extends React.Component {
             }
         }
 
-        await revalidateOrder(orderCreation, orderValidated);
+        const isValid = await Order.isValid(orderCreation);
+        if (isValid !== validated) {
+            orderValidated(isValid);
+        }
     }
 }
 

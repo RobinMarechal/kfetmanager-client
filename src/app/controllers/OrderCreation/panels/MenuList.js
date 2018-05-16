@@ -12,7 +12,6 @@ import OrderCreationFooter from '../../../containers/orderCreation/common/OrderC
 import OrderCreationContainer from '../../../containers/orderCreation/common/OrderCreationContainer';
 import { bindActionCreators } from 'redux';
 import OrderCreationBreadcrumb, { BREADCRUMB_MENU } from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
-import { revalidateOrder } from '../../../reducers/orders/orderCreationReducer';
 import { orderValidated } from '../../../actions/models/orders';
 
 class MenuList extends React.Component {
@@ -119,7 +118,18 @@ class MenuList extends React.Component {
         const { orderCreation, menuClicked, orderValidated } = this.props;
 
         menuClicked(menu);
-        await revalidateOrder(orderCreation, orderValidated);
+
+        // orderCreation is not updated here yet
+
+        // Selection of a menu and no one was selected before
+        // OR Selection of a menu but another one was selected before
+        if (orderCreation.menu.id !== menu.id) {
+            orderValidated(false);
+        }
+        // Deselection of the selected menu
+        else {
+            orderValidated();
+        }
     }
 
     handleInputChange(event) {
