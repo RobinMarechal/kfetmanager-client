@@ -54,7 +54,13 @@ export default function orderCreationReducer(state = initialState, action) {
             };
 
         case CLEAR_ORDER_CREATION:
-            return initialState;
+            return {
+                customer: {},
+                menu: {},
+                products: [],
+                discount: '',
+                validated: false,
+            };
 
         default:
             // ALWAYS have a default case in a reducer

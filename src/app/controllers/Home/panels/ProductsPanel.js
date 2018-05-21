@@ -3,7 +3,8 @@ import Panel from '../../../components/panel/Panel';
 import lang from '../../../../resources/lang/index';
 import { capitalize, stringPlural } from '../../../../libs/helpers';
 import { connect } from 'react-redux';
-import { faPlus, faSyncAlt } from '@fortawesome/fontawesome-free-solid/index';
+import { faSyncAlt } from '@fortawesome/fontawesome-free-solid/index';
+import { faCog } from '@fortawesome/fontawesome-free-solid/index.es';
 
 class ProductsPanel extends React.Component {
 
@@ -30,14 +31,15 @@ class ProductsPanel extends React.Component {
             title: lang("product", stringPlural, capitalize),
             buttons: [
                 {
+                    icon: faCog,
+                    link: 'manage-products',
+                    tooltip: 'manageCustomers'
+
+                },
+                {
                     icon: faSyncAlt,
                     onClick: onSync,
                     tooltip: 'refresh',
-                },
-                {
-                    icon: faPlus,
-                    onClick: this.addCustomerButtonHandler,
-                    tooltip: 'newCustomer',
                 },
             ],
         };

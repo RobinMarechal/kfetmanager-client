@@ -3,7 +3,7 @@ import TreasuryState from './TreasuryState';
 import ServerState from './ServerState';
 import Treasury from '../../models/Treasury';
 import { connect } from 'react-redux';
-import { fetchTreasuryBegin, fetchTreasuryError } from '../../actions/models/treasury';
+import { fetchTreasuryBegin, fetchTreasuryError } from '../../actions/models/treasury/index';
 import { fetchTreasurySuccess } from '../../actions/models/treasury/fetchActions';
 import { formatNumber } from '../../../libs/helpers';
 

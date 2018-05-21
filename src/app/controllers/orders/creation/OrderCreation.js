@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import CustomerList from './panels/CustomerList';
 import MenuList from './panels/MenuList';
 import ProductList from './panels/ProductList';
-import OrderCreationSummary from '../../containers/orderCreation/OrderCreationSummary';
+import OrderCreationSummary from '../../../components/orders/orderCreation/OrderCreationSummary';
 import * as ReactDOM from 'react-dom';
 import DiscountSelection from './panels/DiscountSelection';
 import { Redirect } from 'react-router-dom';
-import Order from '../../models/Order';
+import Order from '../../../models/Order';
+import { clearOrderCreation } from '../../../actions/models/orders';
+import { bindActionCreators } from 'redux';
 
 const CUSTOMER_SELECTION = 1;
 const MENU_SELECTION = 2;
@@ -111,8 +113,9 @@ class OrderCreation extends React.Component {
     async submit() {
         const { orderCreation } = this.props;
 
-        if(!Order.isValid(orderCreation)){
-            console.error("Couldn't create the order. This should not happen");
+        const isValid = await Order.isValid(orderCreation);
+        if(!isValid){
+            // console.error("Couldn't create the order. This should not happen");
             return false;
         }
 
@@ -132,6 +135,7 @@ class OrderCreation extends React.Component {
             // We wait for all the requests to finish
             await Promise.all(promises);
 
+            this.props.clearOrderCreation();
         }
         catch(e){
             console.error('The attachment of at least one product to the order failed:');
@@ -149,4 +153,12 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(OrderCreation);
+function mapDispatchToProps(dispatch){
+    return {
+        ...bindActionCreators({
+            clearOrderCreation
+        }, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderCreation);

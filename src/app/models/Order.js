@@ -77,7 +77,7 @@ export default class Order extends BaseModel {
     }
 
     static fromOrderCreation(orderCreation) {
-        const {customer, products, menu} = orderCreation;
+        const {customer, menu} = orderCreation;
 
         const order = new Order();
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import lang from '../../../resources/lang';
+import lang from '../../../resources/lang/index';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faCopyright } from '@fortawesome/fontawesome-free-regular/index';
 import { upperFirstLetter } from '../../../libs/helpers';

@@ -34,6 +34,14 @@ export default function loadFrench() {
         selectedProducts: 'produits sélectionnés',
         selectedDiscount: 'réduction sélectionnée',
 
+        price: 'prix',
+
+        manageProducts: 'gérer les produits',
+        manageCustomers: 'gérer les clients',
+        manageTreasury: 'gérer la trésorerie',
+
+        orderHistory: 'historique des commandes',
+
         submitOrder: 'valider la commande',
 
         PEIP: 'PEIP',
@@ -57,6 +65,15 @@ export default function loadFrench() {
         timeFormatWithSeconds: DateTimeFormatter.ofPattern("HH':'mm':'ss"),
         dateFormat: DateTimeFormatter.ofPattern("dd/MM/yyyy"),
 
+        customDateFormat: '{d}/{m}/{Y}',
+        customTimeFormat: '{H}:{i}',
+        customDatetimeFormat: '{d}/{m}/{Y} à {H}:{i}',
+        orderHistoryDateTimeFormat: '{D} {d} {M} - {HH}:{i}',
+
+        daysOfWeek: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
+        shortDaysOfWeek: ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.'],
+        months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        shortMonths: ['Jan.', 'Fév.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Août', 'Sep.', 'Oct.', 'Nov.', 'Déc.'],
     };
 
 }

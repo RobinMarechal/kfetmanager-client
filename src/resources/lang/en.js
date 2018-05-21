@@ -34,6 +34,14 @@ export default function loadEnglish() {
         selectedProducts: 'selected products',
         selectedDiscount: 'selected discount',
 
+        price: 'price',
+
+        manageProducts: 'manage products',
+        manageCustomers: 'manage customers',
+        manageTreasury: 'manage the treasury',
+
+        orderHistory: 'order history',
+
         submitOrder: 'submit the order',
 
         PEIP: 'PEIP',
@@ -56,6 +64,16 @@ export default function loadEnglish() {
         dateTimeFormatWithSeconds: DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' HH:mm:ss"),
         timeFormatWithSeconds: DateTimeFormatter.ofPattern("HH:mm:ss"),
         dateFormat: DateTimeFormatter.ofPattern("dd-MM-yyyy"),
+
+        customDateFormat: 'd-m-Y',
+        customTimeFormat: 'h:i',
+        customDateTimeFormat: 'd-m-Y at h:i',
+        orderHistoryDateTimeFormat: '{D} {d} {M} - {H}:{i}{pmam}',
+
+        daysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        shortDaysOfWeek: ['Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.', 'Sun.'],
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        shortMonths: ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
     };
 
 }

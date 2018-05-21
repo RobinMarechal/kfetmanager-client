@@ -1,19 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { upperFirstLetter } from '../../../../libs/helpers';
-import lang from '../../../../resources/lang/index';
-import Customer from '../../../models/Customer';
-import CustomerListDepartmentGroup from '../../../containers/orderCreation/customer/CustomerListDepartmentGroup';
-import '../../../../resources/css/style.css';
-import { customerClicked, fetchCustomerBegin, fetchCustomerError, fetchCustomerSuccess } from '../../../actions/models/customers';
-import Error from '../../../components/utility/Error';
+import { customerClicked, fetchCustomerBegin, fetchCustomerError, fetchCustomerSuccess } from '../../../../actions/models/customers';
+import Customer from '../../../../models/Customer';
+import Error from '../../../../components/utility/Error';
+import CustomerListDepartmentGroup from '../../../../components/orders/orderCreation/customer/CustomerListDepartmentGroup';
+import OrderCreationContainer from '../../../../components/orders/orderCreation/common/OrderCreationContainer';
+import OrderCreationBreadcrumb, { BREADCRUMB_CUSTOMER } from '../../../../components/orders/orderCreation/common/OrderCreationBreadcrumb';
+import OrderCreationTitle from '../../../../components/orders/orderCreation/common/OrderCreationTitle';
+import OrderCreationSearchBar from '../../../../components/orders/orderCreation/common/OrderCreationSearchBar';
+import { upperFirstLetter } from '../../../../../libs/helpers';
+import OrderCreationSelect from '../../../../components/orders/orderCreation/common/OrderCreationSelect';
+import OrderCreationFooter from '../../../../components/orders/orderCreation/common/OrderCreationFooter';
+import lang from '../../../../../resources/lang';
 import { bindActionCreators } from 'redux';
-import OrderCreationContainer from '../../../containers/orderCreation/common/OrderCreationContainer';
-import OrderCreationTitle from '../../../containers/orderCreation/common/OrderCreationTitle';
-import OrderCreationSearchBar from '../../../containers/orderCreation/common/OrderCreationSearchBar';
-import OrderCreationSelect from '../../../containers/orderCreation/common/OrderCreationSelect';
-import OrderCreationFooter from '../../../containers/orderCreation/common/OrderCreationFooter';
-import OrderCreationBreadcrumb, { BREADCRUMB_CUSTOMER } from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
+import { connect } from 'react-redux';
 
 class CustomerList extends React.Component {
 

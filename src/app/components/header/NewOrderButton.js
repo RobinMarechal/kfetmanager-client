@@ -2,22 +2,8 @@ import React from 'react';
 import { langUpperFirstLetter } from '../../../resources/lang/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createOrder } from '../../actions/models/orders';
-import Modal from 'react-modal';
+import { createOrder } from '../../actions/models/orders/index';
 import { Link } from 'react-router-dom';
-
-Modal.setAppElement('#root');
-
-// const customStyles = {
-//     content: {
-//         top: '30%',
-//         right: 'auto',
-//         bottom: 'auto',
-//         marginRight: '-50%',
-//         // transform: 'translate(-50%, -50%)',
-//
-//     },
-// };
 
 class NewOrderButton extends React.Component {
     constructor(props) {

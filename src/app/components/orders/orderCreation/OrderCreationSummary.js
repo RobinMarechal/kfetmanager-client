@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import lang from '../../../resources/lang';
-import { formatNumber, upperFirstLetter } from '../../../libs/helpers';
+import lang from '../../../../resources/lang/index';
+import { formatNumber, upperFirstLetter } from '../../../../libs/helpers';
 import classNames from 'classnames';
-import {Link} from 'react-router-dom';
-import Order from '../../models/Order';
+import Order from '../../../models/Order';
 
 class OrderCreationSummary extends React.Component {
     render() {

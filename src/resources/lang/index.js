@@ -3,7 +3,6 @@ import loadFrench from './fr';
 import { TRANSLATIONS } from './translations';
 import Config from '../../libs/Config';
 import { capitalize, upperFirstLetter } from '../../libs/helpers';
-import { DateTimeFormatter } from 'js-joda';
 
 
 loadEnglish();

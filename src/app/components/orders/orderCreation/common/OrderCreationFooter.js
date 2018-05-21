@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import lang from '../../../../resources/lang';
+import lang from '../../../../../resources/lang/index';
 
 function OrderCreationFooter(props) {
     const { title, name } = props;

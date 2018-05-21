@@ -3,7 +3,7 @@ import PanelInfo from './PanelInfo';
 import _ from 'lodash';
 
 export default function PanelItem(props) {
-    const {rightInfo, leftInfo, colorFunction, hoverClass, onClick, footer} = props;
+    const { rightInfo, leftInfo, colorFunction, hoverClass, onClick, footer } = props;
 
     const color = colorFunction && _.isFunction(colorFunction) ? "text-" + colorFunction() : '';
 
@@ -20,7 +20,7 @@ export default function PanelItem(props) {
 
     return (
         <div
-            className={"border-t px-4 py-2" + (hoverClass ? ' hover:' + hoverClass : '')}
+            className={"first-child-no-border-top border-t px-4 py-2" + (hoverClass ? ' hover:' + hoverClass : '')}
             onClick={onClick}>
             <div className={"flex justify-between flex-row" + (_.isFunction(onClick) ? ' cursor-pointer' : '')}>
                 <div className="w-3/4 flex justify-around flex-col">

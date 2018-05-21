@@ -1,10 +1,10 @@
 import React from 'react';
 import Panel from '../../../components/panel/Panel';
-import lang, { langFormatDate } from '../../../../resources/lang/index';
+import lang from '../../../../resources/lang/index';
 import { capitalize, formatNumber } from '../../../../libs/helpers';
 import { connect } from 'react-redux';
 import { faPlus, faSyncAlt } from '@fortawesome/fontawesome-free-solid/index';
-import { DateTimeFormatter } from 'js-joda';
+import { faHistory } from '@fortawesome/fontawesome-free-solid/index.es';
 
 class OrdersPanel extends React.Component {
 
@@ -12,7 +12,6 @@ class OrdersPanel extends React.Component {
         super(props);
 
         this.refreshButtonHandler.bind(this);
-        this.addOrderButtonHandler.bind(this);
         this.showOrderDetailsHandler.bind(this);
     }
 
@@ -58,6 +57,7 @@ class OrdersPanel extends React.Component {
 
         return {
             title: lang("lastOrders", capitalize),
+            link: 'azbc',
             buttons: [
                 {
                     icon: faSyncAlt,
@@ -66,8 +66,14 @@ class OrdersPanel extends React.Component {
                 },
                 {
                     icon: faPlus,
-                    onClick: this.addOrderButtonHandler,
-                    tooltip: 'newCustomer',
+                    tooltip: 'newOrder',
+                    link: 'new-order'
+                },
+                {
+                    icon: faHistory,
+                    link: 'order-history',
+                    tooltip: 'orderHistory'
+
                 },
             ],
         };
@@ -104,10 +110,6 @@ class OrdersPanel extends React.Component {
                 <Panel titleProps={titleProps} itemsProps={itemsProps}/>
             );
         }
-    }
-
-    addOrderButtonHandler(event) {
-        console.log('add', event);
     }
 
     showOrderDetailsHandler(event) {

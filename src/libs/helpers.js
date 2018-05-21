@@ -1,4 +1,5 @@
 import { langDecimalSeparator, langThousandSeparator } from '../resources/lang/index';
+import lang from '../resources/lang';
 
 /**
  *
@@ -38,7 +39,7 @@ export function isEmpty(obj) {
  * @param {Number} digits
  * @returns {string}
  */
-export function formatNumber(price, digits) {
+export function formatNumber(price, digits = 2) {
     let string = price + '';
     if (!string.includes('.'))
         string += '.0';
@@ -166,3 +167,62 @@ export function arraysEqual(a, b) {
     }
     return true;
 };
+
+
+/**
+ *
+ * @param {LocalDate|LocalDateTime|LocalTime} date
+ * @param {string} format. Each format value must be rounded by {}. Ex: {d}-{m}-{Y}
+ *     Formats: <br/>
+ *     - d: day of week number (2 digits)
+ *     - D: short day of week name (eg mon., tue. ...)
+ *     - DD: long day of week name (eg monday, tuesday)
+ *     - m: month number (2 digits, from 1 to 12)
+ *     - M: short month name (eg jan., feb. ...)
+ *     - MM: long month name (eg january, february ...)
+ *     - Y: year (eg 2018)
+ *     - H: hour (2 digits, modulo 12)
+ *     - HH: hour (2 digits, modulo 24)
+ *     - i: minutes (2 digits)
+ *     - s: seconds (2 digits)
+ *     - pmam: PM/AM
+ *
+ * @returns {string} formatted date/datetime/time
+ */
+export function customDateFormat(date, format) {
+    const daysOfWeek = lang('daysOfWeek');
+    const shortDaysOfWeek = lang('shortDaysOfWeek');
+    const months = lang('months');
+    const shortMonths = lang('shortMonths');
+
+    const format2Digits = (value) => {
+        return value < 10 ? "0" + value : value;
+    };
+
+    if (format.match(/\{[dDmMY]+\}/)) {
+        const dayOfWeek = date.dayOfWeek().value() - 1;
+        format = format.replace('{DD}', daysOfWeek[dayOfWeek])
+        format = format.replace('{D}', shortDaysOfWeek[dayOfWeek])
+        format = format.replace('{d}', format2Digits(date.dayOfMonth()));
+
+        const month = date.monthValue() - 1;
+        format = format.replace('{MM}', months[month]);
+        format = format.replace('{M}', shortMonths[month]);
+        format = format.replace('{m}', format2Digits(month + 1));
+
+        format = format.replace('{Y}', date.year());
+    }
+
+    if (format.match(/\{[His]+\}/)) {
+        const hour = date.hour();
+        format = format.replace('{HH}', format2Digits(hour));
+        format = format.replace('{H}', format2Digits(hour % 12));
+
+        format = format.replace('{i}', format2Digits(date.minute()));
+        format = format.replace('{s}', format2Digits(date.second()));
+
+        format = format.replace('{pmam}', hour > 12 ? 'pm' : 'am')
+    }
+
+    return format;
+}

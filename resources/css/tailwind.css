@@ -50,4 +50,32 @@
     transform: scaleX(10)
 }
 
-/* Here we can add our own utilities or custom CSS */
+.table-layout-fixed {
+    table-layout: fixed;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    width: 0;
+}
+
+*::-webkit-scrollbar {
+    background-color: #F5F5F5;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(60, 60, 60, 0.6);
+    border-radius: 5px;
+}
+
+*::-webkit-scrollbar:horizontal{
+    height:6px;
+}
+
+*::-webkit-scrollbar:vertical{
+    width: 6px;
+}
+
+.rounded-scrollbar::-webkit-scrollbar{
+    border-radius: 5px;
+}
+

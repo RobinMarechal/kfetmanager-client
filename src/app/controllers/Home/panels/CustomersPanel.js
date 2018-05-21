@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { customerClicked } from '../../../actions/models/customers/index';
 import { faPlus, faSyncAlt } from '@fortawesome/fontawesome-free-solid';
+import { faCog } from '@fortawesome/fontawesome-free-solid/index.es';
 
 class CustomersPanel extends React.Component {
 
@@ -36,8 +37,14 @@ class CustomersPanel extends React.Component {
                 },
                 {
                     icon: faPlus,
-                    onClick: this.addCustomerButtonHandler,
+                    onClick: this.manageProductsButtonHandler,
                     tooltip: 'newCustomer',
+                },
+                {
+                    icon: faCog,
+                    link: 'manage-customers',
+                    tooltip: 'manageCustomers'
+
                 },
             ],
         };
@@ -75,7 +82,7 @@ class CustomersPanel extends React.Component {
         }
     }
 
-    addCustomerButtonHandler(event) {
+    manageProductsButtonHandler(event) {
         console.log('add', event);
     }
 

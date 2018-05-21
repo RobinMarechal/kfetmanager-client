@@ -9,8 +9,9 @@ import selectedCustomerReducer from './customers/selectedCustomerReducer';
 import searchReducer from './searchReducer';
 import orderCreationReducer from './orders/orderCreationReducer';
 import selectedMenuReducer from './menus/selectedMenuReducer';
+import { CLEAR_REDUCERS } from '../actions/clearReducers';
 
-const allReducers = combineReducers({
+const appReducer = combineReducers({
     customers: customersReducer,
     orders: ordersReducer,
     products: productsReducer,
@@ -23,4 +24,12 @@ const allReducers = combineReducers({
     selectedMenu: selectedMenuReducer,
 });
 
-export default allReducers;
+const rootReducer = (state, action) => {
+    if (action.type === CLEAR_REDUCERS) {
+        state = undefined;
+    }
+
+    return appReducer(state, action);
+};
+
+export default rootReducer;

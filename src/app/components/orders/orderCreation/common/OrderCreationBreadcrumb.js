@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import lang from '../../../../resources/lang';
+import lang from '../../../../../resources/lang/index';
 
 export const BREADCRUMB_CUSTOMER = 0;
 export const BREADCRUMB_MENU = 1;

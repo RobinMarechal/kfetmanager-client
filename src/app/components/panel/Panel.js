@@ -18,13 +18,13 @@ export default class Panel extends React.Component {
 
         if (items.length === 0) {
             return (
-                <div className="border-t px-4 py-2 text-center">
+                <div className="px-4 py-2 text-center">
                     -
                 </div>
             );
         }
 
-        return items.map(({ left, right, baseData, footer }) => <PanelItem key={baseData.id}
+        return items.map(({ left, right, baseData, footer }, i) => <PanelItem key={i}
                                                                            leftInfo={left}
                                                                            rightInfo={right}
                                                                            baseData={baseData}
@@ -36,7 +36,7 @@ export default class Panel extends React.Component {
 
     render() {
         const { titleProps, itemsProps, loading, error } = this.props;
-        const { buttons, title } = titleProps;
+        const { buttons, title, link } = titleProps;
 
         let body;
 
@@ -52,7 +52,7 @@ export default class Panel extends React.Component {
 
         return (
             <div className="rounded shadow-md text-grey-darker">
-                <PanelTitle buttons={buttons} title={title}/>
+                <PanelTitle buttons={buttons} title={title} link={link}/>
 
                 <div className="PanelItems">
                     {body}

@@ -1,14 +1,13 @@
 import React from 'react';
-import { formatNumber, upperFirstLetter } from '../../../../libs/helpers';
-import lang from '../../../../resources/lang';
-import OrderCreationContainer from '../../../containers/orderCreation/common/OrderCreationContainer';
-import OrderCreationTitle from '../../../containers/orderCreation/common/OrderCreationTitle';
-import OrderCreationFooter from '../../../containers/orderCreation/common/OrderCreationFooter';
+import { formatNumber, upperFirstLetter } from '../../../../../libs/helpers';
+import lang from '../../../../../resources/lang/index';
+import OrderCreationContainer from '../../../../components/orders/orderCreation/common/OrderCreationContainer';
+import OrderCreationTitle from '../../../../components/orders/orderCreation/common/OrderCreationTitle';
+import OrderCreationFooter from '../../../../components/orders/orderCreation/common/OrderCreationFooter';
 import { bindActionCreators } from 'redux';
-import { discountChanged } from '../../../actions/models/orders';
+import { discountChanged } from '../../../../actions/models/orders/index';
 import { connect } from 'react-redux';
-import { BREADCRUMB_CUSTOMER, BREADCRUMB_DISCOUNT } from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
-import OrderCreationBreadcrumb from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
+import OrderCreationBreadcrumb, { BREADCRUMB_DISCOUNT } from '../../../../components/orders/orderCreation/common/OrderCreationBreadcrumb';
 
 class DiscountSelection extends React.Component {
     constructor(props) {

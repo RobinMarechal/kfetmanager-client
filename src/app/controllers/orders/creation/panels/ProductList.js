@@ -1,26 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import lang from '../../../../resources/lang/index';
-import { arraysEqual, upperFirstLetter } from '../../../../libs/helpers';
-import Menu from '../../../models/Menu';
-import Category from '../../../models/Category';
-import { fetchCategoryBegin, fetchCategoryError } from '../../../actions/models/categories/index';
-import { fetchCategorySuccess } from '../../../actions/models/categories/fetchActions';
-import OrderCreationContainer from '../../../containers/orderCreation/common/OrderCreationContainer';
-import OrderCreationTitle from '../../../containers/orderCreation/common/OrderCreationTitle';
-import OrderCreationSearchBar from '../../../containers/orderCreation/common/OrderCreationSearchBar';
-import OrderCreationFooter from '../../../containers/orderCreation/common/OrderCreationFooter';
-import Error from '../../../components/utility/Error';
-import ProductListCategoryGroup from '../../../containers/orderCreation/products/ProductListCategoryGroup';
-import Product from '../../../models/Product';
+import lang from '../../../../../resources/lang/index';
+import { upperFirstLetter } from '../../../../../libs/helpers';
+import Menu from '../../../../models/Menu';
+import Category from '../../../../models/Category';
+import { fetchCategoryBegin, fetchCategoryError } from '../../../../actions/models/categories/index';
+import { fetchCategorySuccess } from '../../../../actions/models/categories/fetchActions';
+import OrderCreationContainer from '../../../../components/orders/orderCreation/common/OrderCreationContainer';
+import OrderCreationTitle from '../../../../components/orders/orderCreation/common/OrderCreationTitle';
+import OrderCreationSearchBar from '../../../../components/orders/orderCreation/common/OrderCreationSearchBar';
+import OrderCreationFooter from '../../../../components/orders/orderCreation/common/OrderCreationFooter';
+import Error from '../../../../components/utility/Error';
+import ProductListCategoryGroup from '../../../../components/orders/orderCreation/products/ProductListCategoryGroup';
+import Product from '../../../../models/Product';
 import { bindActionCreators } from 'redux';
-import { productClicked } from '../../../actions/models/products/index';
-import { BREADCRUMB_CUSTOMER, BREADCRUMB_PRODUCTS } from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
-import OrderCreationBreadcrumb from '../../../containers/orderCreation/common/OrderCreationBreadcrumb';
-import { orderValidated } from '../../../actions/models/orders';
-import OrderCreation from '../OrderCreation';
-import { revalidateOrder } from '../../../reducers/orders/orderCreationReducer';
-import Order from '../../../models/Order';
+import { productClicked } from '../../../../actions/models/products/index';
+import OrderCreationBreadcrumb, { BREADCRUMB_PRODUCTS } from '../../../../components/orders/orderCreation/common/OrderCreationBreadcrumb';
+import { orderValidated } from '../../../../actions/models/orders/index';
+import Order from '../../../../models/Order';
 
 class ProductList extends React.Component {
     constructor(props) {

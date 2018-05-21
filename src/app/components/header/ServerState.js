@@ -1,5 +1,5 @@
 import React from 'react';
-import lang from '../../../resources/lang';
+import lang from '../../../resources/lang/index';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/fontawesome-free-solid/index';
 import classNames from 'classnames';

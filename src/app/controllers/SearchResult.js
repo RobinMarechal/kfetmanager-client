@@ -1,9 +1,8 @@
 import React from 'react';
-import * as qs from 'query-string';
 
 export default function SearchResult(props) {
-    const {q} = qs.parse(props.location.search);
-
+    // const {q} = qs.parse(props.location.search);
+    const q = "hello";
     return (
         <p>{q}</p>
     );

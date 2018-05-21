@@ -1,5 +1,5 @@
 import React from 'react';
-import Config from '../../../../libs/Config';
+import Config from '../../../../../libs/Config';
 
 export default function OrderCreationContainer(props) {
     const { children } = props;
