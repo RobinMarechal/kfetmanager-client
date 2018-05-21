@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 export default function Footer(props) {
     return (
         <nav
-            className="text-center flex items-center justify-between flex-wrap px-6 bg-purple-darker text-grey absolute bottom pin-b w-full h-12">
+            className="text-center flex items-center justify-between flex-wrap px-6 bg-purple-darker text-grey fixed pin-b w-full h-12">
             <div className="w-1/3">
                 <Link className="text-grey hover:text-grey-light no-underline hover:underline" to="/">
                     {upperFirstLetter(lang('home'))}

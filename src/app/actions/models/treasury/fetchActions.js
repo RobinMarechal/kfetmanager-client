@@ -17,7 +17,7 @@ export function fetchTreasurySuccess(treasury) {
     };
 }
 
-export function fetchTreasuryError(error) {
+export function fetchTreasuryError(error = true) {
     return {
         type: FETCH_TREASURY_FAILURE,
         payload: {error},

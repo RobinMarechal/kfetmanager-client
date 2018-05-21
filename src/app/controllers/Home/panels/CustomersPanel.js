@@ -89,10 +89,6 @@ class CustomersPanel extends React.Component {
     showCustomerDetailsHandler(event) {
         console.log('show', event);
     }
-
-    refresh() {
-
-    }
 }
 
 function mapStateToProps(state) {

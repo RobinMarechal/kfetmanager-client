@@ -5,7 +5,6 @@ import lang from '../../../../../resources/lang/index';
 export const BREADCRUMB_CUSTOMER = 0;
 export const BREADCRUMB_MENU = 1;
 export const BREADCRUMB_PRODUCTS = 2;
-export const BREADCRUMB_DISCOUNT = 3;
 
 export default function OrderCreationBreadcrumb(props) {
     const { current } = props;
@@ -35,15 +34,6 @@ export default function OrderCreationBreadcrumb(props) {
                 'text-grey': current !== BREADCRUMB_PRODUCTS,
             })}>
                     {lang('products')}
-                    </span>
-
-            <span className="text-grey-light mx-1 BreadcrumbChevron"> > </span>
-
-            <span className={classNames('capitalize', {
-                'text-grey-darker': current === BREADCRUMB_DISCOUNT,
-                'text-grey': current !== BREADCRUMB_DISCOUNT,
-            })}>
-                    {lang('discount')}
                     </span>
         </div>
     );

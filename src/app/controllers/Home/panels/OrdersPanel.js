@@ -7,14 +7,6 @@ import { faPlus, faSyncAlt } from '@fortawesome/fontawesome-free-solid/index';
 import { faHistory } from '@fortawesome/fontawesome-free-solid/index.es';
 
 class OrdersPanel extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.refreshButtonHandler.bind(this);
-        this.showOrderDetailsHandler.bind(this);
-    }
-
     buildItems(orders) {
         const items = orders.map((order) => {
             const { customer_id, menu_id, products, final_price, created_at, customer, menu } = order;
@@ -57,7 +49,6 @@ class OrdersPanel extends React.Component {
 
         return {
             title: lang("lastOrders", capitalize),
-            link: 'azbc',
             buttons: [
                 {
                     icon: faSyncAlt,
@@ -82,7 +73,6 @@ class OrdersPanel extends React.Component {
     buildItemProps(items) {
         return {
             hoverClass: 'bg-grey-lighter',
-            onClick: this.showOrderDetailsHandler,
             items,
         };
 
@@ -110,16 +100,6 @@ class OrdersPanel extends React.Component {
                 <Panel titleProps={titleProps} itemsProps={itemsProps}/>
             );
         }
-    }
-
-    showOrderDetailsHandler(event) {
-        console.log('show', event);
-    }
-
-    refreshButtonHandler(event) {
-        console.log(this);
-        // const { onSync } = this.props;
-        // onSync();
     }
 }
 

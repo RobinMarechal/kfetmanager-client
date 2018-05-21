@@ -4,8 +4,22 @@ import lang from '../../../../resources/lang/index';
 import { formatNumber, upperFirstLetter } from '../../../../libs/helpers';
 import classNames from 'classnames';
 import Order from '../../../models/Order';
+import { bindActionCreators } from 'redux';
+import { discountChanged } from '../../../actions/models/orders';
 
 class OrderCreationSummary extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            inputValue: '',
+        };
+
+        this.regexp = new RegExp(/-?[0-9]*([.,][0-9]*)?%?/);
+
+        this.onInputChange = this.onInputChange.bind(this);
+    }
+
     render() {
         const { orderCreation, onSubmit } = this.props;
         let { customer, menu, products, discount, validated } = orderCreation;
@@ -29,7 +43,7 @@ class OrderCreationSummary extends React.Component {
             discount = discount.substring(0, discount.length - 1);
         }
 
-        const formattedDiscount = formatNumber(discount, 2) + symbol
+        const formattedDiscount = formatNumber(discount, 2) + symbol;
 
         return (
             <div className="p-4 ml-3 w-1/3 text-grey-darkest rounded shadow-md flex flex-col justify-start">
@@ -96,34 +110,61 @@ class OrderCreationSummary extends React.Component {
                     </tbody>
                 </table>
 
-                <button className={classNames(
-                    'shadow',
-                    'text-white',
-                    'font-bold',
-                    'py-2',
-                    'px-8',
-                    'rounded',
-                    'w-full',
-                    'self-end',
-                    'mt-auto', {
-                        'bg-purple': validated,
-                        'hover:bg-purple-dark': validated,
-                        'bg-purple-lighter': !validated,
-                        'cursor-not-allowed': !validated,
-                    })}
-                        onClick={onSubmit}
-                >
-                    {lang('submitOrder')}
-                </button>
+
+                <div className="mt-auto">
+                    <input className="border rounded px-4 py-2 my-4 w-full shadow"
+                           type="text"
+                           value={orderCreation.discount}
+                           onChange={this.onInputChange}
+                           placeholder={lang('discount', upperFirstLetter)}
+                    />
+
+                    <button className={classNames(
+                        'shadow',
+                        'text-white',
+                        'font-bold',
+                        'py-2',
+                        'px-8',
+                        'rounded',
+                        'w-full',
+                        'self-end', {
+                            'bg-purple': validated,
+                            'hover:bg-purple-dark': validated,
+                            'bg-purple-lighter': !validated,
+                            'cursor-not-allowed': !validated,
+                        })}
+                            onClick={onSubmit}
+                    >
+                        {lang('submitOrder')}
+                    </button>
+                </div>
             </div>
         );
+    }
+
+    onInputChange(event) {
+        const value = event.target.value;
+        const test = this.regexp.exec(value);
+        if ( test[0] === value) {
+            this.setState({ inputValue: value });
+            this.props.discountChanged(value);
+        }
+        else {
+            event.target.value = this.state.inputValue;
+        }
     }
 }
 
 function mapStateToProps(state) {
     return {
-        ...state,
+        orderCreation: state.orderCreation,
     };
 }
 
-export default connect(mapStateToProps)(OrderCreationSummary);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        discountChanged,
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderCreationSummary);

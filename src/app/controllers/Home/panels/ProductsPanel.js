@@ -5,6 +5,7 @@ import { capitalize, stringPlural } from '../../../../libs/helpers';
 import { connect } from 'react-redux';
 import { faSyncAlt } from '@fortawesome/fontawesome-free-solid/index';
 import { faCog } from '@fortawesome/fontawesome-free-solid/index.es';
+import Config from '../../../../libs/Config';
 
 class ProductsPanel extends React.Component {
 
@@ -33,7 +34,7 @@ class ProductsPanel extends React.Component {
                 {
                     icon: faCog,
                     link: 'manage-products',
-                    tooltip: 'manageCustomers'
+                    tooltip: 'manageCustomers',
 
                 },
                 {
@@ -50,6 +51,7 @@ class ProductsPanel extends React.Component {
             hoverClass: 'bg-grey-lighter',
             onClick: this.showProductButtonHandler,
             items,
+            colorFunction: this.colorFunction,
         };
     }
 
@@ -77,16 +79,19 @@ class ProductsPanel extends React.Component {
         }
     }
 
-    addProductButtonHandler(event) {
-        console.log('add', event);
-    }
-
     showProductButtonHandler(event) {
         console.log('show', event);
     }
 
     refresh() {
         console.log('refresh');
+    }
+
+    colorFunction(info) {
+        const threshold = Config.get('app.products.criticalStock');
+        if (info < threshold) {
+            return 'red-light';
+        }
     }
 }
 

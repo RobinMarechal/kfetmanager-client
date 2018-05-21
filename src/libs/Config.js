@@ -24,4 +24,4 @@ export default class Config {
     }
 }
 
-Config.bodyHeight = '300px';
+Config.bodyHeight = '600px';
