@@ -4567,7 +4567,6 @@ button,
 
 *::-webkit-scrollbar {
   background-color: #f5f5f5;
-  border-radius: 5px;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -4581,6 +4580,10 @@ button,
 
 *::-webkit-scrollbar:vertical {
   width: 6px;
+}
+
+.rounded-scrollbar::-webkit-scrollbar {
+  border-radius: 5px;
 }
 
 @media (min-width: 576px) {

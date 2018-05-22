@@ -11,6 +11,10 @@ loadFrench();
 export default function lang(key, ...formatters) {
     let t = TRANSLATIONS[Config.get('app.lang')][key];
 
+    if (!t) {
+        t = key;
+    }
+
     for (let formatter of formatters) {
         t = formatter(t);
     }
@@ -46,13 +50,13 @@ export function langThousandSeparator() {
         case 'fr':
             return ' ';
         default:
-            return ','
+            return ',';
     }
 }
 
-export function langFormatDate(date, formatter){
+export function langFormatDate(date, formatter) {
     debugger;
     return 'd';
 }
 
-export {TRANSLATIONS};
+export { TRANSLATIONS };

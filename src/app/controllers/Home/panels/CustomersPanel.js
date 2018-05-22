@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { customerClicked } from '../../../actions/models/customers/index';
 import { faPlus, faSyncAlt } from '@fortawesome/fontawesome-free-solid';
 import { faCog } from '@fortawesome/fontawesome-free-solid/index.es';
+import Config from '../../../../libs/Config';
 
 class CustomersPanel extends React.Component {
 
@@ -43,7 +44,7 @@ class CustomersPanel extends React.Component {
                 {
                     icon: faCog,
                     link: 'manage-customers',
-                    tooltip: 'manageCustomers'
+                    tooltip: 'manageCustomers',
 
                 },
             ],
@@ -55,6 +56,7 @@ class CustomersPanel extends React.Component {
             hoverClass: 'bg-grey-lighter',
             onClick: this.showCustomerDetailsHandler,
             items,
+            colorFunction: this.colorFunction,
         };
     }
 
@@ -79,6 +81,14 @@ class CustomersPanel extends React.Component {
             return (
                 <Panel titleProps={titleProps} itemsProps={itemsProps}/>
             );
+        }
+    }
+
+    colorFunction(info) {
+        const threshold = Config.get('app.customers.criticalBalance');
+        const value = parseFloat(info.substring(0, info.length - 1));
+        if (!value || isNaN(value) || value <= threshold) {
+            return 'red-light';
         }
     }
 

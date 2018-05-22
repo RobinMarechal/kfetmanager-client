@@ -79,3 +79,8 @@
     border-radius: 5px;
 }
 
+.text-ellipsis-nowrap{
+    overflow-y: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

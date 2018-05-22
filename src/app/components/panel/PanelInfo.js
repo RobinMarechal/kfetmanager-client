@@ -7,9 +7,9 @@ export default class PanelInfo extends React.Component {
         const { info, colorFunction } = this.props;
 
         let color = '';
-        if(colorFunction && _.isFunction(colorFunction)){
+        if (colorFunction && _.isFunction(colorFunction)) {
             const res = colorFunction(info);
-            if(res) {
+            if (res) {
                 color = ` text-${res}`;
             }
         }

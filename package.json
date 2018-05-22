@@ -2,7 +2,8 @@
   "name": "kfetmanager",
   "version": "0.1.0",
   "private": true,
-  "main": "public/main.js",
+  "main": "public/electron.js",
+  "homepage": "./",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.7",
     "@fortawesome/fontawesome-free-regular": "^5.0.12",
@@ -12,7 +13,6 @@
     "bunch-of-exceptions": "file:~/dev/web/test-package/packages/js/exceptions",
     "classnames": "^2.2.5",
     "concurrently": "^3.5.1",
-    "electron-builder": "^20.13.4",
     "electron-is-dev": "^0.3.0",
     "fetch": "^1.1.0",
     "js-joda": "^1.8.2",
@@ -33,6 +33,7 @@
   "devDependencies": {
     "electron": "^2.0.1",
     "redux-devtools": "^3.4.1",
+    "electron-builder": "^20.13.4",
     "tailwindcss": "^0.5.2"
   },
   "scripts": {
@@ -43,6 +44,19 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
+    "dist": "npm run build && build",
+    "electron-builder": "electron-builder .",
+    "electron-pack": "build --em.main=public/main.js",
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
+  },
+  "build": {
+    "appId": "com.example.electron-cra",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   }
 }

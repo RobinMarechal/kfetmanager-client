@@ -1,5 +1,6 @@
 import React from 'react';
 import CustomerListYearSubgroup from './CustomerListYearSubgroup';
+import { upperFirstLetter } from '../../../../../libs/helpers';
 
 export default class CustomerListDepartmentGroup extends React.Component {
     render() {
@@ -13,7 +14,7 @@ export default class CustomerListDepartmentGroup extends React.Component {
         return (
             <div>
                 <li className="first-child-no-border-top px-4 py-2 border-t bg-grey-light">
-                    <p className="pl-2">{department}</p>
+                    <p className="pl-2">{upperFirstLetter(department)}</p>
                 </li>
                 {Object.values(years).map((year) => <CustomerListYearSubgroup key={year.year}
                                                                               customers={customers}

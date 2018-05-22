@@ -10,8 +10,8 @@ import Config from '../../../../libs/Config';
 
 const rowStyle = { lineHeight: '2.4rem' };
 
-const DATE_WIDTH = '17%';
-const NAME_WIDTH = '23%';
+const DATE_WIDTH = '18%';
+const NAME_WIDTH = '22%';
 const MENU_WIDTH = '20%';
 const PRICE_WIDTH = '10%';
 
@@ -90,20 +90,19 @@ class OrdersTable extends React.Component {
 
         return (
             <div className="flex flex-col justify-start text-grey-darkest">
-                <div className="flex justify-between py-5 leading-loose font-bold text-xl">
+                <div className="flex justify-between py-1 leading-loose font-bold text-xl">
                     <p style={{ width: DATE_WIDTH }} className="px-4 inline">Date</p>
-                    <p style={{ width: NAME_WIDTH }} className="px-4 inline">{lang('customer')}</p>
-                    <p style={{ width: MENU_WIDTH }} className="px-4 inline">{lang('menu')}</p>
-                    <p style={{ width: PRODUCTS_WIDTH }} className="w-full px-4 inline">{lang('products')}</p>
-                    <p style={{ width: PRICE_WIDTH }} className="px-4 inline pr-6" align="right">{lang('price')}</p>
+                    <p style={{ width: NAME_WIDTH }} className="px-4 inline">{lang('customer', upperFirstLetter)}</p>
+                    <p style={{ width: MENU_WIDTH }} className="px-4 inline">{lang('menu', upperFirstLetter)}</p>
+                    <p style={{ width: PRODUCTS_WIDTH }} className="w-full px-4 inline">{lang('products', upperFirstLetter)}</p>
+                    <p style={{ width: PRICE_WIDTH }} className="px-4 inline pr-6" align="right">{lang('price', upperFirstLetter)}</p>
                 </div>
                 <div style={{ height: Config.bodyHeight }} className="overflow-y-auto w-full">
                     {rows}
-                    <Waypoint onEnter={this.props.onEnter} onLeave={this.props.onLeave}/>
+                    <Waypoint onEnter={this.props.onEnter}/>
                 </div>
             </div>
         );
-
     }
 }
 

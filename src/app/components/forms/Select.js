@@ -1,15 +1,15 @@
 import React from 'react';
 import _ from 'lodash';
 
-export default function OrderCreationSelect(props) {
+export default function Select(props) {
 
     const { className, items, onChange, allValue, allText, itemFormatter } = props;
 
     return (
-        <div className={"w-full h-full relative " + className}>
+        <div className={"w-full relative " + className}>
             <select
                 onChange={onChange}
-                className="w-full block appearance-none bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded shadow"
+                className="w-full block appearance-none bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded "
             >
                 <option key="-1" value={allValue}>{allText}</option>
                 {items.map((item) => <option key={item} value={item}>{!_.isFunction(itemFormatter) ? item : itemFormatter(item)}</option>)}

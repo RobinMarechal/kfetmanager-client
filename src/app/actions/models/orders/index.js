@@ -3,6 +3,7 @@ export const ORDER_PANEL_SYNC_BUTTON_CLICKED = 'ORDER_PANEL_SYNC_BUTTON_CLICKED'
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const DISCOUNT_CHANGED = 'DISCOUNT_CHANGED';
 export const ORDER_VALIDATED = 'ORDER_VALIDATED';
+export const CLEAR_ORDERS = 'CLEAR_ORDERS';
 
 export const CLEAR_ORDER_CREATION = 'CLEAR_ORDER_CREATION';
 
@@ -43,6 +44,12 @@ export function orderValidated(boolean = true) {
 export function clearOrderCreation() {
     return {
         type: CLEAR_ORDER_CREATION,
+    };
+}
+
+export function clearOrders() {
+    return {
+        type: CLEAR_ORDERS,
     };
 }
 

@@ -1,4 +1,4 @@
-import { CREATE_ORDER, FETCH_ORDER_BEGIN, FETCH_ORDER_FAILURE, FETCH_ORDER_SUCCESS } from '../../actions/models/orders/index';
+import { CLEAR_ORDERS, CREATE_ORDER, FETCH_ORDER_BEGIN, FETCH_ORDER_FAILURE, FETCH_ORDER_SUCCESS } from '../../actions/models/orders/index';
 import { MAX_ITEMS_PER_PANEL } from '../../controllers/Home/Home';
 
 const initialState = {
@@ -47,6 +47,9 @@ export default function orderReducer(state = initialState, action) {
                 ...state,
                 loading: false,
             };
+
+        case CLEAR_ORDERS:
+            return initialState;
 
         default:
             // ALWAYS have a default case in a reducer

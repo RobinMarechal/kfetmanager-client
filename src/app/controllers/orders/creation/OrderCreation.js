@@ -81,8 +81,11 @@ class OrderCreation extends React.Component {
                 if (event.key === 'ArrowRight') {
                     this.next();
                 }
-                if (event.key === 'ArrowLeft') {
+                else if (event.key === 'ArrowLeft') {
                     this.previous();
+                }
+                else if (event.key === 'Enter'){
+                    this.submit();
                 }
             }
         }
@@ -112,14 +115,13 @@ class OrderCreation extends React.Component {
 
         const isValid = await Order.isValid(orderCreation);
         if (!isValid) {
-            // console.error("Couldn't create the order. This should not happen");
             return false;
         }
 
         const order = Order.fromOrderCreation(orderCreation);
 
         // Creation of the order in the database
-        const created = await order.with('treasury').create();
+        const created = await order.with('treasury', 'customer').create();
 
         // We're going to request as many sync as the number of products in the order
         // We should make the requests at the same time, not one after the other

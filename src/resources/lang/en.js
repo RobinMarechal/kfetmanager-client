@@ -5,20 +5,10 @@ export default function loadEnglish() {
 
     TRANSLATIONS.en = {
         newOrder: 'new order',
-        online: 'online',
-        offline: 'offline',
-        search: 'search',
         ':': ': ',
-        treasury: 'treasury',
-        server: 'server',
-        home: 'home',
-        about: 'about',
         lastOrders: "last orders",
-        customer: 'customer',
         newCustomer: 'new customer',
-        product: 'product',
         anErrorOccurred: 'an error occurred',
-        refresh: 'refresh',
         searchProduct: 'search for a product',
         searchCustomer: 'search for a customer',
         searchMenu: 'search for a menu',
@@ -34,7 +24,8 @@ export default function loadEnglish() {
         selectedProducts: 'selected products',
         selectedDiscount: 'selected discount',
 
-        price: 'price',
+        lessThan: 'less than',
+        moreThan: 'more than',
 
         manageProducts: 'manage products',
         manageCustomers: 'manage customers',
@@ -44,7 +35,6 @@ export default function loadEnglish() {
 
         submitOrder: 'submit the order',
 
-        PEIP: 'PEIP',
         THIRD: '3rd year',
         FOURTH: '4th year',
         FIFTH: '5th year',
@@ -53,11 +43,10 @@ export default function loadEnglish() {
         OTHER: 'other',
 
         orderSummary: 'summary',
-        menu: 'menu',
-        products: 'products',
         basePrice: 'base price',
-        discount: 'discount',
         finalPrice: 'final price',
+
+        atDate: 'at date',
 
         dateTimeFormat: DateTimeFormatter.ofPattern("dd-MM-yyyy 'at' HH':'mm"),
         timeFormat: DateTimeFormatter.ofPattern("HH':'mm"),
@@ -74,6 +63,12 @@ export default function loadEnglish() {
         shortDaysOfWeek: ['Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.', 'Sun.'],
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         shortMonths: ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'],
+
+        helpOrderHistoryDateField: `If this field is filled, the 'From' and 'To' Date fields are not taken into account.`,
+        helpOrderHistoryLessThan: `0 = no limit.`,
+        helpOrderHistoryDateAndTime: `- If both (Date and Time) are filled, the software will filter according to the datetimes (eg: April 3rd 2018 at 16:30).\n`
+        + `- If only dates are filled, the software will filter according to the dates only (eg: between 12th May and 15th of May).\n`
+        + `- If only times are filled, the software will filter according to the times only (eg: between 12:30 and 14h00).`,
     };
 
 }

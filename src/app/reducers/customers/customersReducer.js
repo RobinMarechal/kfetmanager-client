@@ -1,8 +1,4 @@
-import {
-    FETCH_CUSTOMER_BEGIN,
-    FETCH_CUSTOMER_FAILURE,
-    FETCH_CUSTOMER_SUCCESS,
-} from '../../actions/models/customers/index';
+import { FETCH_CUSTOMER_BEGIN, FETCH_CUSTOMER_FAILURE, FETCH_CUSTOMER_SUCCESS } from '../../actions/models/customers/index';
 
 const initialState = {
     items: [],
@@ -48,4 +44,3 @@ export default function customerReducer(state = initialState, action) {
             return state;
     }
 }
-

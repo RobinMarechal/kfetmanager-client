@@ -10,9 +10,12 @@ export default function loadFrench() {
         search: 'rechercher',
         ':': ' : ',
         treasury: 'trésorerie',
+        subcategory: 'sous catégorie',
+        category: 'catégorie',
         server: 'serveur',
         home: 'accueil',
         about: 'à propos',
+        orders: 'commandes',
         lastOrders: "dernières commandes",
         customer: 'client',
         newCustomer: 'nouveau client',
@@ -34,7 +37,19 @@ export default function loadFrench() {
         selectedProducts: 'produits sélectionnés',
         selectedDiscount: 'réduction sélectionnée',
 
+        from: 'à partir de',
+        to: "jusqu'à",
+        lessThan: 'moins que',
+        moreThan: 'plus que',
+
+        year: 'année',
+        department: 'département',
+
+        filters: 'filtres',
+
         price: 'prix',
+
+        atDate: 'Date',
 
         manageProducts: 'gérer les produits',
         manageCustomers: 'gérer les clients',
@@ -44,7 +59,6 @@ export default function loadFrench() {
 
         submitOrder: 'valider la commande',
 
-        PEIP: 'PEIP',
         THIRD: '3A',
         FOURTH: '4A',
         FIFTH: '5A',
@@ -74,6 +88,31 @@ export default function loadFrench() {
         shortDaysOfWeek: ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.'],
         months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
         shortMonths: ['Jan.', 'Fév.', 'Mars', 'Avr.', 'Mai', 'Juin', 'Juil.', 'Août', 'Sep.', 'Oct.', 'Nov.', 'Déc.'],
+
+
+        // --- Helps
+
+        helpOrderHistoryDateField: `Lorsque ce champ est renseigné, les champs Date "À partir de" et "Jusqu'à" ne sont pas pris en compte.`,
+        helpOrderHistoryLessThan: `0 = pas de limite.`,
+        helpOrderHistoryDateAndTime: `- Si les deux (Date et Heure) sont renseignées, le logiciel va filtrer selon la date et l'heure (Ex: 03 avril 2018 à 16h30).\n`
+        + `- Si uniquement les dates sont renseignées, le logiciel va filtrer selon les dates (Ex: entre entre le 12 mai et le 15 mai).\n`
+        + `- Si uniquement les heures sont renseignées, le logiciel va filtrer les heures sans se préoccuper de la date (Ex: entre 12h30 et 14h00).`,
+
+        'sort by product name': 'trier par nom de produit',
+        'sort by price': 'trier par prix',
+        'sort by orders number': 'trier par le nombre de commandes',
+
+        'search for a product': 'rechercher un produit',
+
+        'edit the selected product': 'modifier le produit sélectionné',
+        'delete the selected product': 'supprimer le produit sélectionné',
+
+        'add a product': 'ajouter un produit',
+        'add a subcategory': 'ajouter une sous-catégorie',
+        'add a category': 'ajouter une catégorie',
+
+        'display only products of category': "n'afficher que les produits de la catégorie",
+        'display only products of subcategory': "n'afficher que les produits de la sous-catégorie",
     };
 
 }

@@ -1,8 +1,4 @@
-import {
-    FETCH_PRODUCT_BEGIN,
-    FETCH_PRODUCT_FAILURE,
-    FETCH_PRODUCT_SUCCESS,
-} from '../actions/models/products';
+import { FETCH_PRODUCT_BEGIN, FETCH_PRODUCT_FAILURE, FETCH_PRODUCT_SUCCESS } from '../actions/models/products';
 
 const initialState = {
     items: [],
@@ -48,4 +44,3 @@ export default function productReducer(state = initialState, action) {
             return state;
     }
 }
-

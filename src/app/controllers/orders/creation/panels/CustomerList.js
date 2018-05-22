@@ -8,7 +8,7 @@ import OrderCreationBreadcrumb, { BREADCRUMB_CUSTOMER } from '../../../../compon
 import OrderCreationTitle from '../../../../components/orders/orderCreation/common/OrderCreationTitle';
 import OrderCreationSearchBar from '../../../../components/orders/orderCreation/common/OrderCreationSearchBar';
 import { upperFirstLetter } from '../../../../../libs/helpers';
-import OrderCreationSelect from '../../../../components/orders/orderCreation/common/OrderCreationSelect';
+import Select from '../../../../components/forms/Select';
 import OrderCreationFooter from '../../../../components/orders/orderCreation/common/OrderCreationFooter';
 import lang from '../../../../../resources/lang';
 import { bindActionCreators } from 'redux';
@@ -126,16 +126,17 @@ class CustomerList extends React.Component {
 
 
                     <div className="flex justify-between my-4">
-                        <OrderCreationSelect
-                            className="mr-3"
+                        <Select
+                            className="mr-3 shadow"
                             items={Object.values(Customer.DEPARTMENTS)}
                             onChange={this.handleDepartmentSelectChange}
                             allValue="*"
                             allText={lang('allDepartments', upperFirstLetter)}
+                            itemFormatter={(item) => lang(item, upperFirstLetter)}
                         />
 
-                        <OrderCreationSelect
-                            className="ml-3"
+                        <Select
+                            className="ml-3 shadow"
                             items={Object.values(Customer.YEARS)}
                             onChange={this.handleYearSelectChange}
                             allValue="*"

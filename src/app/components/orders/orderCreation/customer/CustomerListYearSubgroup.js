@@ -2,6 +2,7 @@ import React from 'react';
 import CustomerListItem from './CustomerListItem';
 import lang from '../../../../../resources/lang/index';
 import Customer from '../../../../models/Customer';
+import { upperFirstLetter } from '../../../../../libs/helpers';
 
 
 export default class CustomerListYearSubgroup extends React.Component {
@@ -18,7 +19,7 @@ export default class CustomerListYearSubgroup extends React.Component {
         if (year !== Customer.YEARS.PEIP) {
             li = (
                 <li className="px-4 py-2 border-t bg-grey-lighter">
-                    <p className="pl-4 capitalize">{lang(year)}</p>
+                    <p className="pl-4">{lang(year, upperFirstLetter)}</p>
                 </li>
             );
         }
