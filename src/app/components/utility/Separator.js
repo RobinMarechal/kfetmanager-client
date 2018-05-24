@@ -3,8 +3,9 @@ import React from 'react';
 export default function Separator (props){
     let {color, width, height, my, mx, className} = props;
 
-    if(!color){
-        color = 'grey'
+    let borderColor = ''
+    if(color){
+        borderColor = `border-${color}`;
     }
 
     if(!width){
@@ -12,7 +13,7 @@ export default function Separator (props){
     }
 
     if(!height){
-        height = 1
+        height = 0
     }
 
     if(!my){
@@ -24,6 +25,6 @@ export default function Separator (props){
     }
 
     return (
-        <hr className={`border-t w-${width} border-${height} my-${my} mx-${mx} bg-${color}`}/>
+        <hr className={className ? className : `border-t w-${width} border-${height} my-${my} mx-${mx} ${borderColor}`}/>
     );
 }

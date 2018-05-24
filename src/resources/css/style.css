@@ -4586,6 +4586,12 @@ button,
   border-radius: 5px;
 }
 
+.text-ellipsis-nowrap {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 @media (min-width: 576px) {
   .sm\:list-reset {
     list-style: none;

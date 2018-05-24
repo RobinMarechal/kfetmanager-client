@@ -113,6 +113,39 @@ export default function loadFrench() {
 
         'display only products of category': "n'afficher que les produits de la catégorie",
         'display only products of subcategory': "n'afficher que les produits de la sous-catégorie",
-    };
 
+        'delete a product': 'supprimer un produit',
+
+        'confirm': 'confirmer',
+        'cancel': 'annuler',
+
+        "this can't be undone": "cette action est irréversible",
+
+        'create a product': 'créer un produit',
+        'update a product': 'modifier un produit',
+
+        'product name': 'nom du produit',
+
+        'choose a subcategory': 'choisissez une sous-catégorie',
+
+        'selling price': 'prix de vente',
+        'purchase price': "prix d'achat",
+
+        'name': 'nom',
+
+        'warm dishes': 'plats réchauffés',
+
+        'create a category': 'créer une catégorie',
+        'create a subcategory': 'créer une sous-catégorie',
+
+        'restockings': 'restockages',
+
+        'comment': 'commentaire',
+
+        'total cost': 'coût total',
+
+        'new restocking': 'nouveau restockage',
+
+        'restocking details': 'détails du restockage',
+    };
 }

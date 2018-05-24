@@ -201,8 +201,8 @@ export function customDateFormat(date, format) {
 
     if (format.match(/\{[dDmMY]+\}/)) {
         const dayOfWeek = date.dayOfWeek().value() - 1;
-        format = format.replace('{DD}', daysOfWeek[dayOfWeek])
-        format = format.replace('{D}', shortDaysOfWeek[dayOfWeek])
+        format = format.replace('{DD}', daysOfWeek[dayOfWeek]);
+        format = format.replace('{D}', shortDaysOfWeek[dayOfWeek]);
         format = format.replace('{d}', format2Digits(date.dayOfMonth()));
 
         const month = date.monthValue() - 1;
@@ -221,8 +221,14 @@ export function customDateFormat(date, format) {
         format = format.replace('{i}', format2Digits(date.minute()));
         format = format.replace('{s}', format2Digits(date.second()));
 
-        format = format.replace('{pmam}', hour > 12 ? 'pm' : 'am')
+        format = format.replace('{pmam}', hour > 12 ? 'pm' : 'am');
     }
 
     return format;
+}
+
+export function isNumberValid(value) {
+    const regexp = new RegExp(/-?[0-9]*([.,][0-9]{0,2})?%?/);
+    const test = regexp.exec(value);
+    return test[0] === value;
 }

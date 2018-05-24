@@ -7,6 +7,7 @@ import FlexDiv from '../../utility/FlexDiv';
 import { faEdit } from '@fortawesome/fontawesome-free-solid/index.es';
 import { faTrashAlt } from '@fortawesome/fontawesome-free-regular/index.es';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 export default function ManageProductsControls(props) {
     const { onSearch, onEdit, onDelete, onAddProduct, onAddSubcategory, onAddCategory } = props;
@@ -64,13 +65,11 @@ export default function ManageProductsControls(props) {
                 </Button>
             </div>
 
+            <Separator/>
 
-            {/*----------*/}
-            {/*new product*/}
-            {/*new subcategory*/}
-            {/*new category*/}
-
-
+            <Link to="/manage-products/restockings">
+                <Button className="capitalize">{lang('restocking')}</Button>
+            </Link>
         </div>
     );
 }

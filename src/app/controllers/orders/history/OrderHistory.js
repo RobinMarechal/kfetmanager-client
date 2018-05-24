@@ -147,7 +147,7 @@ class OrderHistory extends React.Component {
 
     render() {
         return (
-            <div className="flex m-6">
+            <div className="flex m-6 items-start">
                 <div className="w-3/4 shadow rounded mr-3">
                     <OrdersTable onEnter={this.handleEnter}/>
                 </div>

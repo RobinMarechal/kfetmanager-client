@@ -41,62 +41,53 @@ export default class Product extends BaseModel {
      * @param {boolean} desc false|true. true => sort descending order, false => ascending order
      */
     static sortCustomersListBy(products, orderBy, desc = false) {
-        if (orderBy === 'subcategory') {
-            this._sortCustomersListBySubcategory(products, desc);
-        }
-        else if (orderBy === 'category') {
-            this._sortCustomersListByCategory(products, desc);
-        }
-        else if (orderBy === 'nbOrders') {
-            this._sortCustomersListByOrderNumber(products, desc);
-        }
-
-        switch(orderBy){
+        switch (orderBy) {
             case 'subcategory':
-                this._sortCustomersListBySubcategory(products, desc);
-                break;
+                return this._sortCustomersListBySubcategory(products, desc);
             case 'category':
-                this._sortCustomersListByCategory(products, desc);
-                break;
+                return this._sortCustomersListByCategory(products, desc);
             case 'nbOrders':
-                this._sortCustomersListByOrderNumber(products, desc);
-                break;
+                return this._sortCustomersListByOrderNumber(products, desc);
             case 'name':
-                this._sortCustomersListByName(products, desc);
-                break;
+                return this._sortCustomersListByName(products, desc);
             case 'price':
-                this._sortCustomersListByPrice(products, desc);
-                break;
+                return this._sortCustomersListByPrice(products, desc);
+            default:
+                return products;
         }
     }
 
     static _sortCustomersListByCategory(products, desc) {
-        products.sort((a, b) => {
+        return products.sort((a, b) => {
             return a.subcategory.category.name.toLowerCase().localeCompare(b.subcategory.category.name.toLowerCase()) * (desc ? -1 : 1);
         });
     }
 
     static _sortCustomersListBySubcategory(products, desc) {
-        products.sort((a, b) => {
+        return products.sort((a, b) => {
             return a.subcategory.name.toLowerCase().localeCompare(b.subcategory.name.toLowerCase()) * (desc ? -1 : 1);
         });
     }
 
     static _sortCustomersListByName(products, desc) {
-        products.sort((a, b) => {
+        return products.sort((a, b) => {
             return a.name.toLowerCase().localeCompare(b.name.toLowerCase()) * (desc ? -1 : 1);
         });
     }
 
     static _sortCustomersListByOrderNumber(products, desc) {
-        products.sort((a, b) => {
+        return products.sort((a, b) => {
             return (a.orders.length - b.orders.length) * (desc ? -1 : 1);
         });
     }
 
     static _sortCustomersListByPrice(products, desc) {
-        products.sort((a, b) => {
+        return products.sort((a, b) => {
             return (a.price - b.price) * (desc ? -1 : 1);
         });
+    }
+
+    static removeProductFromList(products, product) {
+        return products.filter(({ id }) => product.id !== id);
     }
 }

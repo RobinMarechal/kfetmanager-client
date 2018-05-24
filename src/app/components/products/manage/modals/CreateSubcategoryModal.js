@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
-import { isNumberValid, upperFirstLetter } from '../../../../../libs/helpers';
+import { upperFirstLetter } from '../../../../../libs/helpers';
 import Button from '../../../utility/Button';
 import lang from '../../../../../resources/lang';
 import Separator from '../../../utility/Separator';
@@ -10,6 +10,7 @@ import Error from '../../../utility/Error';
 import Loading from '../../../utility/Loading';
 import Select from '../../../forms/Select';
 import classNames from 'classnames';
+import KeyMap from '../../../../../libs/KeyMap';
 
 Modal.setAppElement('#root');
 
@@ -24,19 +25,22 @@ const style = {
     },
 };
 
-class CreateCategoryModal extends React.Component {
+class CreateSubcategoryModal extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             name: null,
+            category_id: null,
             nameInvalid: false,
+            category_idInvalid: false,
         };
     }
 
     componentWillMount() {
         this.onChange = this.onChange.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
     }
 
     buildContent() {
@@ -56,7 +60,7 @@ class CreateCategoryModal extends React.Component {
                     <label htmlFor="name">{lang('name', upperFirstLetter)}{lang(':')} </label>
                     <input type="text"
                            name="name"
-                           placeholder={"Ex: " + lang('warm dishes', upperFirstLetter)}
+                           placeholder="Ex: Pizzas"
                            className={classNames(
                                `mt-2 appearance-none border rounded pl-4 py-2 w-full`, {
                                    'border-red-light': this.state.nameInvalid,
@@ -64,6 +68,19 @@ class CreateCategoryModal extends React.Component {
                            }
                            onChange={this.onChange}
                     />
+                </div>
+
+
+                <div className="mb-6">
+                    <label htmlFor="category_id">{lang('category', upperFirstLetter)}{lang(':')} </label>
+                    <Select items={Object.values(categories.items).map((cat) => ({ text: cat.name, value: cat.id }))}
+                            name="category_id"
+                            className="mt-2"
+                            itemFormatter={upperFirstLetter}
+                            onChange={this.onChange}
+                            disableAll={true}
+                            invalid={this.state.category_idInvalid}
+                            allText={lang('choose a category', upperFirstLetter)}/>
                 </div>
             </div>
         );
@@ -73,7 +90,7 @@ class CreateCategoryModal extends React.Component {
         const { isOpen, onCancel, categories } = this.props;
         const disable = !categories || categories.error || categories.loading;
 
-        let title = 'create a category';
+        let title = 'create a subcategory';
 
         const content = this.buildContent();
 
@@ -84,33 +101,43 @@ class CreateCategoryModal extends React.Component {
                    onRequestClose={onCancel}
                    className="rounded p-4 shadow-lg m-auto w-1/3 bg-white absolute text-grey-darkest"
                    shouldCloseOnOverlayClick={true}>
-                <h2>{lang(title, upperFirstLetter)}</h2>
+                <div tabIndex="0"
+                     onKeyDown={this.onKeyDown}>
 
-                <Separator my={4}/>
+                    <h2>{lang(title, upperFirstLetter)}</h2>
 
-                {content}
+                    <Separator my={4}/>
 
-                <Separator my={4}/>
+                    {content}
 
-                <FlexDiv>
-                    <Button disabled={disable}
-                            disabledBgColor="green-lighter"
-                            className="mr-3 capitalize"
-                            onClick={() => {
-                                if (!disable) this.onConfirmMiddleware();
-                            }}
-                            bgColor="green"
-                            hoverBgColor="green-dark">
-                        {lang('confirm')}
-                    </Button>
+                    <Separator my={4}/>
 
-                    <Button className="ml-3 capitalize"
-                            onClick={onCancel}>
-                        {lang('cancel')}
-                    </Button>
-                </FlexDiv>
+                    <FlexDiv>
+                        <Button disabled={disable}
+                                disabledBgColor="green-lighter"
+                                className="mr-3 capitalize"
+                                onClick={() => {
+                                    if (!disable) this.onConfirmMiddleware();
+                                }}
+                                bgColor="green"
+                                hoverBgColor="green-dark">
+                            {lang('confirm')}
+                        </Button>
+
+                        <Button className="ml-3 capitalize"
+                                onClick={onCancel}>
+                            {lang('cancel')}
+                        </Button>
+                    </FlexDiv>
+                </div>
             </Modal>
         );
+    }
+
+    onKeyDown(event) {
+        if (event.key === KeyMap.ENTER) {
+            this.onConfirmMiddleware();
+        }
     }
 
     onChange(event) {
@@ -121,18 +148,24 @@ class CreateCategoryModal extends React.Component {
     }
 
     onConfirmMiddleware() {
-        const { name } = this.state;
+        const { name, category_id } = this.state;
         const { onConfirm, product } = this.props;
 
-        if (!name) {
-            this.setState({
-                nameInvalid: true,
-            });
-
+        if (!name || !category_id) {
+            if (!name) {
+                this.setState({
+                    nameInvalid: true,
+                });
+            }
+            if (!category_id) {
+                this.setState({
+                    category_idInvalid: true,
+                });
+            }
             return;
         }
 
-        return onConfirm({ name }, product);
+        return onConfirm({ name, category_id }, product);
     }
 }
 
@@ -142,4 +175,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(CreateCategoryModal);
+export default connect(mapStateToProps)(CreateSubcategoryModal);

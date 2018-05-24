@@ -4,7 +4,7 @@ import lang from '../../../../resources/lang/index';
 import { capitalize, stringPlural } from '../../../../libs/helpers';
 import { connect } from 'react-redux';
 import { faSyncAlt } from '@fortawesome/fontawesome-free-solid/index';
-import { faCog } from '@fortawesome/fontawesome-free-solid/index.es';
+import { faCog, faShoppingCart } from '@fortawesome/fontawesome-free-solid/index.es';
 import Config from '../../../../libs/Config';
 
 class ProductsPanel extends React.Component {
@@ -31,6 +31,11 @@ class ProductsPanel extends React.Component {
         return {
             title: lang("product", stringPlural, capitalize),
             buttons: [
+                {
+                    icon:faShoppingCart,
+                    link: 'manage-products/restockings',
+                    tooltip: 'restockings'
+                },
                 {
                     icon: faCog,
                     link: 'manage-products',

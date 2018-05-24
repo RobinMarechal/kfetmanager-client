@@ -5,7 +5,7 @@ import { faCopyright } from '@fortawesome/fontawesome-free-regular/index';
 import { upperFirstLetter } from '../../../libs/helpers';
 import { Link } from 'react-router-dom';
 
-export default function Footer(props) {
+export default function Footer() {
     return (
         <nav
             className="text-center flex items-center justify-between flex-wrap px-6 bg-purple-darker text-grey fixed pin-b w-full h-12">

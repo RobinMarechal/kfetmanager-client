@@ -1,34 +1,34 @@
-export const CATEGORY_CLICKED = 'CATEGORY_CLICKED';
-export const CATEGORY_PANEL_SYNC_BUTTON_CLICKED = 'CATEGORY_PANEL_SYNC_BUTTON_CLICKED';
-export const CREATE_CATEGORY = 'CREATE_CATEGORY'
+export const SUBCATEGORY_CLICKED = 'SUBCATEGORY_CLICKED';
+export const SUBCATEGORY_PANEL_SYNC_BUTTON_CLICKED = 'SUBCATEGORY_PANEL_SYNC_BUTTON_CLICKED';
+export const CREATE_SUBCATEGORY = 'CREATE_SUBCATEGORY'
 
-export function categoryClicked(category) {
+export function subcategoryClicked(subcategory) {
     return {
-        type: CATEGORY_CLICKED,
-        payload: category,
+        type: SUBCATEGORY_CLICKED,
+        payload: subcategory,
     };
 }
 
-export function categoriesPanelSyncButtonClicked() {
+export function subcategoriesPanelSyncButtonClicked() {
     return {
-        type: CATEGORY_PANEL_SYNC_BUTTON_CLICKED,
+        type: SUBCATEGORY_PANEL_SYNC_BUTTON_CLICKED,
     };
 }
 
-export function createCategory(data){
-    console.log("new category", data);
+export function createSubcategory(data){
+    console.log("new subcategory", data);
     return {
-        type: CREATE_CATEGORY,
+        type: CREATE_SUBCATEGORY,
         payload: data
     }
 }
 
 export {
-    fetchCategoryBegin,
-    fetchCategoryError,
-    fetchCategoriesuccess,
+    fetchSubcategoryBegin,
+    fetchSubcategoryError,
+    fetchSubcategoriesuccess,
 
-    FETCH_CATEGORY_FAILURE,
-    FETCH_CATEGORY_SUCCESS,
-    FETCH_CATEGORY_BEGIN,
+    FETCH_SUBCATEGORY_FAILURE,
+    FETCH_SUBCATEGORY_SUCCESS,
+    FETCH_SUBCATEGORY_BEGIN,
 } from './fetchActions';

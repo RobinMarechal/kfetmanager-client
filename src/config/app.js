@@ -1,5 +1,5 @@
 export const app = {
-    lang: "fr",
+    lang: "en",
     products: {
         criticalStock: 5,
     },

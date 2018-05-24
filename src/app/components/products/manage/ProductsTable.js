@@ -8,6 +8,7 @@ import { formatNumber, upperFirstLetter } from '../../../../libs/helpers';
 import Config from '../../../../libs/Config';
 import { faCaretDown, faCaretUp } from '@fortawesome/fontawesome-free-solid/index.es';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import KeyMap from '../../../../libs/KeyMap';
 
 const rowStyle = { lineHeight: '2.4rem' };
 
@@ -18,8 +19,12 @@ const PRICE_WIDTH = '10%';
 const NB_ORDERS_WIDTH = '16.1%';
 
 class ProductsTable extends React.Component {
+    componentWillMount(){
+        this.keyPressed = this.keyPressed.bind(this);
+    }
+
     buildRows() {
-        const { products, onSubcategoryClick, onCategoryClick, selected, onSelect } = this.props;
+        const { products, onSubcategoryClick, onCategoryClick, selected, onSelect, onDoubleClick } = this.props;
 
         let rows = products.items.map((product, i) => {
             const { name, price, id, subcategory } = product;
@@ -37,34 +42,40 @@ class ProductsTable extends React.Component {
 
             return (
                 <div onClick={() => onSelect(product)}
-                    style={rowStyle}
-                    key={id}
-                    className={classNames(
-                    'hover:bg-purple-lighter w-full flex justify-between py-1', {
-                        'bg-purple-lightest': !isSelected && isEven,
-                        'bg-white': !isSelected && !isEven,
-                        'bg-purple-lighter': isSelected,
-                    })}>
-                    <p style={{ width: PRODUCT_WIDTH }}  className="px-3 text-ellipsis-nowrap">
+                     onDoubleClick={() => onDoubleClick(product)}
+                     onKeyDown={this.keyPressed}
+                     tabIndex="0"
+                     style={rowStyle}
+                     key={id}
+                     className={classNames(
+                         'hover:bg-purple-lighter w-full flex justify-between py-1', {
+                             'bg-purple-lightest': !isSelected && isEven,
+                             'bg-white': !isSelected && !isEven,
+                             'bg-purple-lighter': isSelected,
+                         })}>
+                    <p style={{ width: PRODUCT_WIDTH }} className="px-3 text-ellipsis-nowrap">
                         {upperFirstLetter(name)}
                     </p>
-                    <p style={{ width: SUBCATEGORY_WIDTH }}  className="px-3 text-ellipsis-nowrap cursor-pointer hover:underline"
-                       title={lang('display only products of subcategory' , upperFirstLetter) + ' ' + subcategoryName}
-                       onClick={() => onSubcategoryClick(subcategory)}>
-                        {upperFirstLetter(subcategoryName + '')}
+                    <p style={{ width: SUBCATEGORY_WIDTH }} className="px-3 text-ellipsis-nowrap">
+                        <span title={lang('display only products of subcategory', upperFirstLetter) + ' ' + subcategoryName}
+                              className="hover:underline cursor-pointer"
+                              onClick={() => onSubcategoryClick(subcategory)}>
+                            {upperFirstLetter(subcategoryName + '')}
+                        </span>
                     </p>
-                    <p style={{ width: CATEGORY_WIDTH }}
-                       title={lang('display only products of category' , upperFirstLetter) + ' ' + categoryName}
-                       className="px-3 text-ellipsis-nowrap cursor-pointer hover:underline"
-                       onClick={() => onCategoryClick(category)}>
-                        {categoryName}
+                    <p style={{ width: CATEGORY_WIDTH }} className="px-3 text-ellipsis-nowrap">
+                        <span title={lang('display only products of category', upperFirstLetter) + ' ' + categoryName}
+                              className="hover:underline cursor-pointer"
+                              onClick={() => onCategoryClick(category)}>
+                            {upperFirstLetter(categoryName)}
+                        </span>
                     </p>
                     <p style={{ width: PRICE_WIDTH }}
                        align="right"
                        className="px-3 text-ellipsis-nowrap">
                         {formattedPrice} €
                     </p>
-                    <p style={{ width: NB_ORDERS_WIDTH }} align="right"  className="px-3 text-ellipsis-nowrap">
+                    <p style={{ width: NB_ORDERS_WIDTH }} align="right" className="px-3 text-ellipsis-nowrap">
                         {nbOrders}
                     </p>
                 </div>
@@ -117,6 +128,9 @@ class ProductsTable extends React.Component {
                 break;
             case 'nbOrders':
                 caret.nbOrders = <FontAwesomeIcon icon={icon} className="text-grey-dark mr-2"/>;
+                break;
+            default:
+                caret.name = <FontAwesomeIcon icon={icon} className="text-grey-dark ml-2"/>;
                 break;
         }
 
@@ -175,6 +189,12 @@ class ProductsTable extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    keyPressed(event){
+        if(event.key === KeyMap.DELETE){
+            return this.props.onSuppr();
+        }
     }
 }
 

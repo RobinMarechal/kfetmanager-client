@@ -1,25 +1,25 @@
-export const FETCH_CATEGORY_BEGIN = 'FETCH_CATEGORY_BEGIN';
-export const FETCH_CATEGORY_SUCCESS = 'FETCH_CATEGORY_SUCCESS';
-export const FETCH_CATEGORY_FAILURE = 'FETCH_CATEGORY_FAILURE';
+export const FETCH_SUBCATEGORY_BEGIN = 'FETCH_SUBCATEGORY_BEGIN';
+export const FETCH_SUBCATEGORY_SUCCESS = 'FETCH_SUBCATEGORY_SUCCESS';
+export const FETCH_SUBCATEGORY_FAILURE = 'FETCH_SUBCATEGORY_FAILURE';
 
 // Fetch actions
 
-export function fetchCategoryBegin() {
+export function fetchSubcategoryBegin() {
     return {
-        type: FETCH_CATEGORY_BEGIN,
+        type: FETCH_SUBCATEGORY_BEGIN,
     };
 };
 
-export function fetchCategorySuccess(categories) {
+export function fetchSubcategorySuccess(subcategories) {
     return {
-        type: FETCH_CATEGORY_SUCCESS,
-        payload: {categories},
+        type: FETCH_SUBCATEGORY_SUCCESS,
+        payload: {subcategories},
     };
 }
 
-export function fetchCategoryError(error) {
+export function fetchSubcategoryError(error) {
     return {
-        type: FETCH_CATEGORY_FAILURE,
+        type: FETCH_SUBCATEGORY_FAILURE,
         payload: {error},
     };
 }

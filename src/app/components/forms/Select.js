@@ -1,18 +1,61 @@
 import React from 'react';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 export default function Select(props) {
 
-    const { className, items, onChange, allValue, allText, itemFormatter } = props;
+    let {
+        className,
+        items,
+        onChange,
+        allValue,
+        allText,
+        itemFormatter,
+        name,
+        otherProps,
+        disableAll,
+        displayDefault,
+        selected,
+        invalidBorderColor,
+        invalid,
+    } = props;
+
+    if (!displayDefault && displayDefault !== false) {
+        displayDefault = true;
+    }
+
+    if (!allValue) {
+        allValue = 'null';
+    }
+
+    if (!selected) {
+        selected = 'null';
+    }
+
+    if (!invalidBorderColor) {
+        invalidBorderColor = 'red-light';
+    }
+    invalidBorderColor = `border-${invalidBorderColor}`;
 
     return (
         <div className={"w-full relative " + className}>
             <select
+                defaultValue={selected}
+                {...otherProps}
+                name={name}
                 onChange={onChange}
-                className="w-full block appearance-none bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded "
+                className={classNames(
+                    "w-full block appearance-none bg-white border border-grey-light hover:border-grey px-4 py-2 pr-8 rounded", {
+                        [invalidBorderColor]: invalid,
+                    })
+                }
             >
-                <option key="-1" value={allValue}>{allText}</option>
-                {items.map((item) => <option key={item} value={item}>{!_.isFunction(itemFormatter) ? item : itemFormatter(item)}</option>)}
+                {!displayDefault ? '' : <option key="-1" value={allValue} disabled={disableAll}>{allText}</option>}
+                {items.map((item) => <option key={item.value ? item.value : item}
+                                             value={item.value ? item.value : item}>
+                        {!_.isFunction(itemFormatter) ? (item.text ? item.text : item) : itemFormatter(item.text ? item.text : item)}
+                    </option>,
+                )}
             </select>
 
             <div className="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
