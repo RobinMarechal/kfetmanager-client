@@ -21,7 +21,6 @@ class States extends React.Component {
 
     fetchTreasury() {
         return async function (dispatch) {
-            dispatch(fetchTreasuryBegin());
             try {
                 const treasury = await Treasury.getTreasury();
                 dispatch(fetchTreasurySuccess(treasury));

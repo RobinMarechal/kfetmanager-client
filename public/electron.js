@@ -1,17 +1,11 @@
-const {app, BrowserWindow} = require('electron')
-const path = require('path')
-const url = require('url')
+const electron = require('electron');
+const sweet = require('sweet-electron')(electron);
 
-function createWindow () {
-    // Create the browser window.
-    win = new BrowserWindow({width: 800, height: 600})
-
-    // and load the index.html of the app.
-    win.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
-        protocol: 'file:',
-        slashes: true
-    }))
-}
-
-app.on('ready', createWindow)
+sweet()
+    .url(
+        is =>
+            is.dev() ? 'http://localhost:3000' : [__dirname, '../build/index.html'],
+    )
+    .window({ height: 850, width: 1550 })
+    .menu(null)
+    .run();

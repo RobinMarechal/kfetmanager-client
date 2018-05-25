@@ -1,0 +1,35 @@
+{
+  "appId": "com.robinmarechal.kfetmanager",
+  "productName": "KfetManager",
+  "icon": "./static/logo64x64.png",
+  "compression": "maximum",
+  "directories": {
+    "app": "build",
+    "output": "dist"
+  },
+  "files": [
+    "build/**/*",
+    "public/**/*"
+  ],
+  "directories": {
+    "buildResources": "assets"
+  },
+  "publish": {
+    "provider": "github"
+  },
+  "linux": {
+    "maintainer": "Arnaud Dellinger",
+    "vendor": "Arnaud Dellinger",
+    "category": "Development;",
+    "icon": "./static/logo64x64.png",
+    "target": [
+      "AppImage",
+      "deb"
+    ]
+  },
+  "win": {
+    "target": [
+      "NSIS"
+    ]
+  }
+}
