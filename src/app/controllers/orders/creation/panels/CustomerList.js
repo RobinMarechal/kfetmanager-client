@@ -25,7 +25,6 @@ class CustomerList extends React.Component {
             year: '*',
         };
 
-        this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleDepartmentSelectChange = this.handleDepartmentSelectChange.bind(this);
         this.handleYearSelectChange = this.handleYearSelectChange.bind(this);
@@ -169,8 +168,8 @@ class CustomerList extends React.Component {
         this.props.dispatch(this.fetchCustomers());
     }
 
-    onItemClick(customer){
-        this.props.customerClicked(customer)
+    onItemClick(customer) {
+        this.props.customerClicked(customer);
     }
 
     handleInputChange(event) {
@@ -180,25 +179,22 @@ class CustomerList extends React.Component {
             right: '%' + event.target.value + '%',
         }));
     }
-
-    handleInputKeyDown(event) {
-
-    }
 }
 
 function mapStateToProps(state) {
     return {
-        ...state,
+        orderCreation: state.orderCreation,
+        customers: state.customers,
     };
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
     return {
         dispatch,
         ...bindActionCreators({
-            customerClicked
-        }, dispatch)
-    }
+            customerClicked,
+        }, dispatch),
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerList);

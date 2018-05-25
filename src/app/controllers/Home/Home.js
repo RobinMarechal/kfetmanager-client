@@ -16,20 +16,23 @@ export const MAX_ITEMS_PER_PANEL = 20;
 class Home extends React.Component {
 
     componentDidMount() {
-        this.loadOrders();
-        this.loadCustomers();
-        this.loadProducts();
-
         this.loadOrders = this.loadOrders.bind(this);
         this.loadCustomers = this.loadCustomers.bind(this);
         this.loadProducts = this.loadProducts.bind(this);
+
+        this.loadOrders();
+        this.loadCustomers();
+        this.loadProducts();
     }
 
 
     fetchOrders() {
         return async function (dispatch) {
             dispatch(fetchOrderBegin());
-            const orders = await awaitOrEmpty(new Order().limit(MAX_ITEMS_PER_PANEL).orderByDesc('id').with('menu', 'customer', 'products').all());
+            const orders = await awaitOrEmpty(new Order().limit(MAX_ITEMS_PER_PANEL)
+                                                         .orderByDesc('id')
+                                                         .with('menu:id,name', 'customer:id,name', 'products:id,name')
+                                                         .all());
             dispatch(fetchOrderSuccess(orders));
 
             return orders;
@@ -39,7 +42,9 @@ class Home extends React.Component {
     fetchCustomers() {
         return async function (dispatch) {
             dispatch(fetchCustomerBegin());
-            const customers = await awaitOrEmpty(new Customer().limit(MAX_ITEMS_PER_PANEL).orderBy('balance').all());
+            const customers = await awaitOrEmpty(new Customer().limit(MAX_ITEMS_PER_PANEL)
+                                                               .orderBy('balance', 'name')
+                                                               .all());
             dispatch(fetchCustomerSuccess(customers));
 
             return customers;
@@ -49,7 +54,10 @@ class Home extends React.Component {
     fetchProducts() {
         return async function (dispatch) {
             dispatch(fetchProductBegin());
-            const products = await awaitOrEmpty(new Product().limit(MAX_ITEMS_PER_PANEL).orderBy('stock').with('subcategory.category').all());
+            const products = await awaitOrEmpty(new Product().limit(MAX_ITEMS_PER_PANEL)
+                                                             .orderBy('stock', 'name')
+                                                             .with('subcategory.category:id,name')
+                                                             .all());
             dispatch(fetchProductSuccess(products));
 
             return products;
@@ -88,7 +96,7 @@ class Home extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        ...state,
+        customers: state.customers,
     };
 }
 

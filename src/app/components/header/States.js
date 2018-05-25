@@ -3,7 +3,7 @@ import TreasuryState from './TreasuryState';
 import ServerState from './ServerState';
 import Treasury from '../../models/Treasury';
 import { connect } from 'react-redux';
-import { fetchTreasuryBegin, fetchTreasuryError } from '../../actions/models/treasury/index';
+import { fetchTreasuryError } from '../../actions/models/treasury/index';
 import { fetchTreasurySuccess } from '../../actions/models/treasury/fetchActions';
 import { formatNumber } from '../../../libs/helpers';
 
@@ -35,16 +35,14 @@ class States extends React.Component {
     }
 
     render() {
-        const error = this.props.treasury.error;
-        const treasury = this.props.treasury.treasury;
-        
+        const { error, treasury } = this.props.treasury;
+
         let formattedBalance = '?';
         let balance = -1;
         if (treasury && treasury.balance) {
             balance = treasury.balance;
             formattedBalance = formatNumber(balance, 2);
         }
-
 
         return (
             <div className="w-1/4">

@@ -16,7 +16,7 @@ class ProductsPanel extends React.Component {
             return {
                 left: [
                     name,
-                    subcategory.name + ', ' + subcategory.category.name,
+                    subcategory.name + ' (' + subcategory.category.name + ')',
                 ],
                 right: [
                     stock,
@@ -32,9 +32,9 @@ class ProductsPanel extends React.Component {
             title: lang("product", stringPlural, capitalize),
             buttons: [
                 {
-                    icon:faShoppingCart,
+                    icon: faShoppingCart,
                     link: 'manage-products/restockings',
-                    tooltip: 'restockings'
+                    tooltip: 'restockings',
                 },
                 {
                     icon: faCog,

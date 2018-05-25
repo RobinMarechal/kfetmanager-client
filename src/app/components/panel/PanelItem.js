@@ -9,7 +9,7 @@ export default function PanelItem(props) {
     if (footer && typeof footer === 'string' && footer.length > 0) {
         footerTag = (
             <div>
-                <p className="text-grey mt-3 text-sm italic">
+                <p className="text-grey mt-1 text-sm italic">
                     {footer}
                 </p>
             </div>
@@ -21,8 +21,8 @@ export default function PanelItem(props) {
             className={"first-child-no-border-top border-t px-4 py-2" + (hoverClass ? ' hover:' + hoverClass : '')}
             onClick={onClick}>
             <div className={"flex justify-between flex-row" + (_.isFunction(onClick) ? ' cursor-pointer' : '')}>
-                <div className="w-3/4 flex justify-around flex-col">
-                    {leftInfo.map((info, id) => <PanelInfo key={`PanelLeftInfo_${id}`} info={info}/>)}
+                <div className="w-3/4 flex justify-around flex-col leading-normal">
+                    {leftInfo.map((info, i) => <PanelInfo key={`PanelLeftInfo_${i}`} position={i} info={info}/>)}
                     {footerTag}
                 </div>
                 <div className="w-1/4 text-right flex justify-around flex-col">

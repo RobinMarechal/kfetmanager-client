@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import lang from '../../../../../resources/lang/index';
 
 function OrderCreationFooter(props) {
@@ -12,10 +11,4 @@ function OrderCreationFooter(props) {
     );
 }
 
-function mapStateToProps(state) {
-    return {
-        ...state,
-    };
-}
-
-export default connect(mapStateToProps)(OrderCreationFooter);
+export default OrderCreationFooter;
