@@ -3,7 +3,7 @@
   "name": "KfetManager",
   "icons": [
     {
-      "src": "./logo.png",
+      "src": "./logo64x64.png",
       "sizes": "64x64"
     }
   ],

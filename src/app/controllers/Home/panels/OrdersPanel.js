@@ -18,7 +18,7 @@ class OrdersPanel extends React.Component {
                 ],
                 baseData: order,
                 footer: created_at.toString().replace('T', ' '),
-                // footer: langFormatDate(created_at, lang('dateTimeFormat')),
+                // footer: langFormatDate(created_at, langFunction('dateTimeFormat')),
             };
 
             if (customer_id) {

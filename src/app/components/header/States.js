@@ -39,7 +39,7 @@ class States extends React.Component {
 
         let formattedBalance = '?';
         let balance = -1;
-        if (treasury && treasury.balance) {
+        if (treasury) {
             balance = treasury.balance;
             formattedBalance = formatNumber(balance, 2);
         }

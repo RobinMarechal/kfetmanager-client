@@ -6,6 +6,6 @@ sweet()
         is =>
             is.dev() ? 'http://localhost:3000' : [__dirname, '../build/index.html'],
     )
-    .window({ height: 850, width: 1550 })
+    .window({ height: 800, width: 1550, minWidth: 1350, minHeight: 400 })
     .menu(null)
     .run();

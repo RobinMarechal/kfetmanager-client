@@ -45,7 +45,6 @@ class App extends React.Component {
 
                         <Route component={E404}/>
                     </Switch>
-
                     <Footer/>
                 </div>
             </Router>
@@ -63,9 +62,12 @@ class App extends React.Component {
 
 function E404() {
     return (
-        <div style={{ marginTop: '150px' }}>
+        <div style={{ marginTop: '150px' }} className="text-grey-darkest">
             <p className="text-3xl text-center">
                 Page not found...
+            </p>
+            <p className="text-2xl italic text-center">
+                ({window.location.href})
             </p>
         </div>
     );

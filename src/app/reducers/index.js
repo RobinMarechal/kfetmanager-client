@@ -13,6 +13,7 @@ import subcategoriesReducer from './subcategoriesReducer';
 import { CLEAR_REDUCERS } from '../actions/clearReducers';
 import keyMapReducer from './keyMapReducer';
 import restockingReducer from './restockings/restockingReducer';
+import parametersReducer from './parametersReducer';
 
 const appReducer = combineReducers({
     customers: customersReducer,
@@ -28,6 +29,7 @@ const appReducer = combineReducers({
     selectedMenu: selectedMenuReducer,
     keyMap: keyMapReducer,
     restockings: restockingReducer,
+    parameters: parametersReducer,
 });
 
 const rootReducer = (state, action) => {

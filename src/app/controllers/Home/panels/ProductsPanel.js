@@ -93,7 +93,7 @@ class ProductsPanel extends React.Component {
     }
 
     colorFunction(info) {
-        const threshold = Config.get('app.products.criticalStock');
+        const threshold = Config.instance.get('app.products.criticalStock');
         if (info < threshold) {
             return 'red-light';
         }

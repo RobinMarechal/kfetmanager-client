@@ -85,7 +85,7 @@ class CustomersPanel extends React.Component {
     }
 
     colorFunction(info) {
-        const threshold = Config.get('app.customers.criticalBalance');
+        const threshold = Config.instance.get('app.customers.criticalBalance');
         const value = parseFloat(info.substring(0, info.length - 1));
         if (!value || isNaN(value) || value <= threshold) {
             return 'red-light';

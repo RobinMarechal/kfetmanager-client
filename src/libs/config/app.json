@@ -1,0 +1,10 @@
+{
+  "lang": "en",
+  "products": {
+    "criticalStock": 5
+  },
+  "customers": {
+    "criticalBalance": 8
+  },
+  "serverCheckInterval": "5000"
+}

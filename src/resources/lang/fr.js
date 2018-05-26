@@ -147,5 +147,22 @@ export default function loadFrench() {
         'new restocking': 'nouveau restockage',
 
         'restocking details': 'détails du restockage',
+
+        'parameters': 'paramètres',
+
+        'server URL': 'URL du serveur',
+
+        'check server every (ms)': "interval entre les tests d'accès au serveur (ms)",
+
+        "product's critical stock": "stock critique",
+
+        "customer's critical balance": "état critique d'un compte client",
+
+        'language': 'langue',
+
+        'french': 'français',
+        'english': 'anglais',
+
+        'save': 'sauvegarder',
     };
 }

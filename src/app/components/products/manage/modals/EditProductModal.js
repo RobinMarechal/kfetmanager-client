@@ -104,7 +104,7 @@ class EditProductModal extends React.Component {
                     })}
                             name="subcategory_id"
                             className="mt-2"
-                            select={product ? product.subcategory.name : null}
+                            selected={product ? product.subcategory.name : null}
                             itemFormatter={upperFirstLetter}
                             onChange={this.onChange}
                             disableAll={true}

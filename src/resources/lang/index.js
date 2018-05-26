@@ -9,7 +9,7 @@ loadEnglish();
 loadFrench();
 
 export default function lang(key, ...formatters) {
-    let t = TRANSLATIONS[Config.get('app.lang')][key];
+    let t = TRANSLATIONS[Config.instance.get('app.lang')][key];
 
     if (!t) {
         t = key;
@@ -31,7 +31,7 @@ export function langCapitalize(key) {
 }
 
 export function langDecimalSeparator() {
-    const lang = Config.get('app.lang');
+    const lang = Config.instance.get('app.lang');
     switch (lang) {
         case 'en':
             return '.';
@@ -43,7 +43,7 @@ export function langDecimalSeparator() {
 }
 
 export function langThousandSeparator() {
-    const lang = Config.get('app.lang');
+    const lang = Config.instance.get('app.lang');
     switch (lang) {
         case 'en':
             return ',';

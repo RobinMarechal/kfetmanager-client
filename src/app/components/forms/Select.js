@@ -40,7 +40,7 @@ export default function Select(props) {
     return (
         <div className={"w-full relative " + className}>
             <select
-                defaultValue={selected}
+                value={selected}
                 {...otherProps}
                 name={name}
                 onChange={onChange}

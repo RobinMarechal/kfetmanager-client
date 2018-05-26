@@ -1,0 +1,20 @@
+{
+  "app": {
+    "lang": "fr",
+    "products": {
+      "criticalStock": 5
+    },
+    "customers": {
+      "criticalBalance": 3.2
+    },
+    "serverCheckInterval": "5000"
+  },
+  "gui": {
+    "body": {
+      "height": "400px"
+    }
+  },
+  "server": {
+    "base_url": "http://localhost:8000/api"
+  }
+}
