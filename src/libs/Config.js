@@ -12,7 +12,7 @@ export default class Config {
      */
     constructor() {
         if (Config.instance) {
-            throw new Error("Singleton");
+            throw new Error("Config is a Singleton. Use 'Config.instance' to retrieve its instance");
         }
 
         this.config = null;
@@ -20,12 +20,13 @@ export default class Config {
 
     async load() {
         const response = await fetch('./config/config.json');
-        if (response.status === 404) {
+
+        try {
+            const json = await response.json();
+            this.config = json;
+        } catch (e) {
             this.config = DEFAULT;
         }
-
-        const json = await response.json();
-        this.config = json;
 
         this._mergeRestConfig();
 
@@ -40,14 +41,38 @@ export default class Config {
         return this.config;
     }
 
-    get(key) {
-        let value = this.config;
+    get(key, def) {
+        try{
+            let value = this.config;
+            const parts = key.split('.');
+            for (const p of parts) {
+                value = value[p];
+            }
+            return value;
+        }
+        catch(e){
+            return def;
+        }
+    }
+
+    set(key, value){
         const parts = key.split('.');
-        for (const p of parts) {
-            value = value[p];
+        let i;
+        let toUpdate = this.config;
+
+        for (i = 0; i < parts.length - 1; i++) {
+            toUpdate = toUpdate[parts[i]];
         }
 
-        return value;
+        toUpdate[parts[i]] = value;
+
+        if(key.includes('server')){
+            this._mergeRestConfig();
+        }
+    }
+
+    save(){
+
     }
 }
 
@@ -65,7 +90,7 @@ const DEFAULT = {
         "serverCheckInterval": "5000",
     },
     "server": {
-        "base_url": "https://localhost:8000/api",
+        "base_url": "http://localhost:8000/api",
     },
     "gui": {
         "body": {

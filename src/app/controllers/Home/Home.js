@@ -10,15 +10,20 @@ import { fetchOrderBegin, fetchOrderSuccess } from '../../actions/models/orders/
 import { fetchCustomerBegin, fetchCustomerSuccess } from '../../actions/models/customers/index';
 import { fetchProductBegin, fetchProductSuccess } from '../../actions/models/products/index';
 import Customer from '../../models/Customer';
+import { bindActionCreators } from 'redux';
 
 export const MAX_ITEMS_PER_PANEL = 20;
 
 class Home extends React.Component {
 
-    componentDidMount() {
+    componentWillMount() {
         this.loadOrders = this.loadOrders.bind(this);
         this.loadCustomers = this.loadCustomers.bind(this);
         this.loadProducts = this.loadProducts.bind(this);
+
+        this.props.fetchProductSuccess([]);
+        this.props.fetchOrderSuccess([]);
+        this.props.fetchCustomerSuccess([]);
 
         this.loadOrders();
         this.loadCustomers();
@@ -100,4 +105,15 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(Home);
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatch,
+        ...bindActionCreators({
+            fetchProductSuccess,
+            fetchOrderSuccess,
+            fetchCustomerSuccess,
+        }, dispatch),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

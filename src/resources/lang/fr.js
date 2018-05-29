@@ -164,5 +164,16 @@ export default function loadFrench() {
         'english': 'anglais',
 
         'save': 'sauvegarder',
+
+        'remove a product from the restocking': 'retirer un produit du restockage',
+
+        'update the item': "modifier l'item",
+        'add an item': "ajouter un item",
+
+        'quantity': 'quantité',
+
+        'select a product': 'sélectionnez un produit',
+
+        'edit the restocking': 'éditer le restockage',
     };
 }

@@ -54,8 +54,7 @@ class CreateCategoryModal extends React.Component {
         return (
             <div>
                 <div className="mb-6"
-                     tabIndex="0"
-                     onKeyDown={this.onKeyDown}>
+                     tabIndex="0">
                     <label htmlFor="name">{lang('name', upperFirstLetter)}{lang(':')} </label>
                     <input type="text"
                            name="name"

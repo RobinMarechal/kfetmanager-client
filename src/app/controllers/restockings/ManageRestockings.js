@@ -12,6 +12,7 @@ import Category from '../../models/Category';
 import Product from '../../models/Product';
 import DetailsModal from '../../components/restockings/DetailsModal';
 import { fetchTreasurySuccess } from '../../actions/models/treasury/fetchActions';
+import { fetchProductBegin, fetchProductError, fetchProductSuccess } from '../../actions/models/products';
 
 class ManageRestockings extends React.Component {
     constructor(props) {
@@ -33,14 +34,35 @@ class ManageRestockings extends React.Component {
         this.closeCreationModal = this.closeCreationModal.bind(this);
         this.addButtonClick = this.addButtonClick.bind(this);
         this.confirm = this.confirm.bind(this);
+        this.detachProduct = this.detachProduct.bind(this);
+        this.updatePivot = this.updatePivot.bind(this);
+        this.updateRestocking = this.updateRestocking.bind(this);
     }
 
     componentWillMount() {
         this.props.dispatch(this.fetchRestockings());
+        this.props.dispatch(this.fetchCategories());
+        this.props.dispatch(this.fetchProducts());
     }
 
     addFiltersToQuery(query) {
         return query;
+    }
+
+    fetchProducts() {
+        return async (dispatch) => {
+            dispatch(fetchProductBegin());
+
+            try {
+                const products = await new Product().orderBy('name').all();
+                dispatch(fetchProductSuccess(products));
+            }
+            catch (e) {
+                console.error("An error occurred while trying to fetch all products: ", e);
+                dispatch(fetchProductError());
+            }
+
+        };
     }
 
     fetchCategories() {
@@ -57,14 +79,14 @@ class ManageRestockings extends React.Component {
         };
     }
 
-    fetchRestockings() {
+    fetchRestockings(fromWaypoint = false) {
         return async (dispatch) => {
             const { restockings } = this.props;
             let res;
 
             this.setState({ waypointActive: false });
 
-            if (this.state.reset) {
+            if (this.state.reset || !fromWaypoint) {
                 this.setState({ reset: false });
                 restockings.items = [];
             }
@@ -115,12 +137,47 @@ class ManageRestockings extends React.Component {
 
                 <DetailsModal isOpen={this.state.isDetailsModalOpen}
                               onClose={this.toggleDetailsModal}
-                              restocking={this.state.showRestocking}/>
+                              restocking={this.state.showRestocking}
+                              detachProduct={this.detachProduct}
+                              updatePivot={this.updatePivot}
+                              updateRestocking={this.updateRestocking}
+                />
             </div>
         );
     }
 
+    async updateRestocking(restocking, data) {
+        const { restockings } = this.props;
+
+        try {
+            let updated = restocking;
+            for (const [key, val] of Object.entries(data)) {
+                updated[key] = val;
+            }
+
+            updated = await updated.with('treasury', 'products:id,name').save();
+
+            const newList = [];
+            for (const r of restockings.items) {
+                newList.push(r.id === updated.id ? updated : r);
+            }
+
+            this.setState({
+                restocking: updated,
+            });
+
+            this.props.fetchRestockingSuccess(newList);
+
+            return true;
+        }
+        catch (e) {
+            console.error("An error occurred while trying to update a restocking: ", e);
+            return false;
+        }
+    }
+
     async confirm(restocking, attachments) {
+        debugger;
         let { restockings } = this.props;
 
         try {
@@ -154,6 +211,63 @@ class ManageRestockings extends React.Component {
         }
     }
 
+    async detachProduct(restocking, product) {
+        const { restockings } = this.props;
+
+        try {
+            const updated = await restocking.with('treasury', 'products:id,name').detach(product);
+
+            this.setState({
+                showRestocking: updated,
+            });
+
+            const newList = [];
+            for (const r of restockings.items) {
+                newList.push(r.id === updated.id ? updated : r);
+            }
+
+            this.props.fetchRestockingSuccess(newList);
+
+            return true;
+        }
+        catch (e) {
+            console.log('An error occurred while trying to detach a product from a restocking: ', e);
+            return false;
+        }
+    }
+
+    async updatePivot(restocking, product, newProductId, data) {
+        const { restockings } = this.props;
+
+        try {
+            // If it's a creation, we won't detach anything
+            if (product) {
+                await restocking.detach(product);
+            }
+            const newProduct = new Product();
+            newProduct.id = newProductId;
+
+            const updated = await restocking.with('treasury', 'products:id,name').attach(newProduct, data);
+
+            this.setState({
+                showRestocking: updated,
+            });
+
+            const newList = [];
+            for (const r of restockings.items) {
+                newList.push(r.id === updated.id ? updated : r);
+            }
+
+            this.props.fetchRestockingSuccess(newList);
+
+            return true;
+        }
+        catch (e) {
+            console.error('An error occurred while trying to detach a product from a restocking: ', e);
+            return false;
+        }
+    }
+
     toggleDetailsModal(restocking = null) {
         this.setState({
             isDetailsModalOpen: !this.state.isDetailsModalOpen,
@@ -180,7 +294,7 @@ class ManageRestockings extends React.Component {
 
     enterWaypoint() {
         if (this.state.waypointActive) {
-            this.props.dispatch(this.fetchRestockings());
+            this.props.dispatch(this.fetchRestockings(true));
             this.setState({
                 waypointActive: true,
             });

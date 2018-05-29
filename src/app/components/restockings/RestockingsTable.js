@@ -24,7 +24,7 @@ class RestockingsTable extends React.Component {
             const { id, created_at, products, comment, total_cost } = restocking;
 
             const formattedDate = customDateFormat(created_at, lang('orderHistoryDateTimeFormat'));
-            const formattedComment = upperFirstLetter(comment);
+            const formattedComment = !comment ? '-' : upperFirstLetter(comment);
             const formattedProducts = products.map((p) => upperFirstLetter(p.name)).join(', ');
             const formattedCost = formatNumber(total_cost) + ' €';
 

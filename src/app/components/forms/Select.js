@@ -2,7 +2,8 @@ import React from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-export default function Select(props) {
+export default function
+    Select(props) {
 
     let {
         className,
@@ -25,7 +26,7 @@ export default function Select(props) {
     }
 
     if (!allValue) {
-        allValue = 'null';
+        displayDefault = false;
     }
 
     if (!selected) {
@@ -40,7 +41,7 @@ export default function Select(props) {
     return (
         <div className={"w-full relative " + className}>
             <select
-                value={selected}
+                defaultValue={selected}
                 {...otherProps}
                 name={name}
                 onChange={onChange}

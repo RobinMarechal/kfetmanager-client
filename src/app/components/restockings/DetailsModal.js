@@ -4,6 +4,13 @@ import lang from '../../../resources/lang';
 import Modal from 'react-modal';
 import Separator from '../utility/Separator';
 import FlexDiv from '../utility/FlexDiv';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faPencilAlt, faTimes } from '@fortawesome/fontawesome-free-solid/index.es';
+import DeleteItemModal from './items/DeleteItemModal';
+import EditItemModal from './items/EditItemModal';
+import { connect } from 'react-redux';
+import Button from '../utility/Button';
+import EditRestockingModal from './EditRestockingModal';
 
 Modal.setAppElement('#root');
 
@@ -13,7 +20,7 @@ const style = {
     content: {
         top: '50%',
         left: '50%',
-        width: '800px',
+        width: '900px',
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
@@ -21,18 +28,40 @@ const style = {
     },
 };
 
-class DeleteProductModal extends React.Component {
+const RIGHT_WIDTH = 600;
+
+class DetailsModal extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            editItem: null,
+            deleteItem: null,
+            isAddItemModalOpen: false,
+            isRestockingEditModalOpen: false,
+        };
+
+        this.toggleEditRestockingModal = this.toggleEditRestockingModal.bind(this);
+        this.toggleEditItemModal = this.toggleEditItemModal.bind(this);
+        this.toggleDeleteItemModal = this.toggleDeleteItemModal.bind(this);
+        this.toggleAddItemModal = this.toggleAddItemModal.bind(this);
+        this.editRestocking = this.editRestocking.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
+        this.editItem = this.editItem.bind(this);
+        this.addItem = this.addItem.bind(this);
+    }
+
     render() {
-        const { isOpen, onClose, restocking } = this.props;
+        const { isOpen, onClose, restocking, products: allProducts } = this.props;
+        if (!restocking) return null;
+        const { created_at, comment, total_cost, products: restockingProducts } = restocking;
 
-        if (!restocking) {
-            return null;
-        }
-
-        const { created_at, comment, total_price, products } = restocking;
+        const restockingProductsIds = restockingProducts.map((p) => p.id);
+        const availableProducts = allProducts.items.filter((p) => !restockingProductsIds.includes(p.id));
 
         const formattedDate = customDateFormat(created_at, lang('orderHistoryDateTimeFormat'));
-        const formattedPrice = formatNumber(total_price);
+        const formattedPrice = formatNumber(total_cost);
 
         return (
             <Modal isOpen={isOpen}
@@ -45,34 +74,160 @@ class DeleteProductModal extends React.Component {
 
                 <Separator my={4}/>
 
-                <FlexDiv justify="start">
-                    <div className="w-1/2 leading-normal pr-4 border-r">
-                        <p className="mb-4">
+                <FlexDiv>
+                    <div className="leading-normal pr-4 border-r w-full flex flex-col justify-start">
+                        <p className="mb-2">
                             <span className="capitalize font-bold">Date{lang(':')}</span>
                             <span>{formattedDate}</span>
                         </p>
-                        <p className="my-4">
+                        <p className="my-2">
                             <span width="150" className="capitalize font-bold">{lang('price')}{lang(':')}</span>
                             <span>{formattedPrice} €</span>
                         </p>
-                        <p className="my-4">
+                        <div className="my-2">
                             <span width="150" className="capitalize font-bold">{lang('comment')}{lang(':')}</span>
                             <p className="text-justify">{comment}</p>
-                        </p>
+                        </div>
+
+                        <FlexDiv className="mt-auto">
+                            <div className="pr-2 w-1/2">
+                                <Button onClick={this.toggleEditRestockingModal}>
+                                    {lang('edit the restocking', upperFirstLetter)}
+                                </Button>
+                            </div>
+                            <div className="pl-2 w-1/2">
+                                <Button onClick={this.toggleAddItemModal}>
+                                    {lang('add an item', upperFirstLetter)}
+                                </Button>
+                            </div>
+                        </FlexDiv>
                     </div>
 
-                    <div className="w-1/2 leading-loose pl-4 overflow-y-auto"
-                         style={{ maxHeight: PRODUCT_LIST_MAX_HEIGHT }}>
-                        {products.map(({ id, name, pivot }) => {
+                    <div className="leading-normal pl-4 overflow-y-auto"
+                         style={{ maxHeight: PRODUCT_LIST_MAX_HEIGHT, width: `${RIGHT_WIDTH}px` }}>
+                        {restockingProducts.map((product) => {
+                            const { id, name, pivot } = product;
                             return (
-                                <p key={id}> {upperFirstLetter(name)} <i className="text-grey-dark text-sm">(x{pivot.quantity})</i></p>
+                                <FlexDiv key={id} justify="start" className="hover:show-child">
+                                    <p> {upperFirstLetter(name)} <i className="text-grey-dark">(x{pivot.quantity})</i></p>
+                                    <div className="ml-auto">
+                                        <button className="hover:opacity-full parent-hover:show" onClick={() => this.toggleEditItemModal(product)}>
+                                            <FontAwesomeIcon className="text-grey text-purple text-2xl" icon={faPencilAlt}/>
+                                        </button>
+                                        <button className="ml-2 mr-8 hover:opacity-full parent-hover:show"
+                                                onClick={() => this.toggleDeleteItemModal(product)}>
+                                            <FontAwesomeIcon className="text-grey text-red-light text-2xl" icon={faTimes}/>
+                                        </button>
+                                    </div>
+                                </FlexDiv>
                             );
                         })}
                     </div>
                 </FlexDiv>
+
+                <EditRestockingModal isOpen={this.state.isRestockingEditModalOpen}
+                                     restocking={restocking}
+                                     onConfirm={this.editRestocking}
+                                     onCancel={() => this.toggleEditRestockingModal()}
+                />
+
+                <DeleteItemModal product={this.state.deleteItem}
+                                 onCancel={() => this.toggleDeleteItemModal()}
+                                 onConfirm={this.deleteItem}/>
+
+
+                <EditItemModal isOpen={this.state.editItem !== null}
+                               product={this.state.editItem}
+                               availableProducts={availableProducts}
+                               onCancel={() => this.toggleEditItemModal()}
+                               onConfirm={this.editItem}/>
+
+                {/*Add item*/}
+                <EditItemModal isOpen={this.state.isAddItemModalOpen}
+                               availableProducts={availableProducts}
+                               onCancel={() => this.toggleAddItemModal()}
+                               onConfirm={this.addItem}/>
+
             </Modal>
         );
     }
+
+    toggleEditRestockingModal() {
+        this.setState({
+            isRestockingEditModalOpen: !this.state.isRestockingEditModalOpen,
+        });
+    }
+
+    toggleDeleteItemModal(product = null) {
+        this.setState({
+            deleteItem: product,
+        });
+    }
+
+    toggleEditItemModal(product = null) {
+        this.setState({
+            editItem: product,
+        });
+    }
+
+    toggleAddItemModal() {
+        this.setState({
+            isAddItemModalOpen: !this.state.isAddItemModalOpen,
+        });
+    }
+
+    async editRestocking(restocking, data) {
+        if (await this.props.updateRestocking(restocking, data)) {
+            this.toggleEditRestockingModal();
+        }
+    }
+
+    async addItem(product, newProductId, quantity) {
+        let res = true;
+        if (quantity && quantity !== '0' && quantity !== '') {
+            res = await this.props.updatePivot(this.props.restocking, null, newProductId, { quantity });
+        }
+
+        if (res) {
+            this.toggleAddItemModal();
+        }
+
+    }
+
+    async deleteItem(product) {
+        if (await this.props.detachProduct(this.props.restocking, product)) {
+            this.setState({
+                deleteItem: null,
+            });
+
+            return true;
+        }
+    }
+
+    async editItem(product, newProductId, quantity) {
+        let res;
+
+        if (quantity === '0' || quantity === '') {
+            if (product.id === newProductId) {
+                res = await this.deleteItem(product);
+            }
+        }
+        else {
+            res = await this.props.updatePivot(this.props.restocking, product, newProductId, { quantity });
+        }
+
+        if (res) {
+            this.setState({
+                editItem: null,
+            });
+        }
+    }
 }
 
-export default DeleteProductModal;
+function mapStateToProps(state) {
+    return {
+        products: state.products,
+    };
+}
+
+export default connect(mapStateToProps)(DetailsModal);

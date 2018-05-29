@@ -83,50 +83,45 @@ class AddRestockingModal extends React.Component {
 
     buildContent() {
         return (
-            <div>
-                <div className="mb-6 flex"
-                     tabIndex="0"
-                     onKeyDown={this.onKeyDown}>
-
-                    <div className="w-1/2 mr-3">
-                        <div>
-                            <label htmlFor="comment">{lang('comment', upperFirstLetter)}{lang(':')} </label>
-                            <textarea name="comment"
-                                      rows="8"
-                                      onChange={this.onTextareaChange}
-                                      className={classNames(
-                                          `mt-2 appearance-none border rounded pl-4 py-2 w-full`, {
-                                              'border-red-light': this.state.commentInvalid,
-                                          })
-                                      }/>
-                            <i className="text-grey-dark text-sm">
-                                {lang('characters left', upperFirstLetter)}{lang(':')}
-                                <span className={this.state.charactersLeft < 30 ? 'text-red-light' : ''}>
+            <div className="mb-6 flex">
+                <div className="w-1/2 mr-3">
+                    <div>
+                        <label htmlFor="comment">{lang('comment', upperFirstLetter)}{lang(':')} </label>
+                        <textarea name="comment"
+                                  rows="8"
+                                  onChange={this.onTextareaChange}
+                                  className={classNames(
+                                      `mt-2 appearance-none border rounded px-2 py-2 w-full`, {
+                                          'border-red-light': this.state.commentInvalid,
+                                      })
+                                  }/>
+                        <i className="text-grey-dark text-sm">
+                            {lang('characters left', upperFirstLetter)}{lang(':')}
+                            <span className={this.state.charactersLeft < 30 ? 'text-red-light' : ''}>
                                 {this.state.charactersLeft}
                                 </span>
-                            </i>
-                        </div>
-
-                        <div className="mt-4">
-                            <label htmlFor="total_cost">{lang('total cost', upperFirstLetter)}{lang(':')} </label>
-                            <input type="text"
-                                   onChange={this.onChange}
-                                   name="total_cost"
-                                   className={classNames(
-                                       `mt-2 appearance-none border rounded pl-4 py-2 w-full`, {
-                                           'border-red-light': this.state.total_costInvalid,
-                                       })
-                                   }/>
-                        </div>
+                        </i>
                     </div>
 
-                    <div className="w-1/2 ml-3">
-                        <label>{lang('products', upperFirstLetter)}{lang(':')} </label>
-                        <ul style={{ height: '400px' }}
-                            className="indent-lg px-0 text-grey-darkest h-auto overflow-y-auto shadow border rounded list-style-none my-2">
-                            {this.buildList()}
-                        </ul>
+                    <div className="mt-4">
+                        <label htmlFor="total_cost">{lang('total cost', upperFirstLetter)}{lang(':')} </label>
+                        <input type="text"
+                               onChange={this.onChange}
+                               name="total_cost"
+                               className={classNames(
+                                   `mt-2 appearance-none border rounded pl-4 py-2 w-full`, {
+                                       'border-red-light': this.state.total_costInvalid,
+                                   })
+                               }/>
                     </div>
+                </div>
+
+                <div className="w-1/2 ml-3">
+                    <label>{lang('products', upperFirstLetter)}{lang(':')} </label>
+                    <ul style={{ height: '400px' }}
+                        className="indent-lg px-0 text-grey-darkest h-auto overflow-y-auto shadow border rounded list-style-none my-2">
+                        {this.buildList()}
+                    </ul>
                 </div>
             </div>
         );

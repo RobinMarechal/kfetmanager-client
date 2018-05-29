@@ -6,6 +6,10 @@ class ProductListCategoryGroup extends React.Component {
         const { category, onItemSelect, orderCreation } = this.props;
         const { subcategories, name } = category;
 
+        if(!subcategories || subcategories.length === 0){
+            return null;
+        }
+
         return (
             <div>
                 <li className="first-child-no-border-top px-4 py-2 border-t bg-grey-light">

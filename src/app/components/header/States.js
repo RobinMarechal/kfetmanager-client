@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { fetchTreasuryError } from '../../actions/models/treasury/index';
 import { fetchTreasurySuccess } from '../../actions/models/treasury/fetchActions';
 import { formatNumber } from '../../../libs/helpers';
+import Config from '../../../libs/Config';
 
 class States extends React.Component {
     componentWillUnmount() {
@@ -16,7 +17,7 @@ class States extends React.Component {
         this.props.dispatch(this.fetchTreasury());
         this.interval = setInterval(() => {
             this.props.dispatch(this.fetchTreasury());
-        }, 5000);
+        }, Config.instance.get('app.serverCheckInterval', 0));
     }
 
     fetchTreasury() {
@@ -55,7 +56,7 @@ class States extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        treasury: state.treasury,
+        treasury: state.treasury
     };
 }
 

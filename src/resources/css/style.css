@@ -4592,6 +4592,18 @@ button,
   text-overflow: ellipsis;
 }
 
+.hover\:show-child .parent-hover\:show {
+  opacity: 0;
+}
+
+.hover\:show-child:hover .parent-hover\:show {
+  opacity: .6;
+}
+
+.hover\:opacity-full:hover {
+  opacity: 1 !important;
+}
+
 @media (min-width: 576px) {
   .sm\:list-reset {
     list-style: none;

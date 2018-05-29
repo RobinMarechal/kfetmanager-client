@@ -43,45 +43,45 @@ export default class Product extends BaseModel {
     static sortCustomersListBy(products, orderBy, desc = false) {
         switch (orderBy) {
             case 'subcategory':
-                return this._sortCustomersListBySubcategory(products, desc);
+                return this._sortProductsListBySubcategory(products, desc);
             case 'category':
-                return this._sortCustomersListByCategory(products, desc);
+                return this._sortProductsListByCategory(products, desc);
             case 'nbOrders':
-                return this._sortCustomersListByOrderNumber(products, desc);
+                return this._sortProductsListByOrderNumber(products, desc);
             case 'name':
-                return this._sortCustomersListByName(products, desc);
+                return this._sortProductsListByName(products, desc);
             case 'price':
-                return this._sortCustomersListByPrice(products, desc);
+                return this._sortProductsListByPrice(products, desc);
             default:
                 return products;
         }
     }
 
-    static _sortCustomersListByCategory(products, desc) {
+    static _sortProductsListByCategory(products, desc) {
         return products.sort((a, b) => {
             return a.subcategory.category.name.toLowerCase().localeCompare(b.subcategory.category.name.toLowerCase()) * (desc ? -1 : 1);
         });
     }
 
-    static _sortCustomersListBySubcategory(products, desc) {
+    static _sortProductsListBySubcategory(products, desc) {
         return products.sort((a, b) => {
             return a.subcategory.name.toLowerCase().localeCompare(b.subcategory.name.toLowerCase()) * (desc ? -1 : 1);
         });
     }
 
-    static _sortCustomersListByName(products, desc) {
+    static _sortProductsListByName(products, desc) {
         return products.sort((a, b) => {
             return a.name.toLowerCase().localeCompare(b.name.toLowerCase()) * (desc ? -1 : 1);
         });
     }
 
-    static _sortCustomersListByOrderNumber(products, desc) {
+    static _sortProductsListByOrderNumber(products, desc) {
         return products.sort((a, b) => {
             return (a.orders.length - b.orders.length) * (desc ? -1 : 1);
         });
     }
 
-    static _sortCustomersListByPrice(products, desc) {
+    static _sortProductsListByPrice(products, desc) {
         return products.sort((a, b) => {
             return (a.price - b.price) * (desc ? -1 : 1);
         });

@@ -28,6 +28,7 @@ class App extends React.Component {
                     <Header/>
 
                     <Switch>
+                        <Route path="/index.html" component={Home}/>
                         <Route exact path="/" component={Home}/>
 
                         <Route exact path="/new-order" component={OrderCreation}/>
@@ -76,6 +77,7 @@ function E404() {
 function mapStateToProps(state) {
     return {
         keyPressed: state.keyPressed,
+        parameters: state.parameters,
     };
 }
 

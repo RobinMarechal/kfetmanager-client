@@ -34,6 +34,10 @@ export default function Button(props) {
         title = disabledTitle;
     }
 
+    if(!className){
+        className = ''
+    }
+
     return (
         <button onClick={onClick}
                 title={title}

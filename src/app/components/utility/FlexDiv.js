@@ -1,17 +1,21 @@
 import React from 'react';
 
-export default function FlexDiv (props){
-    let {children, flex, justify, className} = props;
+export default function FlexDiv(props) {
+    let { children, flex, justify, className } = props;
 
-    flex = !flex ? 'flex' : 'flex-col';
+    flex = !flex ? '' : `flex-${flex}`;
 
-    if(!justify){
-        justify = 'between'
+    if (!justify) {
+        justify = 'between';
+    }
+
+    if (!className) {
+        className = '';
     }
 
 
     return (
-        <div className={`${flex} justify-${justify} ${className}`}>
+        <div className={`flex ${flex} justify-${justify} ${className}`}>
             {children}
         </div>
     );

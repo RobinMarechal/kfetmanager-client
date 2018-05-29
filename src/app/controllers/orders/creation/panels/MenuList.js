@@ -101,7 +101,7 @@ class MenuList extends React.Component {
                 </div>
 
 
-                <div className="flex justify-center flex-wrap overflow-y-auto my-4 border rounded">
+                <div className="flex justify-center flex-wrap overflow-y-auto my-4 shadow border rounded">
                     {this.buildList()}
                 </div>
 

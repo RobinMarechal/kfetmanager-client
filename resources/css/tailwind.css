@@ -67,20 +67,33 @@
     border-radius: 5px;
 }
 
-*::-webkit-scrollbar:horizontal{
-    height:6px;
+*::-webkit-scrollbar:horizontal {
+    height: 6px;
 }
 
-*::-webkit-scrollbar:vertical{
+*::-webkit-scrollbar:vertical {
     width: 6px;
 }
 
-.rounded-scrollbar::-webkit-scrollbar{
+.rounded-scrollbar::-webkit-scrollbar {
     border-radius: 5px;
 }
 
-.text-ellipsis-nowrap{
+.text-ellipsis-nowrap {
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.hover\:show-child .parent-hover\:show {
+    opacity: 0;
+}
+
+.hover\:show-child:hover .parent-hover\:show {
+    opacity: 0.6;
+}
+
+.hover\:opacity-full:hover {
+    opacity: 1 !important;
+}
+

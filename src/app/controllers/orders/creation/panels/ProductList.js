@@ -67,7 +67,7 @@ class ProductList extends React.Component {
             return <Error/>;
         }
 
-        if (categories.items.length === 0) {
+        if (!categories.items || categories.items.length === 0) {
             return (
                 <div className="px-4 py-2">
                     <p className="pl-6 text-center">

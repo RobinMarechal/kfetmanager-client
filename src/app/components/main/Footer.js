@@ -58,7 +58,7 @@ class Footer extends React.Component {
     }
 
     save(configs) {
-        const current = Config.all();
+        const current = Config.instance.all();
 
         current.server.base_url = configs.url;
         current.app.customers.criticalBalance = configs.customersCriticalBalance;
@@ -66,10 +66,10 @@ class Footer extends React.Component {
         current.app.lang = configs.lang;
         current.app.products.criticalStock = configs.productsCriticalStock;
 
-        Config.set('app', current.app);
-        Config.set('server', current.server);
+        Config.instance.set('app', current.app);
+        Config.instance.set('server', current.server);
 
-        Config.save();
+        Config.instance.save();
 
         this.props.updateParameters(current);
 
