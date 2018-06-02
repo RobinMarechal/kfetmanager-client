@@ -88,6 +88,7 @@ class AddRestockingModal extends React.Component {
                     <div>
                         <label htmlFor="comment">{lang('comment', upperFirstLetter)}{lang(':')} </label>
                         <textarea name="comment"
+                                  autoFocus
                                   rows="8"
                                   onChange={this.onTextareaChange}
                                   className={classNames(

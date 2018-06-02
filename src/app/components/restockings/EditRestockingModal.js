@@ -30,6 +30,8 @@ class EditRestockingModal extends React.Component {
             total_cost: null,
             comment: null,
             total_cost_firstEdit: true,
+            textareaFocused: false,
+            charactersLeft: MAX_CHARS,
         };
     }
 
@@ -38,6 +40,7 @@ class EditRestockingModal extends React.Component {
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onTextareaChange = this.onTextareaChange.bind(this);
+        this.setTextareaFocus = this.setTextareaFocus.bind(this);
     }
 
     render() {
@@ -59,6 +62,9 @@ class EditRestockingModal extends React.Component {
                         <div>
                             <label htmlFor="comment">{lang('comment', upperFirstLetter)}{lang(':')} </label>
                             <textarea name="comment"
+                                      onFocus={() => this.setTextareaFocus()}
+                                      onBlur={() => this.setTextareaFocus(false)}
+                                      autoFocus
                                       rows="8"
                                       defaultValue={restocking.comment}
                                       onChange={this.onTextareaChange}
@@ -108,8 +114,12 @@ class EditRestockingModal extends React.Component {
         );
     }
 
+    setTextareaFocus(state = true) {
+        this.setState({ textareaFocused: state });
+    }
+
     onKeyDown(event) {
-        if (event.key === KeyMap.ENTER) {
+        if (event.key === KeyMap.ENTER && !this.state.textareaFocused) {
             this.onConfirmMiddleware();
         }
     }
@@ -148,7 +158,7 @@ class EditRestockingModal extends React.Component {
         const { onConfirm, restocking } = this.props;
 
         if (comment === null && total_cost === null) {
-            return this.onCancel();
+            return this.props.onCancel();
         }
         else {
             if (comment === null) {

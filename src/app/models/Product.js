@@ -37,10 +37,10 @@ export default class Product extends BaseModel {
     /**
      *
      * @param {array<Customer>} products
-     * @param {string} orderBy subcategory|category|nbOrders
+     * @param {string} orderBy name|price|subcategory|category|nbOrders
      * @param {boolean} desc false|true. true => sort descending order, false => ascending order
      */
-    static sortCustomersListBy(products, orderBy, desc = false) {
+    static sortProductsListBy(products, orderBy, desc = false) {
         switch (orderBy) {
             case 'subcategory':
                 return this._sortProductsListBySubcategory(products, desc);

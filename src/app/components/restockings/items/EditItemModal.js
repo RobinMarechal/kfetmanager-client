@@ -7,6 +7,7 @@ import FlexDiv from '../../utility/FlexDiv';
 import Button from '../../utility/Button';
 import Modal from 'react-modal';
 import Select from '../../forms/Select';
+import classNames from 'classnames';
 
 const style = {
     content: {
@@ -20,24 +21,29 @@ const style = {
     },
 };
 
+const DEFAULT_STATE = {
+    quantity: null,
+    product_id: null,
+    quantityInvalid: false,
+    productInvalid: false,
+};
+
 class EditItemModal extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            quantity: null,
-            product_id: null,
-        };
+        this.state = DEFAULT_STATE;
     }
 
     componentWillMount() {
         this.onConfirmMiddleware = this.onConfirmMiddleware.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.close = this.close.bind(this);
     }
 
     render() {
-        const { onCancel, product, availableProducts, isOpen } = this.props;
+        const { product, availableProducts, isOpen } = this.props;
 
         const filteredAvailable = availableProducts.map((p) => {
             return {
@@ -46,13 +52,22 @@ class EditItemModal extends React.Component {
             };
         });
 
-        const selectItems = product ? [{ value: product.id, text: upperFirstLetter(product.name) }, ...filteredAvailable] : filteredAvailable;
+        let selectItems = filteredAvailable;
+
+        // Heavy, but removes a warning...
+        if (product && !filteredAvailable.map(e => e.value).includes(product.id)) {
+            selectItems = [{ value: product.id, text: upperFirstLetter(product.name) }, ...filteredAvailable];
+        }
+
+        if (selectItems.length > 1) {
+            selectItems.sort((a, b) => a.text.toLowerCase().localeCompare(b.text.toLowerCase()));
+        }
 
         return (
             <Modal isOpen={isOpen}
                    shouldCloseOnEsc={true}
                    style={style}
-                   onRequestClose={onCancel}
+                   onRequestClose={this.close}
                    className="rounded p-4 shadow-lg m-auto w-1/3 bg-white absolute text-grey-darkest "
                    shouldCloseOnOverlayClick={true}>
                 <h2>{lang(product ? 'update the item' : 'add an item', upperFirstLetter)}</h2>
@@ -65,8 +80,9 @@ class EditItemModal extends React.Component {
                     <div className="mb-4">
                         <label>{lang('product', upperFirstLetter)}{lang(':')}</label>
                         <Select name="product_id"
-                                className="my-2"
+                                className={"my-2"}
                                 onChange={this.onChange}
+                                invalid={this.state.productInvalid}
                                 displayDefault={false}
                                 selected={!product ? null : product.id}
                                 items={selectItems}/>
@@ -74,11 +90,15 @@ class EditItemModal extends React.Component {
 
                     <div className="mt-4 mb-2">
                         <label htmlFor="quantity">{lang('quantity', upperFirstLetter)}{lang(':')}</label>
-                        <input className="border rounded px-2 py-2 w-full my-2"
-                               name="quantity"
+                        <input name="quantity"
+                               autoFocus
                                type="text"
                                defaultValue={!product ? 0 : product.pivot.quantity}
-                               onChange={this.onChange}/>
+                               onChange={this.onChange}
+                               className={classNames("border rounded px-2 py-2 w-full my-2", {
+                                   'border-red-light': this.state.quantityInvalid,
+                               })}
+                        />
                     </div>
 
                     <Separator my={4}/>
@@ -91,13 +111,22 @@ class EditItemModal extends React.Component {
                             {lang('confirm')}
                         </Button>
                         <Button className="ml-3 capitalize"
-                                onClick={onCancel}>
+                                onClick={this.close}>
                             {lang('cancel')}
                         </Button>
                     </FlexDiv>
                 </div>
             </Modal>
         );
+    }
+
+    close() {
+        this.resetState();
+        this.props.onCancel();
+    }
+
+    resetState() {
+        this.setState(DEFAULT_STATE);
     }
 
     onChange(event) {
@@ -108,6 +137,7 @@ class EditItemModal extends React.Component {
 
         this.setState({
             [event.target.name]: event.target.value,
+            [event.target.name + "Invalid"]: false,
         });
     }
 
@@ -119,14 +149,42 @@ class EditItemModal extends React.Component {
 
     onConfirmMiddleware() {
         const { product, availableProducts } = this.props;
+        let { quantity } = this.state;
+        let productInvalid = false;
+        let quantityInvalid = false;
 
         const product_id = this.state.product_id || (product ? product.id : availableProducts.length ? availableProducts[0].id : null);
 
-        if(product_id === null){
+        if (product_id === null) {
+            productInvalid = true;
+            this.setState({
+                productInvalid: true,
+            });
+        }
+
+        if (quantity === "" || quantity === "0" || (!quantity && !this.props.product)) {
+            quantityInvalid = true;
+            this.setState({
+                quantityInvalid: true,
+            });
+        }
+
+        if (quantityInvalid || productInvalid) {
+            return false;
+        }
+
+        if (quantity == null && (!product || product.id === product_id)) {
+            this.props.onCancel();
             return;
         }
 
-        this.props.onConfirm(product, product_id, this.state.quantity);
+        // At this point, is the quantity is null, then it hasn't been modified and should take the stored value
+        if (!quantity && product) {
+            quantity = product.pivot.quantity;
+        }
+
+        this.props.onConfirm(product, product_id, quantity);
+        this.resetState();
     }
 }
 

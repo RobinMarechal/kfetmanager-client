@@ -376,7 +376,7 @@ class ManageProducts extends React.Component {
     }
 
     sortProducts(orderBy, orderDirection, products) {
-        return Product.sortCustomersListBy(products, orderBy, orderDirection === '-');
+        return Product.sortProductsListBy(products, orderBy, orderDirection === '-');
     }
 
     onSort(orderBy) {

@@ -7,6 +7,7 @@ import Loading from '../utility/Loading';
 import Config from '../../../libs/Config';
 import lang from '../../../resources/lang';
 import Waypoint from 'react-waypoint';
+import Product from '../../models/Product';
 
 const rowStyle = { lineHeight: '2.4rem' };
 
@@ -22,6 +23,8 @@ class RestockingsTable extends React.Component {
 
         let rows = restockings.items.map((restocking, i) => {
             const { id, created_at, products, comment, total_cost } = restocking;
+
+            Product.sortProductsListBy(products, 'name');
 
             const formattedDate = customDateFormat(created_at, lang('orderHistoryDateTimeFormat'));
             const formattedComment = !comment ? '-' : upperFirstLetter(comment);

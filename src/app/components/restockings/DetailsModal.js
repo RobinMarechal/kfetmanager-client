@@ -11,6 +11,7 @@ import EditItemModal from './items/EditItemModal';
 import { connect } from 'react-redux';
 import Button from '../utility/Button';
 import EditRestockingModal from './EditRestockingModal';
+import Product from '../../models/Product';
 
 Modal.setAppElement('#root');
 
@@ -46,10 +47,38 @@ class DetailsModal extends React.Component {
         this.toggleEditItemModal = this.toggleEditItemModal.bind(this);
         this.toggleDeleteItemModal = this.toggleDeleteItemModal.bind(this);
         this.toggleAddItemModal = this.toggleAddItemModal.bind(this);
+        this.closeEditItemModal = this.closeDeleteItemModal.bind(this);
+        this.closeDeleteItemModal = this.closeDeleteItemModal.bind(this);
+        this.closeEditRestockingModal = this.closeEditRestockingModal.bind(this);
         this.editRestocking = this.editRestocking.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.editItem = this.editItem.bind(this);
         this.addItem = this.addItem.bind(this);
+    }
+
+    buildRestockingList() {
+        const { restocking } = this.props;
+        let { products } = restocking;
+
+        Product.sortProductsListBy(products, 'name');
+
+        return products.map((product) => {
+            const { id, name, pivot } = product;
+            return (
+                <FlexDiv key={id} justify="start" className="hover:show-child">
+                    <p> {upperFirstLetter(name)} <i className="text-grey-dark">(x{pivot.quantity})</i></p>
+                    <div className="ml-auto">
+                        <button className="hover:opacity-full parent-hover:show" onClick={() => this.toggleEditItemModal(product)}>
+                            <FontAwesomeIcon className="text-grey text-purple text-2xl" icon={faPencilAlt}/>
+                        </button>
+                        <button className="ml-2 mr-8 hover:opacity-full parent-hover:show"
+                                onClick={() => this.toggleDeleteItemModal(product)}>
+                            <FontAwesomeIcon className="text-grey text-red-light text-2xl" icon={faTimes}/>
+                        </button>
+                    </div>
+                </FlexDiv>
+            );
+        });
     }
 
     render() {
@@ -105,41 +134,25 @@ class DetailsModal extends React.Component {
 
                     <div className="leading-normal pl-4 overflow-y-auto"
                          style={{ maxHeight: PRODUCT_LIST_MAX_HEIGHT, width: `${RIGHT_WIDTH}px` }}>
-                        {restockingProducts.map((product) => {
-                            const { id, name, pivot } = product;
-                            return (
-                                <FlexDiv key={id} justify="start" className="hover:show-child">
-                                    <p> {upperFirstLetter(name)} <i className="text-grey-dark">(x{pivot.quantity})</i></p>
-                                    <div className="ml-auto">
-                                        <button className="hover:opacity-full parent-hover:show" onClick={() => this.toggleEditItemModal(product)}>
-                                            <FontAwesomeIcon className="text-grey text-purple text-2xl" icon={faPencilAlt}/>
-                                        </button>
-                                        <button className="ml-2 mr-8 hover:opacity-full parent-hover:show"
-                                                onClick={() => this.toggleDeleteItemModal(product)}>
-                                            <FontAwesomeIcon className="text-grey text-red-light text-2xl" icon={faTimes}/>
-                                        </button>
-                                    </div>
-                                </FlexDiv>
-                            );
-                        })}
+                        {this.buildRestockingList()}
                     </div>
                 </FlexDiv>
 
                 <EditRestockingModal isOpen={this.state.isRestockingEditModalOpen}
                                      restocking={restocking}
                                      onConfirm={this.editRestocking}
-                                     onCancel={() => this.toggleEditRestockingModal()}
+                                     onCancel={this.closeEditRestockingModal}
                 />
 
                 <DeleteItemModal product={this.state.deleteItem}
-                                 onCancel={() => this.toggleDeleteItemModal()}
+                                 onCancel={this.closeDeleteItemModal}
                                  onConfirm={this.deleteItem}/>
 
 
                 <EditItemModal isOpen={this.state.editItem !== null}
                                product={this.state.editItem}
                                availableProducts={availableProducts}
-                               onCancel={() => this.toggleEditItemModal()}
+                               onCancel={this.closeEditItemModal}
                                onConfirm={this.editItem}/>
 
                 {/*Add item*/}
@@ -152,15 +165,34 @@ class DetailsModal extends React.Component {
         );
     }
 
+    closeEditRestockingModal(){
+        console.log('c', this.state.isRestockingEditModalOpen);
+        this.setState({
+            isRestockingEditModalOpen: false,
+        });
+    }
+
     toggleEditRestockingModal() {
         this.setState({
             isRestockingEditModalOpen: !this.state.isRestockingEditModalOpen,
         });
     }
 
+    closeDeleteItemModal(){
+        this.setState({
+            deleteItem: null,
+        });
+    }
+
     toggleDeleteItemModal(product = null) {
         this.setState({
             deleteItem: product,
+        });
+    }
+
+    closeEditItemModal(){
+        this.setState({
+            editItem: null,
         });
     }
 

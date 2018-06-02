@@ -177,7 +177,6 @@ class ManageRestockings extends React.Component {
     }
 
     async confirm(restocking, attachments) {
-        debugger;
         let { restockings } = this.props;
 
         try {
