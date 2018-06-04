@@ -47,7 +47,7 @@ class DetailsModal extends React.Component {
         this.toggleEditItemModal = this.toggleEditItemModal.bind(this);
         this.toggleDeleteItemModal = this.toggleDeleteItemModal.bind(this);
         this.toggleAddItemModal = this.toggleAddItemModal.bind(this);
-        this.closeEditItemModal = this.closeDeleteItemModal.bind(this);
+        this.closeEditItemModal = this.closeEditItemModal.bind(this);
         this.closeDeleteItemModal = this.closeDeleteItemModal.bind(this);
         this.closeEditRestockingModal = this.closeEditRestockingModal.bind(this);
         this.editRestocking = this.editRestocking.bind(this);
@@ -152,7 +152,7 @@ class DetailsModal extends React.Component {
                 <EditItemModal isOpen={this.state.editItem !== null}
                                product={this.state.editItem}
                                availableProducts={availableProducts}
-                               onCancel={this.closeEditItemModal}
+                               onCancel={() => this.closeEditItemModal()}
                                onConfirm={this.editItem}/>
 
                 {/*Add item*/}
@@ -165,7 +165,7 @@ class DetailsModal extends React.Component {
         );
     }
 
-    closeEditRestockingModal(){
+    closeEditRestockingModal() {
         console.log('c', this.state.isRestockingEditModalOpen);
         this.setState({
             isRestockingEditModalOpen: false,
@@ -178,7 +178,7 @@ class DetailsModal extends React.Component {
         });
     }
 
-    closeDeleteItemModal(){
+    closeDeleteItemModal() {
         this.setState({
             deleteItem: null,
         });
@@ -190,7 +190,7 @@ class DetailsModal extends React.Component {
         });
     }
 
-    closeEditItemModal(){
+    closeEditItemModal() {
         this.setState({
             editItem: null,
         });
