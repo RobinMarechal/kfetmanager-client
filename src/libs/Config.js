@@ -15,7 +15,7 @@ export default class Config {
             throw new Error("Config is a Singleton. Use 'Config.instance' to retrieve its instance");
         }
 
-        this.config = null;
+        this.config = DEFAULT;
     }
 
     async load() {
@@ -59,6 +59,7 @@ export default class Config {
         const parts = key.split('.');
         let i;
         let toUpdate = this.config;
+
 
         for (i = 0; i < parts.length - 1; i++) {
             toUpdate = toUpdate[parts[i]];

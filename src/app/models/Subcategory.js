@@ -3,34 +3,47 @@ import Product from './Product';
 import Category from './Category';
 import Discount from './Discount';
 import Group from './Group';
+import { isId } from '../../libs/helpers';
 
-export default class Subcategory extends BaseModel{
-    getFields(){
+export default class Subcategory extends BaseModel {
+    getFields() {
         return ['id', 'name', 'category_id'];
     }
 
-    getRelations(){
+    getRelations() {
         return {
             products: {
                 class: Product,
-                list: true
+                list: true,
             },
             category: {
                 class: Category,
-                list: false
+                list: false,
             },
             discounts: {
                 class: Discount,
-                list: true
+                list: true,
             },
             groups: {
                 class: Group,
-                list: true
+                list: true,
             },
-        }
+        };
     }
 
-    getNamespace(){
+    getNamespace() {
         return 'subcategories';
+    }
+
+    isValid() {
+        if (this.category_id && !isId(this.category_id)) {
+            return false;
+        }
+
+        if (isId(this.id)) {
+            return true;
+        }
+
+        return this.name && this.category_id;
     }
 }

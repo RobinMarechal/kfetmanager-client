@@ -2,6 +2,7 @@ import BaseModel from '../../libs/BaseModel';
 import Subcategory from './Subcategory';
 import Menu from './Menu';
 import Product from './Product';
+import { isId } from '../../libs/helpers';
 
 export default class Category extends BaseModel {
     getFields() {
@@ -55,5 +56,9 @@ export default class Category extends BaseModel {
         }
 
         return catToKeep;
+    }
+
+    isValid(){
+        return isId(this.id) || this.name;
     }
 }

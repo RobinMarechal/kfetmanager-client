@@ -3,10 +3,32 @@ import Restocking from './Restocking';
 import Order from './Order';
 import Subcategory from './Subcategory';
 import Category from './Category';
+import { isId, isNumber } from '../../libs/helpers';
 
 export default class Product extends BaseModel {
     getFields() {
         return ['id', 'name', 'subcategory_id', 'purchase_price', 'price', 'stock'];
+    }
+
+    isValid() {
+        if (
+            (this.subcategory_id && !isId(this.subcategory_id)) ||
+            (this.purchase_price && !isNumber(this.purchase_price)) ||
+            (this.price && !isNumber(this.price)) ||
+            (this.price && !isNumber(this.stock))
+        ) {
+            return false;
+        }
+
+        if(isId(this.id)){
+            return true;
+        }
+
+        if(this.name && this.subcategory_id && isNumber(this.price) && isNumber(this.stock)){
+            return true;
+        }
+
+        return false;
     }
 
     getRelations() {

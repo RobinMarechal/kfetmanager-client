@@ -26,10 +26,6 @@ export function langUpperFirstLetter(key) {
     return upperFirstLetter(lang(key));
 }
 
-export function langCapitalize(key) {
-    return capitalize(lang(key));
-}
-
 export function langDecimalSeparator() {
     const lang = Config.instance.get('app.lang');
     switch (lang) {
@@ -52,11 +48,6 @@ export function langThousandSeparator() {
         default:
             return ',';
     }
-}
-
-export function langFormatDate(date, formatter) {
-    debugger;
-    return 'd';
 }
 
 export { TRANSLATIONS };

@@ -1,17 +1,35 @@
 import { langDecimalSeparator, langThousandSeparator } from '../resources/lang/index';
 import lang from '../resources/lang';
+import _ from 'lodash';
 
 /**
- *
  * @param {string} string
  * @returns {string}
  */
-export function upperFirstLetter(string) {
+export function notfixed__upperFirstLetter(string) {
     return string[0].toUpperCase() + string.substring(1);
 }
 
 /**
- *
+ * @param {string} string
+ * @returns {string}
+ */
+export function upperFirstLetter(string){
+    if(string === ""){
+        return "";
+    }
+
+    const firstChar = string[0].toUpperCase();
+
+    if(string.length === 1){
+        return firstChar;
+    }
+
+    return firstChar + string.substring(1);
+}
+
+/**
+ * Upper the first letter of every word in the sentence
  * @param {string} string
  * @returns {string}
  */
@@ -22,8 +40,8 @@ export function capitalize(string) {
 }
 
 /**
- *
- * @param {object} obj
+ * Test if an object, array or string is empty
+ * @param {object|array|string} obj
  * @returns {boolean}
  */
 export function isEmpty(obj) {
@@ -93,12 +111,55 @@ export function formatNumber(price, digits = 2) {
     return sign + result;
 }
 
+export function isConsonant(char) {
+    const consonants = "zrtpqsdfghjklmwxcvbn";
+    return consonants.includes(char);
+}
+
+export function isVowel(char) {
+    const vowels = "aeyuio";
+    return vowels.includes(char);
+}
+
 /**
  *
  * @param {string} string
  * @returns {string}
  */
 export function stringPlural(string) {
+    const last = string[string.length - 1];
+    const secondLast = string[string.length - 2];
+
+    if (last === 's' && secondLast !== 's') {
+        if (secondLast === 'i') {
+            return string.substring(0, string.length - 3) + 'es';
+        }
+
+        return string;
+    }
+
+    const base = string.substr(0, string.length - 1);
+
+    if (last === 'y' && isConsonant(secondLast)) {
+        return base + 'ies';
+    }
+    else if (last === 'y' && isVowel(secondLast)) {
+        return string + 's';
+    }
+
+
+    if (last === 's')
+        return string + 'es';
+
+    return string + 's';
+}
+
+/**
+ *
+ * @param {string} string
+ * @returns {string}
+ */
+export function unfixed__stringPlural(string) {
     const last = string[string.length - 1];
     const secondLast = string[string.length - 2];
 
@@ -231,4 +292,27 @@ export function isNumberValid(value) {
     const regexp = new RegExp(/-?[0-9]*([.,][0-9]{0,2})?%?/);
     const test = regexp.exec(value);
     return test[0] === value;
+}
+
+export function isEmailValid(email){
+    if(email && email.match(/^[A-Za-z0-9\-\_\.]+@[A-Za-z0-9\-\.]+(\.[a-z]+)$/g).length > 0){
+        return true;
+    }
+    return false;
+}
+
+export function isId(id){
+    if(id && _.isNumber(id) && id > 0){
+        return true;
+    }
+
+    return false;
+}
+
+export function isBoolean(bool){
+    return bool === true || bool === false;
+}
+
+export function isNumber(n){
+    return _.isNumber(n);
 }

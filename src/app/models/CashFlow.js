@@ -1,5 +1,6 @@
 import BaseModel from '../../libs/BaseModel';
 import Treasury from './Treasury';
+import { isId, isNumber } from '../../libs/helpers';
 
 export default class CashFlow extends BaseModel{
     getFields(){
@@ -24,5 +25,13 @@ export default class CashFlow extends BaseModel{
 
     getNamespace(){
         return 'treasuries';
+    }
+
+    isValid(){
+        if(this.amount && !isNumber(this.amount)){
+            return false;
+        }
+
+        return isId(this.id) || isNumber(this.amount);
     }
 }

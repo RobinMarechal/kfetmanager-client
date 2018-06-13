@@ -8,4 +8,13 @@ export default class BaseModel extends Model {
     toTime(time){
         this.queryBuilder.addCustomParameter('toTime', time);
     }
+
+    isValid(){
+        return true;
+    }
+
+    async request(url, config){
+        const resp = await super.request(url, config);
+        console.log(resp);
+    }
 }

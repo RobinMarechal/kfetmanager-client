@@ -1,6 +1,7 @@
 import BaseModel from '../../libs/BaseModel';
 import Group from './Group';
 import Order from './Order';
+import { isEmailValid, isId, isNumber } from '../../libs/helpers';
 
 export default class Customer extends BaseModel {
 
@@ -12,7 +13,7 @@ export default class Customer extends BaseModel {
         DMS: 'DMS',
         DAE: 'DAE',
         OTHER: 'OTHER',
-    }
+    };
 
     static YEARS = {
         PEIP: 'PEIP',
@@ -22,7 +23,7 @@ export default class Customer extends BaseModel {
         PHD: 'PHD',
         PROFESSOR: 'PROFESSOR',
         OTHER: 'OTHER',
-    }
+    };
 
     getFields() {
         return ['id', 'name', 'email', 'balance', 'year', 'department'];
@@ -52,7 +53,7 @@ export default class Customer extends BaseModel {
      * @return {array} the sorted array
      */
     static sortByYearDepartmentAndName(customers) {
-        if(!customers)
+        if (!customers)
             return [];
 
         const years = Object.values(Customer.YEARS);
@@ -100,7 +101,7 @@ export default class Customer extends BaseModel {
             departments[i] = depI;
         }
 
-        if(!customers){
+        if (!customers) {
             return departments;
         }
 
@@ -117,5 +118,22 @@ export default class Customer extends BaseModel {
         }
 
         return departments;
+    }
+
+    isValid() {
+        if (
+            (this.year && !Object.values(Customer.YEARS).includes(this.year)) ||
+            (this.department && !Object.values(Customer.DEPARTMENTS).includes(this.department)) ||
+            (this.email && !isEmailValid(this.email)) ||
+            (this.balance && !isNumber(this.balance))
+        ) {
+            return false;
+        }
+
+        if (isId(this.id)) {
+            return true;
+        }
+
+        return this.name && this.year && this.department && this.email;
     }
 }

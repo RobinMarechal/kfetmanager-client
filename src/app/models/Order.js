@@ -3,7 +3,7 @@ import Customer from './Customer';
 import Product from './Product';
 import Treasury from './Treasury';
 import Menu from './Menu';
-import { arraysEqual } from '../../libs/helpers';
+import { arraysEqual, isId, isNumber } from '../../libs/helpers';
 import Category from './Category';
 
 export default class Order extends BaseModel {
@@ -41,6 +41,22 @@ export default class Order extends BaseModel {
 
     getNamespace() {
         return 'orders';
+    }
+
+    isValid() {
+        if (
+            (this.final_price && !isNumber(this.final_price)) ||
+            (this.group_id && (!isNumber(this.group_id) || this.group_id < 1)) ||
+            (this.subcategory_id && (!isNumber(this.subcategory_id) || this.subcategory_id < 1))
+        ) {
+            return false;
+        }
+
+        if (isId(this.id)) {
+            return true;
+        }
+
+        return isNumber(this.final_price);
     }
 
     static calculatePrice(orderCreation) {

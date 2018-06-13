@@ -1,6 +1,7 @@
 import BaseModel from '../../libs/BaseModel';
 import Category from './Category';
 import Order from './Order';
+import { isId, isNumber } from '../../libs/helpers';
 
 export default class Menu extends BaseModel{
     getFields(){
@@ -22,5 +23,9 @@ export default class Menu extends BaseModel{
 
     getNamespace(){
         return 'menus';
+    }
+
+    isValid(){
+        return isId(this.id) || (this.name && isNumber(this.price));
     }
 }
